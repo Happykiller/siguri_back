@@ -2,19 +2,8 @@ import { Inject } from '@nestjs/common';
 import { Args, Field, InputType, Mutation, ObjectType, Query, Resolver } from '@nestjs/graphql';
 
 import { Inversify } from '@src/inversify/investify';
-
-@ObjectType()
-export class UserModelResolver {
-  @Field(() => String, { nullable: true })
-  code: string;
-}
-
-@InputType()
-export class CreateUserResolverDto {
-  @Field(() => String)
-  code: string;
-}
-
+import { UserModelResolver } from './model/user.resolver.model';
+import { CreateUserResolverDto } from './dto/create.user.resolver.dto';
 
 @Resolver(of => UserModelResolver)
 export class UserResolver {

@@ -5,7 +5,13 @@ X-REQUEST-TYPE: GraphQL
 
 query {
   users {
+    id
     code
+    name_first
+    name_last
+    description
+    mail
+    role
   }
 }
 
@@ -17,9 +23,20 @@ X-REQUEST-TYPE: GraphQL
 mutation {
   create_user (
     dto: {
-      code: "test"
+      code: "faro"
+      password: "password"
+      name_first: "fabrice"
+      name_last: "rosito"
+      description: "description"
+      mail: "fabrice.rosito@gmail.com"
     }
   ) {
+    id
     code
+    name_first
+    name_last
+    description
+    mail
+    role
   }
 }
