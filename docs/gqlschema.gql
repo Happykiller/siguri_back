@@ -1,0 +1,24 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserModelResolver {
+  code: String
+}
+
+type HelloModelResolver {
+  message: String
+}
+
+type Query {
+  users: [UserModelResolver!]!
+  hello: HelloModelResolver!
+}
+
+type Mutation {
+  create_user(dto: CreateUserResolverDto!): UserModelResolver!
+}
+
+input CreateUserResolverDto {
+  code: String!
+}

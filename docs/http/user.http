@@ -1,0 +1,25 @@
+###
+POST {{host}}/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  users {
+    code
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create_user (
+    dto: {
+      code: "test"
+    }
+  ) {
+    code
+  }
+}

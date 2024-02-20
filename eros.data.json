@@ -1,0 +1,20 @@
+{
+  "datas": [
+    {
+      "type": "Float",
+      "value": 42
+    },
+    {
+      "type": "String",
+      "value": "Bob"
+    },
+    {
+      "type": "Boolean",
+      "value": true
+    },
+    {
+      "type": "Int",
+      "value": 0
+    }
+  ]
+}
