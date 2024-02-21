@@ -1,7 +1,9 @@
 import { version } from '../../package.json';
 import { Configuration } from '@src/config/configuration';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const dotenv = require('dotenv').config().parsed;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const dotenvlocal = require('dotenv').config({
   path: `.env.local`,
   override: true,

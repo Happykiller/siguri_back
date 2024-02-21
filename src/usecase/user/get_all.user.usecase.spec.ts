@@ -21,7 +21,7 @@ describe('GetAllUserUsecase', () => {
       expect(usecase).toBeDefined();
     });
 
-    it('should get response of auth', async () => {
+    it('should get all users', async () => {
       // arrange
       const data = [
         {

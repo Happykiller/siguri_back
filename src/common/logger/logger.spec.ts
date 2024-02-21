@@ -43,6 +43,7 @@ describe('logger', () => {
 
   it('Should be defined', () => {
     // arrange
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const logger = require('./logger').logger;
     // act && assert
     expect(logger).toBeDefined();
@@ -50,6 +51,7 @@ describe('logger', () => {
 
   it('Should call log', () => {
     // arrange
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const logger = require('./logger').logger;
     // act
     logger.log('info', 'test log info');
@@ -59,6 +61,7 @@ describe('logger', () => {
 
   it('Should call debug', () => {
     // arrange
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const logger = require('./logger').logger;
     // act
     logger.debug('debug message');
@@ -68,6 +71,7 @@ describe('logger', () => {
 
   it('Should call error', () => {
     // arrange
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const logger = require('./logger').logger;
     // act
     logger.error('error message');
@@ -78,6 +82,7 @@ describe('logger', () => {
   it('Should try in mock env', () => {
     // arrange
     process.env.NODE_ENV = 'mock';
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const logger = require('./logger').logger;
     // act
     logger.error('error message');
@@ -88,6 +93,7 @@ describe('logger', () => {
   it('Should try in mock preprod', () => {
     // arrange
     process.env.NODE_ENV = 'preprod';
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const logger = require('./logger').logger;
     // act
     logger.info('info');

@@ -18,6 +18,7 @@ import { HelloModule } from '@presentation/hello/hello.module';
         'graphql-ws': {
           path: '/graphql',
           onConnect: (context: any) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { connectionParams, subscriptions } = context;
             return { req: { Authorization: connectionParams.Authorization } };
           },

@@ -18,7 +18,13 @@ type HelloModelResolver {
 
 type Query {
   users: [UserModelResolver!]!
+  user(dto: GetUserResolverDto!): UserModelResolver!
   hello: HelloModelResolver!
+}
+
+input GetUserResolverDto {
+  id: String
+  code: String
 }
 
 type Mutation {

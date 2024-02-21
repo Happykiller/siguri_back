@@ -55,6 +55,34 @@ describe('UserResolver (e2e)', () => {
       .expect(200);
   });
 
+  it('users', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `query {
+          user (
+            dto: {
+              id: "65d4d015261e894a1da31a64"
+            }
+          ) {
+            id
+            code
+            name_first
+            name_last
+            description
+            mail
+            role
+          }
+        }`,
+      })
+      .expect(({ body }) => {
+        const data = body.data.user;
+        expect(data.id).toBeDefined();
+      })
+      .expect(200);
+  });
+
   it('create_user', () => {
     return request(app.getHttpServer())
       .post('/graphql')

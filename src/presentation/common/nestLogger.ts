@@ -8,8 +8,8 @@ export class NestLogger implements LoggerService {
       module: 'nestjs',
     });
   }
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   error(message: string, trace: string): void {
-    // eslint-disable-line @typescript-eslint/no-unused-vars
     // Handle by nestFormatterError in app module
   }
   warn(message: string): void {

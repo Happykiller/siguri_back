@@ -1,11 +1,12 @@
 import * as mongoDB from 'mongodb';
 
-import { Collection, Db, MongoClient } from 'mongodb';
+import { Collection, Db, MongoClient, ObjectId } from 'mongodb';
 
 import { BddService } from '@service/db/db.service';
+import { Inversify } from '@src/inversify/investify';
 import { UserDbModel } from '@service/db/model/user.db.model';
+import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
-import inversify, { Inversify } from '@src/inversify/investify';
 
 export const collections: { games?: mongoDB.Collection } = {};
 
@@ -67,18 +68,50 @@ export class BddServiceMongo implements BddService {
     return users;
   }
 
-  async createUser(dto: CreateUserDbDto): Promise<UserDbModel> {
-    const result = await (
-      await this.getUsersCollection()
-    ).insertOne({
-      ...dto,
-      role: 'USER',
-    });
+  async getUser(dto: GetUserDbDto): Promise<UserDbModel> {
+    try {
+      // Query for a movie that has the title 'The Room'
+      const query = {
+        $or: [
+          {'_id': new ObjectId(dto.id)},
+          {'code': dto.code}
+        ]
+      };
+      const options = {};
+      // Execute query
+      const doc:any = await (await this.getUsersCollection()).findOne(query, options);
+  
+      return Promise.resolve({
+        id: doc._id.toString(),
+        code: doc.code,
+        password: doc.password,
+        name_first: doc.name_first,
+        name_last: doc.name_last,
+        description: doc.description,
+        mail: doc.mail,
+        role: doc.role,
+      });
+    } catch (e) {
+      return null;
+    }
+  }
 
-    return Promise.resolve({
-      id: result.insertedId.toString(),
-      ...dto,
-      role: 'USER',
-    });
+  async createUser(dto: CreateUserDbDto): Promise<UserDbModel> {
+    try {
+      const result = await (
+        await this.getUsersCollection()
+      ).insertOne({
+        ...dto,
+        role: 'USER',
+      });
+
+      return Promise.resolve({
+        id: result.insertedId.toString(),
+        ...dto,
+        role: 'USER',
+      });
+    } catch (e) {
+      return null;
+    }
   }
 }

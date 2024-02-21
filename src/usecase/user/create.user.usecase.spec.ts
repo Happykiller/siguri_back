@@ -24,7 +24,7 @@ describe('CreateUserUsecase', () => {
       expect(usecase).toBeDefined();
     });
 
-    it('should get response of auth', async () => {
+    it('should create a user', async () => {
       // arrange
       const data = {
         code: 'ropo',

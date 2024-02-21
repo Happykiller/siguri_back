@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 
 import { BddService } from '@service/db/db.service';
 import { UserDbModel } from '@service/db/model/user.db.model';
+import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
 
 export class BddServiceFake implements BddService {
@@ -31,6 +32,16 @@ export class BddServiceFake implements BddService {
 
   getAllUser(): Promise<UserDbModel[]> {
     return Promise.resolve(this.users);
+  }
+
+  getUser(dto: GetUserDbDto): Promise<UserDbModel> {
+    return Promise.resolve(this.users.find((elt) => {
+      if (dto.id) {
+        return (elt.id === dto.id)
+      } else if (dto.code) {
+        return (elt.code === dto.code)
+      }
+    }));
   }
 
   test(): Promise<boolean> {

@@ -13,6 +13,7 @@ async function bootstrap() {
     `Environnement selected: ${config.env.mode} on port ${config.env.port ?? 3000}`,
   );
 
+  /* eslint-disable @typescript-eslint/no-var-requires */
   require('events').EventEmitter.defaultMaxListeners = 50;
   const app = await NestFactory.create(AppModule, {
     logger: new NestLogger(),

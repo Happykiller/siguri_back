@@ -4,6 +4,7 @@ import { BddService } from '@service/db/db.service';
 import { CryptService } from '@service/crypt/crypt.service';
 import { BddServiceFake } from '@service/db/db.service.fake';
 import { BddServiceMongo } from '@service/db/db.service.mongo';
+import { GetUserUsecase } from '@usecase/user/get.user.usecase';
 import { CryptServiceReal } from '@service/crypt/crypt.service.real';
 import { CreateUserUsecase } from '@usecase/user/create.user.usecase';
 import { GetAllUserUsecase } from '@usecase/user/get_all.user.usecase';
@@ -12,6 +13,7 @@ export class Inversify {
   loggerService: any;
   bddService: BddService;
   cryptService: CryptService;
+  getUserUsecase: GetUserUsecase;
   getAllUserUsecase: GetAllUserUsecase;
   createUserUsecase: CreateUserUsecase;
 
@@ -32,6 +34,7 @@ export class Inversify {
     /**
      * Usecases
      */
+    this.getUserUsecase = new GetUserUsecase(this);
     this.getAllUserUsecase = new GetAllUserUsecase(this);
     this.createUserUsecase = new CreateUserUsecase(this);
   }
