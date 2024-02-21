@@ -1,10 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
 import { mock, MockProxy } from 'jest-mock-extended';
 
+import { ERRORS } from '@src/common/ERROR';
 import { BddService } from '@service/db/db.service';
 import { Inversify } from '@src/inversify/investify';
 import { GetUserUsecase } from '@usecase/user/get.user.usecase';
-import { ERRORS } from '../../common/ERROR';
 
 describe('GetAllUserUsecase', () => {
   const mockInversify: MockProxy<Inversify> = mock<Inversify>();
@@ -34,11 +34,12 @@ describe('GetAllUserUsecase', () => {
         description: 'password with secret secretKey',
         mail: 'r.paulson@bob.com',
         role: 'USER',
+        active: true,
       };
       mockBddService.getUser.mockResolvedValue(data);
       // act
       const response = await usecase.execute({
-        id: '65d4d015261e894a1da31a64'
+        id: '65d4d015261e894a1da31a64',
       });
       // assert
       expect(response).toEqual(data);
@@ -51,9 +52,9 @@ describe('GetAllUserUsecase', () => {
       let error;
       try {
         await usecase.execute({
-          id: '65d4d015261e894a1da31a64'
+          id: '65d4d015261e894a1da31a64',
         });
-      } catch(e) {
+      } catch (e) {
         error = e.message;
       }
       // assert

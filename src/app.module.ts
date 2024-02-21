@@ -5,12 +5,14 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { config } from '@src/config';
+import { AuthModule } from '@presentation/auth/auth.module';
 import { UserModule } from '@presentation/user/user.module';
 import { HelloModule } from '@presentation/hello/hello.module';
 
 @Module({
   imports: [
     UserModule,
+    AuthModule,
     HelloModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

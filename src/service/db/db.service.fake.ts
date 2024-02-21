@@ -11,12 +11,13 @@ export class BddServiceFake implements BddService {
       id: '65d4d015261e894a1da31a64',
       code: 'ropo',
       password:
-        'WV5FXp063tPBcccZbqAHH0B93s2Wzf/nTXu8UaU2TeCMh+F0OsXUX02HNsI1Ytd2yowsT707bKCV0KC5uA0usQ==',
+        'uDLybl8FgPRbBicleIp/Hbb7ujedTr5gukZlcygGnYz4zyJsMAAdL0WEwxfwO6+1jI93qSR676s2QuyuKVD57w==',
       name_first: 'Robert',
       name_last: 'Paulson',
       description: 'password with secret secretKey',
       mail: 'r.paulson@bob.com',
       role: 'USER',
+      active: true,
     },
   ];
 
@@ -25,6 +26,7 @@ export class BddServiceFake implements BddService {
       id: new ObjectId().toString(),
       ...dto,
       role: 'USER',
+      active: true,
     };
     this.users.push(user);
     return Promise.resolve(user);
@@ -35,13 +37,15 @@ export class BddServiceFake implements BddService {
   }
 
   getUser(dto: GetUserDbDto): Promise<UserDbModel> {
-    return Promise.resolve(this.users.find((elt) => {
-      if (dto.id) {
-        return (elt.id === dto.id)
-      } else if (dto.code) {
-        return (elt.code === dto.code)
-      }
-    }));
+    return Promise.resolve(
+      this.users.find((elt) => {
+        if (dto.id) {
+          return elt.id === dto.id && elt.active;
+        } else if (dto.code) {
+          return elt.code === dto.code && elt.active;
+        }
+      }),
+    );
   }
 
   test(): Promise<boolean> {

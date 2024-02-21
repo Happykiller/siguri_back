@@ -45,7 +45,9 @@ export class BddServiceMongo implements BddService {
 
   async getAllUser(): Promise<UserDbModel[]> {
     // Query for a movie that has the title 'The Room'
-    const query = {};
+    const query = {
+      active: true,
+    };
     const options = {};
     // Execute query
     const results = (await this.getUsersCollection()).find(query, options);
@@ -62,6 +64,7 @@ export class BddServiceMongo implements BddService {
         description: doc.description,
         mail: doc.mail,
         role: doc.role,
+        active: doc.active,
       });
     }
 
@@ -72,15 +75,15 @@ export class BddServiceMongo implements BddService {
     try {
       // Query for a movie that has the title 'The Room'
       const query = {
-        $or: [
-          {'_id': new ObjectId(dto.id)},
-          {'code': dto.code}
-        ]
+        active: true,
+        $or: [{ _id: new ObjectId(dto.id) }, { code: dto.code }],
       };
       const options = {};
       // Execute query
-      const doc:any = await (await this.getUsersCollection()).findOne(query, options);
-  
+      const doc: any = await (
+        await this.getUsersCollection()
+      ).findOne(query, options);
+
       return Promise.resolve({
         id: doc._id.toString(),
         code: doc.code,
@@ -90,6 +93,7 @@ export class BddServiceMongo implements BddService {
         description: doc.description,
         mail: doc.mail,
         role: doc.role,
+        active: doc.active,
       });
     } catch (e) {
       return null;
@@ -109,6 +113,7 @@ export class BddServiceMongo implements BddService {
         id: result.insertedId.toString(),
         ...dto,
         role: 'USER',
+        active: true,
       });
     } catch (e) {
       return null;

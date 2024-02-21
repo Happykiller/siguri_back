@@ -6,10 +6,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { config } from '@src/config';
+import { AuthModule } from '@presentation/auth/auth.module';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
-import { HelloModule } from '@presentation/hello/hello.module';
 
-describe('HelloResolver (e2e)', () => {
+describe('AuthResolver (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {
@@ -27,7 +27,7 @@ describe('HelloResolver (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       providers: [JwtStrategy],
       imports: [
-        HelloModule,
+        AuthModule,
         GraphQLModule.forRoot({
           driver: ApolloDriver,
           autoSchemaFile: config.graphQL.schemaFileName,
@@ -45,23 +45,56 @@ describe('HelloResolver (e2e)', () => {
     await app.close();
   });
 
-  it('hello', () => {
+  it('auth', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
         operationName: null,
         query: `query {
-          hello {
-            message
+          auth(
+              dto: {
+                login: "ropo"
+                password: "password"
+              }
+          ){
+            accessToken
+            id
+            code
+            name_first
+            name_last
+            description
+            mail
+          }
+        }`,
+      })
+      .expect(({ body }) => {
+        const data = body.data.auth;
+        expect(data.id).toEqual('65d4d015261e894a1da31a64');
+      })
+      .expect(200);
+  });
+
+  it('getSessionInfo', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `query {
+          getSessionInfo {
+            accessToken
+            id
+            code
+            name_first
+            name_last
+            description
+            mail
           }
         }`,
       })
       .set('Authorization', authorization)
       .expect(({ body }) => {
-        const data = body.data.hello;
-        expect(data).toEqual({
-          message: 'Hello World',
-        });
+        const data = body.data.getSessionInfo;
+        expect(data.id).toEqual('65d4d015261e894a1da31a64');
       })
       .expect(200);
   });

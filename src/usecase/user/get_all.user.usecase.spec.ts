@@ -34,6 +34,7 @@ describe('GetAllUserUsecase', () => {
           description: 'password with secret secretKey',
           mail: 'r.paulson@bob.com',
           role: 'USER',
+          active: true,
         },
       ];
       mockBddService.getAllUser.mockResolvedValue(data);

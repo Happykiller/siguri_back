@@ -1,7 +1,8 @@
-import { Inject } from '@nestjs/common';
+import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { Inversify } from '@src/inversify/investify';
+import { GqlAuthGuard } from '@presentation/guard/auth.guard';
 import { UserModelResolver } from '@presentation/user/model/user.resolver.model';
 import { GetUserResolverDto } from '@presentation/user/dto/get.user.resolver.dto';
 import { CreateUserResolverDto } from '@presentation/user/dto/create.user.resolver.dto';
@@ -14,24 +15,25 @@ export class UserResolver {
     private inversify: Inversify,
   ) {}
 
+  @UseGuards(GqlAuthGuard)
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Query((returns) => [UserModelResolver])
   async users(): Promise<UserModelResolver[]> {
     return this.inversify.getAllUserUsecase.execute();
   }
 
+  @UseGuards(GqlAuthGuard)
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Query((returns) => UserModelResolver)
-  async user(
-    @Args('dto') dto: GetUserResolverDto
-  ): Promise<UserModelResolver> {
+  async user(@Args('dto') dto: GetUserResolverDto): Promise<UserModelResolver> {
     return this.inversify.getUserUsecase.execute(dto);
   }
 
+  @UseGuards(GqlAuthGuard)
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Mutation((returns) => UserModelResolver)
   async create_user(
-    @Args('dto') dto: CreateUserResolverDto
+    @Args('dto') dto: CreateUserResolverDto,
   ): Promise<UserModelResolver> {
     return this.inversify.createUserUsecase.execute(dto);
   }

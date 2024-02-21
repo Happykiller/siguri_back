@@ -38,6 +38,7 @@ describe('CreateUserUsecase', () => {
         id: '65d4d015261e894a1da31a64',
         ...data,
         role: 'USER',
+        active: true,
       };
       mockBddService.createUser.mockResolvedValue(expected);
       mockCryptService.crypt.mockReturnValue('password');

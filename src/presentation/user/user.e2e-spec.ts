@@ -1,3 +1,4 @@
+import * as jwt from 'jsonwebtoken';
 import * as request from 'supertest';
 import { ApolloDriver } from '@nestjs/apollo';
 import { NestApplication } from '@nestjs/core';
@@ -6,12 +7,25 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { config } from '@src/config';
 import { UserModule } from '@presentation/user/user.module';
+import { JwtStrategy } from '@presentation/auth/jwt.strategy';
 
 describe('UserResolver (e2e)', () => {
   let app: NestApplication;
+  const token: string = jwt.sign(
+    {
+      id: '65d4d015261e894a1da31a64',
+      code: 'ropo',
+    },
+    config.jwt.secret,
+    {
+      expiresIn: '24h', // expires in 24 hours
+    },
+  );
+  const authorization: string = 'Bearer ' + token;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
+      providers: [JwtStrategy],
       imports: [
         UserModule,
         GraphQLModule.forRoot({
@@ -48,6 +62,7 @@ describe('UserResolver (e2e)', () => {
           }
         }`,
       })
+      .set('Authorization', authorization)
       .expect(({ body }) => {
         const data = body.data.users;
         expect(data.length).toEqual(1);
@@ -76,6 +91,7 @@ describe('UserResolver (e2e)', () => {
           }
         }`,
       })
+      .set('Authorization', authorization)
       .expect(({ body }) => {
         const data = body.data.user;
         expect(data.id).toBeDefined();
@@ -109,6 +125,7 @@ describe('UserResolver (e2e)', () => {
           }
         }`,
       })
+      .set('Authorization', authorization)
       .expect(({ body }) => {
         const data = body.data.create_user;
         expect(data.id).toBeDefined();

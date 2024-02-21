@@ -1,6 +1,7 @@
 ###
 POST {{host}}/graphql
 Content-Type: application/json
+Authorization: Bearer {{token}}
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -18,6 +19,7 @@ query {
 ###
 POST {{host}}/graphql
 Content-Type: application/json
+Authorization: Bearer {{token}}
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -40,6 +42,7 @@ query {
 ###
 POST {{host}}/graphql
 Content-Type: application/json
+Authorization: Bearer {{token}}
 X-REQUEST-TYPE: GraphQL
 
 mutation {
