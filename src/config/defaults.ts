@@ -10,7 +10,7 @@ const defaults: Configuration = {
   version,
   env: {
     mode: 'defaults',
-    port: parseInt(merged.APP_PORT) ?? 3000
+    port: parseInt(merged.APP_PORT) || 3000
   },
   graphQL: {
     schemaFileName: true,

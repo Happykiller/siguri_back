@@ -1,7 +1,0 @@
-{
-    "rest-client.environmentVariables": {
-        "local": {
-            "host": "http://localhost:3000"
-        },
-    }
-}

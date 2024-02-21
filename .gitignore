@@ -28,13 +28,6 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
 # dotenv environment variable files
 .env
 .env.development.local
@@ -66,3 +59,4 @@ src/config/dev.ts
 src/config/prod.ts
 *.temp.json
 /test.http
+.vscode/settings.json
