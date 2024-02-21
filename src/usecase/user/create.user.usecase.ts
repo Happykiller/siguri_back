@@ -4,7 +4,6 @@ import { CreateUserUsecaseDto } from './dto/create.user.usecase.dto';
 import { UserDbModel } from '@src/service/db/model/user.db.model';
 
 export class CreateUserUsecase {
-
   inversify: Inversify;
 
   constructor(inversify: Inversify) {
@@ -13,9 +12,9 @@ export class CreateUserUsecase {
 
   async execute(dto: CreateUserUsecaseDto): Promise<UserUsecaseModel> {
     dto.password = this.inversify.cryptService.crypt({
-      message: dto.password
+      message: dto.password,
     });
-    const user:UserDbModel = await this.inversify.bddService.createUser(dto);
+    const user: UserDbModel = await this.inversify.bddService.createUser(dto);
     return user;
   }
 }

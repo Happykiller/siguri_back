@@ -9,8 +9,8 @@ import { UserResolver } from '@presentation/user/user.resolver';
     UserResolver,
     {
       useValue: inversify,
-      provide: 'Inversify'
-    }
+      provide: 'Inversify',
+    },
   ],
 })
 export class UserModule {}

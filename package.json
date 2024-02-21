@@ -7,17 +7,15 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "env NODE_ENV=prod nest start",
     "start:dev": "env NODE_ENV=dev  nest start --watch",
-    "start:debug": "nest start --debug --watch",
+    "start:mock": "env NODE_ENV=mock nest start --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "test": "env NODE_ENV=test jest --config ./jest.json --coverage --no-cache",
+    "test:watch": "env NODE_ENV=test jest --watch --coverage --no-cache",
+    "test:e2e": "env NODE_ENV=test jest --config ./jest-e2e.json",
+    "eros": "eros_gql"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -46,6 +44,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "jest": "^29.5.0",
+    "jest-mock-extended": "^3.0.5",
     "mongodb": "^6.3.0",
     "prettier": "^3.0.0",
     "source-map-support": "^0.5.21",

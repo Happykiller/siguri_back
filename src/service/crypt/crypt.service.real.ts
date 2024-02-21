@@ -9,7 +9,9 @@ import { CryptServiceDto } from '@service/crypt/dto/crypt.service.dto';
 export class CryptServiceReal implements CryptService {
   crypt(dto: CryptServiceDto): string {
     const hashDigest = sha256('siguri' + dto.message);
-    const hmacDigest = base64.stringify(hmacSHA512(hashDigest, config.jwt.secret));
+    const hmacDigest = base64.stringify(
+      hmacSHA512(hashDigest, config.jwt.secret),
+    );
     return hmacDigest;
   }
 }

@@ -1,3 +1,3 @@
-import { CreateUserResolverDto } from "@presentation/user/dto/create.user.resolver.dto";
+import { CreateUserResolverDto } from '@presentation/user/dto/create.user.resolver.dto';
 
-export interface CreateUserUsecaseDto extends CreateUserResolverDto {};
+export interface CreateUserUsecaseDto extends CreateUserResolverDto {}

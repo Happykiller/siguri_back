@@ -2,7 +2,7 @@ import { createLogger, format, transports } from 'winston';
 import 'winston-daily-rotate-file';
 
 /* istanbul ignore next */
-const myFormat = format.printf(info => {
+const myFormat = format.printf((info) => {
   let myformat: string;
   if (info.error) {
     myformat = `${info.timestamp} ${info.module} ${info.level}: ${info.message} => ${info.error}`;
@@ -20,15 +20,14 @@ const logger = createLogger({
     format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
-    format.json()
+    format.json(),
   ),
   defaultMeta: { module: 'seguri' },
-  transports: [
-    new transports.Console()
-  ],
+  transports: [new transports.Console()],
 });
 
-if (process.env.NODE_ENV === 'prod'){
+/* istanbul ignore next */
+if (process.env.NODE_ENV === 'prod') {
   logger.level = 'debug';
 
   const transport = new transports.DailyRotateFile({
@@ -36,7 +35,7 @@ if (process.env.NODE_ENV === 'prod'){
     filename: 'logs/siguri-%DATE%.log',
     datePattern: 'YYYY-MM-DD',
     maxSize: '20m',
-    maxFiles: '14d'
+    maxFiles: '14d',
   });
 
   logger.add(transport);
@@ -48,7 +47,7 @@ if (process.env.NODE_ENV === 'prod'){
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     format.colorize(),
-    myFormat
+    myFormat,
   );
 }
 

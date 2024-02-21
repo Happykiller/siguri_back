@@ -20,7 +20,7 @@ import { HelloModule } from '@presentation/hello/hello.module';
           onConnect: (context: any) => {
             const { connectionParams, subscriptions } = context;
             return { req: { Authorization: connectionParams.Authorization } };
-          }
+          },
         },
       },
       playground: config.graphQL.playground,
@@ -32,7 +32,6 @@ import { HelloModule } from '@presentation/hello/hello.module';
     }),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot(config.throttle),
-  ]
+  ],
 })
-
 export class AppModule {}

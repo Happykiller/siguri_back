@@ -8,8 +8,11 @@ import inversify from '@src/inversify/investify';
 import { NestLogger } from '@presentation/common/nestLogger';
 
 async function bootstrap() {
-  inversify.loggerService.log('info', `Environnement selected: ${config.env.mode} on port ${config.env.port ?? 3000}`);
-  
+  inversify.loggerService.log(
+    'info',
+    `Environnement selected: ${config.env.mode} on port ${config.env.port ?? 3000}`,
+  );
+
   require('events').EventEmitter.defaultMaxListeners = 50;
   const app = await NestFactory.create(AppModule, {
     logger: new NestLogger(),

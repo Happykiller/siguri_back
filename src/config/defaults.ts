@@ -2,7 +2,10 @@ import { version } from '../../package.json';
 import { Configuration } from '@src/config/configuration';
 
 const dotenv = require('dotenv').config().parsed;
-const dotenvlocal = require('dotenv').config({ path: `.env.local`, override: true }).parsed;
+const dotenvlocal = require('dotenv').config({
+  path: `.env.local`,
+  override: true,
+}).parsed;
 
 const merged = Object.assign({}, dotenv, dotenvlocal);
 
@@ -10,7 +13,7 @@ const defaults: Configuration = {
   version,
   env: {
     mode: 'defaults',
-    port: parseInt(merged.APP_PORT) || 3000
+    port: parseInt(merged.APP_PORT) || 3000,
   },
   graphQL: {
     schemaFileName: true,
@@ -22,13 +25,15 @@ const defaults: Configuration = {
     refreshTokenName: 'seguri-refresh-token',
     secret: 'secretKey',
     signOptions: {
-      expiresIn: '8h'
-    }
+      expiresIn: '8h',
+    },
   },
-  throttle: [{
-    ttl: 60000,
-    limit: 10,
-  }]
+  throttle: [
+    {
+      ttl: 60000,
+      limit: 10,
+    },
+  ],
 };
 
 export { defaults };

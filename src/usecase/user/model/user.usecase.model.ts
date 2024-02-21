@@ -1,3 +1,3 @@
-import { UserDbModel } from "@service/db/model/user.db.model";
+import { UserDbModel } from '@service/db/model/user.db.model';
 
-export interface UserUsecaseModel extends UserDbModel {};
+export interface UserUsecaseModel extends UserDbModel {}

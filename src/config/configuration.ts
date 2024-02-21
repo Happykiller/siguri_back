@@ -14,25 +14,27 @@ export class Configuration {
   };
 
   public jwt?: {
-    refreshTokenName?: string,
-    secret?: string,
+    refreshTokenName?: string;
+    secret?: string;
     signOptions?: {
-      expiresIn?: string
-    }
+      expiresIn?: string;
+    };
   };
-  
+
   /**
    * request limitation per second
    * DOC https://docs.nestjs.com/security/rate-limiting
    */
-  public throttle?: [{
-    /**
-     * ttl the number of seconds that each request will last in storage
-     */
-    ttl: number,
-    /**
-     * limit the maximum number of requests within the TTL limit
-     */
-    limit: number
-  }];
+  public throttle?: [
+    {
+      /**
+       * ttl the number of seconds that each request will last in storage
+       */
+      ttl: number;
+      /**
+       * limit the maximum number of requests within the TTL limit
+       */
+      limit: number;
+    },
+  ];
 }
