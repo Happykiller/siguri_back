@@ -28,17 +28,21 @@ type UserModelResolver {
   role: String
 }
 
-type BankMemberModelResolver {
+type GeneratePasswordModelResolver {
+  password: String!
+}
+
+type ChestMemberModelResolver {
   user_id: String
   user: UserModelResolver!
 }
 
-type BankModelResolver {
+type ChestModelResolver {
   id: String
   label: String
   description: String
   author_id: String
-  members: [BankMemberModelResolver!]
+  members: [ChestMemberModelResolver!]
   author: UserModelResolver!
 }
 
@@ -49,21 +53,17 @@ type HelloModelResolver {
 type Query {
   users: [UserModelResolver!]!
   user(dto: GetUserResolverDto!): UserModelResolver!
-  bank(dto: GetBankResolverDto!): BankModelResolver!
-  banksForUser: [BankModelResolver!]!
   auth(dto: GetSessionAuthResolverDto!): AuthModelResolver!
   getSessionInfo: AuthModelResolver!
+  generatePassword(dto: GeneratePasswordResolverDto!): GeneratePasswordModelResolver!
+  chest(dto: GetChestResolverDto!): ChestModelResolver!
+  chestsForUser: [ChestModelResolver!]!
   hello: HelloModelResolver!
 }
 
 input GetUserResolverDto {
   id: String
   code: String
-}
-
-input GetBankResolverDto {
-  id: String!
-  secret: String!
 }
 
 input GetSessionAuthResolverDto {
@@ -74,9 +74,19 @@ input GetSessionAuthResolverDto {
   password: String!
 }
 
+input GeneratePasswordResolverDto {
+  length: Int!
+  specials: Boolean = true
+}
+
+input GetChestResolverDto {
+  id: String!
+  secret: String!
+}
+
 type Mutation {
   create_user(dto: CreateUserResolverDto!): UserModelResolver!
-  create_bank(dto: CreateBankResolverDto!): BankModelResolver!
+  create_chest(dto: CreateChestResolverDto!): ChestModelResolver!
 }
 
 input CreateUserResolverDto {
@@ -89,7 +99,7 @@ input CreateUserResolverDto {
   password: String!
 }
 
-input CreateBankResolverDto {
+input CreateChestResolverDto {
   label: String!
   description: String
   secret: String!
