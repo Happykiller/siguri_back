@@ -10,6 +10,7 @@ import { UserUsecaseModel } from '@usecase/user/model/user.usecase.model';
 export interface UserSession {
   id: string;
   code: string;
+  role: string;
 }
 
 @Injectable()
@@ -33,6 +34,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         resolve({
           id: user.id,
           code: user.code,
+          role: user.role
         });
       });
     }

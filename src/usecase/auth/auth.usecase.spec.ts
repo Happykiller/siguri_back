@@ -3,6 +3,7 @@ import { mock, MockProxy } from 'jest-mock-extended';
 
 import { Inversify } from '@src/inversify/investify';
 import { AuthUsecase } from '@usecase/auth/auth.usecase';
+import { USER_ROLE } from '@presentation/guard/userRole';
 import { CryptService } from '@service/crypt/crypt.service';
 import { GetUserUsecase } from '@usecase/user/get.user.usecase';
 
@@ -33,12 +34,13 @@ describe('AuthUsecase', () => {
         name_last: 'Rosito',
         description: 'Admin',
         mail: 'fabrice.rosito@gmail.com',
+        role: "USER"
       };
       mockGetUserUsecase.execute.mockResolvedValue({
         active: true,
         password: 'password',
         ...data,
-        role: 'USER',
+        role: USER_ROLE.USER,
       });
       mockCryptService.crypt.mockReturnValue('password');
       // act
@@ -61,7 +63,7 @@ describe('AuthUsecase', () => {
         description: 'Admin',
         mail: 'fabrice.rosito@gmail.com',
         active: true,
-        role: 'USER',
+        role: USER_ROLE.USER,
       });
       mockCryptService.crypt.mockReturnValue('wrong');
       // act

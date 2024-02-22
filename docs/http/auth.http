@@ -17,6 +17,7 @@ query {
     name_last
     description
     mail
+    role
   }
 }
 
@@ -35,5 +36,6 @@ query {
     name_last
     description
     mail
+    role
   }
 }

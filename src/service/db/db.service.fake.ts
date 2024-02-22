@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import { BddService } from '@service/db/db.service';
+import { USER_ROLE } from '@presentation/guard/userRole';
 import { UserDbModel } from '@service/db/model/user.db.model';
 import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
@@ -16,7 +17,7 @@ export class BddServiceFake implements BddService {
       name_last: 'Paulson',
       description: 'password with secret secretKey',
       mail: 'r.paulson@bob.com',
-      role: 'USER',
+      role: USER_ROLE.ADMIN,
       active: true,
     },
   ];
@@ -25,7 +26,7 @@ export class BddServiceFake implements BddService {
     const user: UserDbModel = {
       id: new ObjectId().toString(),
       ...dto,
-      role: 'USER',
+      role: USER_ROLE.ADMIN,
       active: true,
     };
     this.users.push(user);

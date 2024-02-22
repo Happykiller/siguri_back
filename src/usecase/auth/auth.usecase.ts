@@ -27,6 +27,7 @@ export class AuthUsecase {
         name_last: user.name_last,
         description: user.description,
         mail: user.mail,
+        role: user.role
       };
     } else {
       return null;

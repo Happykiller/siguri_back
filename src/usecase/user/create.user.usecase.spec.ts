@@ -3,6 +3,7 @@ import { mock, MockProxy } from 'jest-mock-extended';
 
 import { BddService } from '@service/db/db.service';
 import { Inversify } from '@src/inversify/investify';
+import { USER_ROLE } from '@presentation/guard/userRole';
 import { CryptService } from '@service/crypt/crypt.service';
 import { CreateUserUsecase } from '@usecase/user/create.user.usecase';
 
@@ -37,7 +38,7 @@ describe('CreateUserUsecase', () => {
       const expected = {
         id: '65d4d015261e894a1da31a64',
         ...data,
-        role: 'USER',
+        role: USER_ROLE.USER,
         active: true,
       };
       mockBddService.createUser.mockResolvedValue(expected);

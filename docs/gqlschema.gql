@@ -15,6 +15,7 @@ type AuthModelResolver {
   name_last: String!
   description: String!
   mail: String!
+  role: String!
 }
 
 type UserModelResolver {

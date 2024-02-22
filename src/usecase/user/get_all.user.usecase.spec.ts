@@ -3,6 +3,7 @@ import { mock, MockProxy } from 'jest-mock-extended';
 
 import { BddService } from '@service/db/db.service';
 import { Inversify } from '@src/inversify/investify';
+import { USER_ROLE } from '@presentation/guard/userRole';
 import { GetAllUserUsecase } from '@usecase/user/get_all.user.usecase';
 
 describe('GetAllUserUsecase', () => {
@@ -33,7 +34,7 @@ describe('GetAllUserUsecase', () => {
           name_last: 'Paulson',
           description: 'password with secret secretKey',
           mail: 'r.paulson@bob.com',
-          role: 'USER',
+          role: USER_ROLE.USER,
           active: true,
         },
       ];

@@ -16,4 +16,6 @@ export class AuthModelResolver {
   description: string;
   @Field(() => String)
   mail: string;
+  @Field(() => String)
+  role: string;
 }

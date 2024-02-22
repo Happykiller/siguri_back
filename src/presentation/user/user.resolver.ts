@@ -2,6 +2,9 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { Inversify } from '@src/inversify/investify';
+import { USER_ROLE } from '@presentation/guard/userRole';
+import { Roles } from '@presentation/guard/roles.decorator';
+import { RolesGuard } from '@presentation/guard/roles.guard';
 import { GqlAuthGuard } from '@presentation/guard/auth.guard';
 import { UserModelResolver } from '@presentation/user/model/user.resolver.model';
 import { GetUserResolverDto } from '@presentation/user/dto/get.user.resolver.dto';
@@ -15,21 +18,24 @@ export class UserResolver {
     private inversify: Inversify,
   ) {}
 
-  @UseGuards(GqlAuthGuard)
+  @Roles(USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Query((returns) => [UserModelResolver])
   async users(): Promise<UserModelResolver[]> {
     return this.inversify.getAllUserUsecase.execute();
   }
 
-  @UseGuards(GqlAuthGuard)
+  @Roles(USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Query((returns) => UserModelResolver)
   async user(@Args('dto') dto: GetUserResolverDto): Promise<UserModelResolver> {
     return this.inversify.getUserUsecase.execute(dto);
   }
 
-  @UseGuards(GqlAuthGuard)
+  @Roles(USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Mutation((returns) => UserModelResolver)
   async create_user(

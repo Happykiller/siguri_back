@@ -4,6 +4,7 @@ import { Collection, Db, MongoClient, ObjectId } from 'mongodb';
 
 import { BddService } from '@service/db/db.service';
 import { Inversify } from '@src/inversify/investify';
+import { USER_ROLE } from '@presentation/guard/userRole';
 import { UserDbModel } from '@service/db/model/user.db.model';
 import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
@@ -106,13 +107,13 @@ export class BddServiceMongo implements BddService {
         await this.getUsersCollection()
       ).insertOne({
         ...dto,
-        role: 'USER',
+        role: USER_ROLE.ADMIN,
       });
 
       return Promise.resolve({
         id: result.insertedId.toString(),
         ...dto,
-        role: 'USER',
+        role: USER_ROLE.ADMIN,
         active: true,
       });
     } catch (e) {

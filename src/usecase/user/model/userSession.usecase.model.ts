@@ -5,4 +5,5 @@ export interface UserSessionUsecaseModel {
   name_last: string;
   description: string;
   mail: string;
+  role: string;
 }
