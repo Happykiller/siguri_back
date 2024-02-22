@@ -6,6 +6,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { config } from '@src/config';
+import { USER_ROLE } from '@presentation/guard/userRole';
+import { userRopo } from '@service/db/fake/mock/user.ropo';
 import { AuthModule } from '@presentation/auth/auth.module';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
 
@@ -13,8 +15,9 @@ describe('AuthResolver (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {
-      id: '65d4d015261e894a1da31a64',
-      code: 'ropo',
+      id: userRopo.id,
+      code: userRopo.code,
+      role: USER_ROLE.USER,
     },
     config.jwt.secret,
     {
@@ -29,8 +32,8 @@ describe('AuthResolver (e2e)', () => {
       imports: [
         AuthModule,
         GraphQLModule.forRoot({
+          autoSchemaFile: true,
           driver: ApolloDriver,
-          autoSchemaFile: config.graphQL.schemaFileName,
           context: ({ req, res }) => {
             return { req, res };
           },

@@ -12,12 +12,12 @@ export class GetUserUsecase {
   }
 
   async execute(dto: GetUserUsecaseDto): Promise<UserUsecaseModel> {
-    const user: UserDbModel = await this.inversify.bddService.getUser(dto);
+    const entity: UserDbModel = await this.inversify.bddService.getUser(dto);
 
-    if (!user) {
+    if (!entity) {
       throw new Error(ERRORS.GET_USER_USECASE_USER_NOT_FOUND);
     }
 
-    return user;
+    return entity;
   }
 }

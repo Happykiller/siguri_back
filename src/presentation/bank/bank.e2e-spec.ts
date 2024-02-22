@@ -8,10 +8,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { config } from '@src/config';
 import { USER_ROLE } from '@presentation/guard/userRole';
 import { userRopo } from '@service/db/fake/mock/user.ropo';
-import { UserModule } from '@presentation/user/user.module';
+import { BankModule } from '@presentation/bank/bank.module';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
+import { bankRopo } from '../../service/db/fake/mock/bank.ropo';
 
-describe('UserResolver (e2e)', () => {
+describe('BankResolver (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {
@@ -30,7 +31,7 @@ describe('UserResolver (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       providers: [JwtStrategy],
       imports: [
-        UserModule,
+        BankModule,
         GraphQLModule.forRoot({
           autoSchemaFile: true,
           driver: ApolloDriver,
@@ -48,90 +49,112 @@ describe('UserResolver (e2e)', () => {
     await app.close();
   });
 
-  it('users', () => {
-    return request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        operationName: null,
-        query: `query {
-          users {
-            id
-            code
-            name_first
-            name_last
-            description
-            mail
-            role
-          }
-        }`,
-      })
-      .set('Authorization', authorization)
-      .expect(({ body }) => {
-        const data = body.data.users;
-        expect(data.length).toEqual(1);
-      })
-      .expect(200);
-  });
-
-  it('users', () => {
-    return request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        operationName: null,
-        query: `query {
-          user (
-            dto: {
-              id: "65d4d015261e894a1da31a64"
-            }
-          ) {
-            id
-            code
-            name_first
-            name_last
-            description
-            mail
-            role
-          }
-        }`,
-      })
-      .set('Authorization', authorization)
-      .expect(({ body }) => {
-        const data = body.data.user;
-        expect(data.id).toBeDefined();
-      })
-      .expect(200);
-  });
-
-  it('create_user', () => {
+  it('create_bank', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
         operationName: null,
         query: `mutation {
-          create_user (
+          create_bank (
             dto: {
-              code: "faro"
-              password: "password"
-              name_first: "fabrice"
-              name_last: "rosito"
+              label: "test"
               description: "description"
-              mail: "fabrice.rosito@gmail.com"
+              secret: "secret"
             }
           ) {
             id
-            code
-            name_first
-            name_last
+            label
             description
-            mail
-            role
+            author_id
+            author {
+              id
+              code
+            }
+            members {
+              user_id
+              user {
+                id
+                code
+              }
+            }
           }
         }`,
       })
       .set('Authorization', authorization)
       .expect(({ body }) => {
-        const data = body.data.create_user;
+        const data = body.data.create_bank;
         expect(data.id).toBeDefined();
+      })
+      .expect(200);
+  });
+
+  it('bank', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `query {
+          bank (
+            dto: {
+              id: "65d4d015261e894a1da31a65"
+              secret: "secret"
+            }
+          ) {
+            id
+            label
+            description
+            author_id
+            author {
+              id
+              code
+            }
+            members {
+              user_id
+              user {
+                id
+                code
+              }
+            }
+          }
+        }`,
+      })
+      .set('Authorization', authorization)
+      .expect(({ body }) => {
+        const data = body.data.bank;
+        expect(data.id).toEqual(bankRopo.id);
+      })
+      .expect(200);
+  });
+
+  it('banksForUser', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `query {
+          banksForUser {
+            id
+            label
+            description
+            author_id
+            author {
+              id
+              code
+            }
+            members {
+              user_id
+              user {
+                id
+                code
+              }
+            }
+          }
+        }`,
+      })
+      .set('Authorization', authorization)
+      .expect(({ body }) => {
+        const data = body.data.banksForUser;
+        expect(data[0].id).toEqual(bankRopo.id);
       })
       .expect(200);
   });

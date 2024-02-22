@@ -11,23 +11,24 @@ import { RolesGuard } from '@presentation/guard/roles.guard';
 describe('RolesGuard', () => {
   let rolesGuard: RolesGuard;
   let reflector: Reflector;
-  const mockExecutionContext: MockProxy<ExecutionContext> = mock<ExecutionContext>();
+  const mockExecutionContext: MockProxy<ExecutionContext> =
+    mock<ExecutionContext>();
 
   const tContext = {
     getContext: () => {
       return {
         req: {
           user: {
-            id:'11111',
+            id: '11111',
             code: 'admin',
-            role: USER_ROLE.ADMIN
-          }
+            role: USER_ROLE.ADMIN,
+          },
         },
         res: {
-          header: ''
-        }
+          header: '',
+        },
       };
-    }
+    },
   };
 
   const tContext2 = {
@@ -35,15 +36,15 @@ describe('RolesGuard', () => {
       return {
         req: {
           user: {
-            id:'11111',
-            code: 'admin'
-          }
+            id: '11111',
+            code: 'admin',
+          },
         },
         res: {
-          header: ''
-        }
+          header: '',
+        },
       };
-    }
+    },
   };
 
   beforeAll(async () => {
@@ -95,7 +96,7 @@ describe('RolesGuard', () => {
       jest.spyOn(reflector, 'get').mockImplementation(() => [USER_ROLE.ADMIN]);
       // act
       const result = await rolesGuard.canActivate(mockExecutionContext);
-      // assert            
+      // assert
       expect(result).toStrictEqual(true);
     });
 
@@ -109,14 +110,18 @@ describe('RolesGuard', () => {
       } catch (error) {
         result = error;
       }
-      // assert            
-      expect(result).toStrictEqual(new UnauthorizedException('User role not allowed for this action'));
+      // assert
+      expect(result).toStrictEqual(
+        new UnauthorizedException('User role not allowed for this action'),
+      );
     });
 
     it('Should return an error if user don t have a role', async () => {
       // arrange
       jest.spyOn(reflector, 'get').mockImplementation(() => [USER_ROLE.ADMIN]);
-      GqlExecutionContext.create = jest.fn().mockImplementation(() => tContext2);
+      GqlExecutionContext.create = jest
+        .fn()
+        .mockImplementation(() => tContext2);
       // act
       let result;
       try {
@@ -124,8 +129,10 @@ describe('RolesGuard', () => {
       } catch (error) {
         result = error;
       }
-      // assert            
-      expect(result).toStrictEqual(new UnauthorizedException('User role not allowed for this action'));
+      // assert
+      expect(result).toStrictEqual(
+        new UnauthorizedException('User role not allowed for this action'),
+      );
     });
   });
 });

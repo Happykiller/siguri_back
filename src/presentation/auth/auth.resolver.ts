@@ -62,7 +62,7 @@ export class AuthResolver {
     const token = this.jwtService.sign({
       code: userSession.code,
       id: userSession.id,
-      role: userSession.role
+      role: userSession.role,
     });
     return {
       accessToken: token,

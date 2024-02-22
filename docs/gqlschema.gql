@@ -28,6 +28,20 @@ type UserModelResolver {
   role: String
 }
 
+type BankMemberModelResolver {
+  user_id: String
+  user: UserModelResolver!
+}
+
+type BankModelResolver {
+  id: String
+  label: String
+  description: String
+  author_id: String
+  members: [BankMemberModelResolver!]
+  author: UserModelResolver!
+}
+
 type HelloModelResolver {
   message: String
 }
@@ -35,6 +49,8 @@ type HelloModelResolver {
 type Query {
   users: [UserModelResolver!]!
   user(dto: GetUserResolverDto!): UserModelResolver!
+  bank(dto: GetBankResolverDto!): BankModelResolver!
+  banksForUser: [BankModelResolver!]!
   auth(dto: GetSessionAuthResolverDto!): AuthModelResolver!
   getSessionInfo: AuthModelResolver!
   hello: HelloModelResolver!
@@ -43,6 +59,11 @@ type Query {
 input GetUserResolverDto {
   id: String
   code: String
+}
+
+input GetBankResolverDto {
+  id: String!
+  secret: String!
 }
 
 input GetSessionAuthResolverDto {
@@ -55,6 +76,7 @@ input GetSessionAuthResolverDto {
 
 type Mutation {
   create_user(dto: CreateUserResolverDto!): UserModelResolver!
+  create_bank(dto: CreateBankResolverDto!): BankModelResolver!
 }
 
 input CreateUserResolverDto {
@@ -65,4 +87,10 @@ input CreateUserResolverDto {
   description: String!
   mail: String!
   password: String!
+}
+
+input CreateBankResolverDto {
+  label: String!
+  description: String
+  secret: String!
 }

@@ -3,43 +3,40 @@ import { ObjectId } from 'mongodb';
 import { BddService } from '@service/db/db.service';
 import { USER_ROLE } from '@presentation/guard/userRole';
 import { UserDbModel } from '@service/db/model/user.db.model';
+import { userRopo } from '@src/service/db/fake/mock/user.ropo';
 import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
 
-export class BddServiceFake implements BddService {
-  users: UserDbModel[] = [
-    {
-      id: '65d4d015261e894a1da31a64',
-      code: 'ropo',
-      password:
-        'uDLybl8FgPRbBicleIp/Hbb7ujedTr5gukZlcygGnYz4zyJsMAAdL0WEwxfwO6+1jI93qSR676s2QuyuKVD57w==',
-      name_first: 'Robert',
-      name_last: 'Paulson',
-      description: 'password with secret secretKey',
-      mail: 'r.paulson@bob.com',
-      role: USER_ROLE.ADMIN,
-      active: true,
-    },
-  ];
+export class BddServiceUserFake
+  implements Pick<BddService, 'createUser' | 'getAllUser' | 'getUser'>
+{
+  userCollection: UserDbModel[];
+
+  getUserCollection(): UserDbModel[] {
+    if (!this.userCollection) {
+      this.userCollection = [userRopo];
+    }
+    return this.userCollection;
+  }
 
   createUser(dto: CreateUserDbDto): Promise<UserDbModel> {
-    const user: UserDbModel = {
+    const entity: UserDbModel = {
       id: new ObjectId().toString(),
       ...dto,
       role: USER_ROLE.ADMIN,
       active: true,
     };
-    this.users.push(user);
-    return Promise.resolve(user);
+    this.getUserCollection().push(entity);
+    return Promise.resolve(entity);
   }
 
   getAllUser(): Promise<UserDbModel[]> {
-    return Promise.resolve(this.users);
+    return Promise.resolve(this.getUserCollection());
   }
 
   getUser(dto: GetUserDbDto): Promise<UserDbModel> {
     return Promise.resolve(
-      this.users.find((elt) => {
+      this.getUserCollection().find((elt) => {
         if (dto.id) {
           return elt.id === dto.id && elt.active;
         } else if (dto.code) {
@@ -47,9 +44,5 @@ export class BddServiceFake implements BddService {
         }
       }),
     );
-  }
-
-  test(): Promise<boolean> {
-    return Promise.resolve(true);
   }
 }

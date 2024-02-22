@@ -1,0 +1,88 @@
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create_bank (
+    dto: {
+      label: "test"
+      secret: "secret"
+      description: "description"
+    }
+  ) {
+    id
+    label
+    description
+    author_id
+    author {
+      id
+      code
+    }
+    members {
+      user_id
+      user {
+        id
+        code
+      }
+    }
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+query {
+  bank (
+    dto: {
+      id: "65d4d015261e894a1da31a65"
+      secret: "secret"
+    }
+  ) {
+    id
+    label
+    description
+    author_id
+    author {
+      id
+      code
+    }
+    members {
+      user_id
+      user {
+        id
+        code
+      }
+    }
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+query {
+  banksForUser {
+    id
+    label
+    description
+    author_id
+    author {
+      id
+      code
+    }
+    members {
+      user_id
+      user {
+        id
+        code
+      }
+    }
+  }
+}

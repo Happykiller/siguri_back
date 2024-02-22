@@ -34,7 +34,7 @@ describe('AuthUsecase', () => {
         name_last: 'Rosito',
         description: 'Admin',
         mail: 'fabrice.rosito@gmail.com',
-        role: "USER"
+        role: 'USER',
       };
       mockGetUserUsecase.execute.mockResolvedValue({
         active: true,

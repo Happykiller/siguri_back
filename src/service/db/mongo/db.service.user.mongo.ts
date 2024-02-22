@@ -1,47 +1,17 @@
-import * as mongoDB from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 
-import { Collection, Db, MongoClient, ObjectId } from 'mongodb';
-
+import inversify from '@src/inversify/investify';
 import { BddService } from '@service/db/db.service';
-import { Inversify } from '@src/inversify/investify';
 import { USER_ROLE } from '@presentation/guard/userRole';
 import { UserDbModel } from '@service/db/model/user.db.model';
 import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
 
-export const collections: { games?: mongoDB.Collection } = {};
-
-export class BddServiceMongo implements BddService {
-  DB_CONN_STRING = 'mongodb://root:password@localhost:27017/';
-  DB_NAME = 'siguri';
-  client: MongoClient;
-  db: Db;
-  inversify: Inversify;
-
-  constructor(inversify: Inversify) {
-    this.client = new mongoDB.MongoClient(this.DB_CONN_STRING);
-    this.inversify = inversify;
-  }
-
-  async initConnection() {
-    if (!this.db) {
-      await this.client.connect();
-      this.db = this.client.db(this.DB_NAME);
-      this.inversify.loggerService.log(
-        'info',
-        `Successfully connected to database: ${this.db.databaseName}`,
-      );
-    }
-  }
-
-  async getUsersCollection(): Promise<Collection> {
-    await this.initConnection();
-    return this.db.collection('users');
-  }
-
-  async test(): Promise<boolean> {
-    await this.initConnection();
-    return Promise.resolve(true);
+export class BddServiceUserMongo
+  implements Pick<BddService, 'createUser' | 'getAllUser' | 'getUser'>
+{
+  private async getUserCollection(): Promise<Collection> {
+    return inversify.mongo.collection('users');
   }
 
   async getAllUser(): Promise<UserDbModel[]> {
@@ -51,7 +21,7 @@ export class BddServiceMongo implements BddService {
     };
     const options = {};
     // Execute query
-    const results = (await this.getUsersCollection()).find(query, options);
+    const results = (await this.getUserCollection()).find(query, options);
 
     const users: UserDbModel[] = [];
     // Print returned documents
@@ -82,7 +52,7 @@ export class BddServiceMongo implements BddService {
       const options = {};
       // Execute query
       const doc: any = await (
-        await this.getUsersCollection()
+        await this.getUserCollection()
       ).findOne(query, options);
 
       return Promise.resolve({
@@ -104,7 +74,7 @@ export class BddServiceMongo implements BddService {
   async createUser(dto: CreateUserDbDto): Promise<UserDbModel> {
     try {
       const result = await (
-        await this.getUsersCollection()
+        await this.getUserCollection()
       ).insertOne({
         ...dto,
         role: USER_ROLE.ADMIN,
