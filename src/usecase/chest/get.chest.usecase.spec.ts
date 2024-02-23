@@ -4,9 +4,9 @@ import { mock, MockProxy } from 'jest-mock-extended';
 import { ERRORS } from '@src/common/ERROR';
 import { BddService } from '@service/db/db.service';
 import { Inversify } from '@src/inversify/investify';
-import { chestRopo } from '@src/service/db/fake/mock/chest.ropo';
 import { userRopo } from '@service/db/fake/mock/user.ropo';
 import { CryptService } from '@service/crypt/crypt.service';
+import { chestRopo } from '@service/db/fake/mock/chest.ropo';
 import { GetChestUsecase } from '@usecase/chest/get.chest.usecase';
 
 describe('GetChestUsecase', () => {
@@ -56,7 +56,7 @@ describe('GetChestUsecase', () => {
         error = e.message;
       }
       // assert
-      expect(error).toEqual(ERRORS.GET_BANK_USECASE_BANK_NOT_FOUND);
+      expect(error).toEqual(ERRORS.GET_CHEST_USECASE_CHEST_NOT_FOUND);
     });
 
     it('should wrong secret', async () => {
@@ -75,7 +75,7 @@ describe('GetChestUsecase', () => {
         error = e.message;
       }
       // assert
-      expect(error).toEqual(ERRORS.GET_BANK_USECASE_WRONG_SECRET);
+      expect(error).toEqual(ERRORS.GET_CHEST_USECASE_WRONG_SECRET);
     });
 
     it('should no member', async () => {
@@ -94,7 +94,7 @@ describe('GetChestUsecase', () => {
         error = e.message;
       }
       // assert
-      expect(error).toEqual(ERRORS.GET_BANK_USECASE_USER_NOT_IN_MEMBERS);
+      expect(error).toEqual(ERRORS.GET_CHEST_USECASE_USER_NOT_IN_MEMBERS);
     });
   });
 });

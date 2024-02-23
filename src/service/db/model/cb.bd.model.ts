@@ -3,4 +3,5 @@ export interface CbDbModel {
   number: string;
   expiration_date: string;
   code: string;
+  crypto: string;
 }

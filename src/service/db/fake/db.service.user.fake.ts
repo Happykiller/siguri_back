@@ -23,7 +23,7 @@ export class BddServiceUserFake
     const entity: UserDbModel = {
       id: new ObjectId().toString(),
       ...dto,
-      role: USER_ROLE.ADMIN,
+      role: USER_ROLE.USER,
       active: true,
     };
     this.getUserCollection().push(entity);

@@ -30,6 +30,11 @@ const defaults: Configuration = {
       expiresIn: '8h',
     },
   },
+  db: {
+    connection_string:
+      merged.DB_CONN_STRING || 'mongodb://root:password@localhost:27017/',
+    name: merged.DB_NAME || 'siguri',
+  },
   throttle: [
     {
       ttl: 60000,

@@ -1,11 +1,11 @@
 import { ObjectId } from 'mongodb';
 
 import { BddService } from '@service/db/db.service';
-import { chestRopo } from '@src/service/db/fake/mock/chest.ropo';
-import { ChestDbModel } from '@src/service/db/model/chest.db.model';
-import { GetChestDbDto } from '@src/service/db/dto/get.chest.db.dto';
-import { CreateChestDbDto } from '@src/service/db/dto/create.chest.db.dto';
-import { GetChestsForUserDbDto } from '../dto/getForUser.chest.db.dto';
+import { chestRopo } from '@service/db/fake/mock/chest.ropo';
+import { ChestDbModel } from '@service/db/model/chest.db.model';
+import { GetChestDbDto } from '@service/db/dto/get.chest.db.dto';
+import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
+import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 
 export class BddServiceChestFake
   implements Pick<BddService, 'createChest' | 'getChest'>

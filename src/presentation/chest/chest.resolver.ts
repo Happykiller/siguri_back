@@ -15,10 +15,10 @@ import { RolesGuard } from '@presentation/guard/roles.guard';
 import { GqlAuthGuard } from '@presentation/guard/auth.guard';
 import { UserSession } from '@presentation/auth/jwt.strategy';
 import { CurrentSession } from '@presentation/guard/userSession.decorator';
-import { ChestModelResolver } from '@src/presentation/chest/model/chest.resolver.model';
 import { UserModelResolver } from '@presentation/user/model/user.resolver.model';
-import { GetChestResolverDto } from '@src/presentation/chest/dto/get.chest.resolver.dto';
-import { CreateChestResolverDto } from '@src/presentation/chest/dto/create.chest.resolver.dto';
+import { ChestModelResolver } from '@presentation/chest/model/chest.resolver.model';
+import { GetChestResolverDto } from '@presentation/chest/dto/get.chest.resolver.dto';
+import { CreateChestResolverDto } from '@presentation/chest/dto/create.chest.resolver.dto';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Resolver((of) => ChestModelResolver)
@@ -29,7 +29,9 @@ export class ChestResolver {
   ) {}
 
   @ResolveField((of) => UserModelResolver)
-  async author(@Parent() chest: ChestModelResolver): Promise<UserModelResolver> {
+  async author(
+    @Parent() chest: ChestModelResolver,
+  ): Promise<UserModelResolver> {
     const user: UserModelResolver = await this.inversify.getUserUsecase.execute(
       {
         id: chest.author_id,

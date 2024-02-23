@@ -1,5 +1,5 @@
-import { GetChestResolverDto } from '@src/presentation/chest/dto/get.chest.resolver.dto';
-
-export interface GetChestUsecaseDto extends GetChestResolverDto {
+export interface GetChestUsecaseDto {
+  id: string;
   user_id: string;
+  secret?: string;
 }

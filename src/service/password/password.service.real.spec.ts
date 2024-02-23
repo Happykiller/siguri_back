@@ -4,7 +4,6 @@ import { PasswordService } from '@service/password/password.service';
 import { PasswordServiceReal } from '@service/password/password.service.real';
 
 describe('PasswordServiceReal', () => {
-
   const service: PasswordService = new PasswordServiceReal();
 
   it('should build', () => {
@@ -21,7 +20,7 @@ describe('PasswordServiceReal', () => {
       const password = service.generate({
         length: 10,
         specials: true,
-      })
+      });
       // assert
       expect(password).toBeDefined();
     });
@@ -32,7 +31,7 @@ describe('PasswordServiceReal', () => {
       const password = service.generate({
         length: 10,
         specials: false,
-      })
+      });
       // assert
       expect(password).toBeDefined();
     });

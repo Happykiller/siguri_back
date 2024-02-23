@@ -10,8 +10,7 @@ export class PasswordServiceReal implements PasswordService {
     let all;
     if (dto.specials) {
       all = lowercases + uppercases + numbers + specialsCaracters;
-      }
-    else {
+    } else {
       all = lowercases + uppercases + numbers;
     }
     let result = '';

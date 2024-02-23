@@ -17,9 +17,11 @@ export class ToolResolver {
   @UseGuards(GqlAuthGuard)
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Query((returns) => GeneratePasswordModelResolver)
-  async generatePassword(@Args('dto') dto: GeneratePasswordResolverDto,): Promise<GeneratePasswordModelResolver> {
+  async generatePassword(
+    @Args('dto') dto: GeneratePasswordResolverDto,
+  ): Promise<GeneratePasswordModelResolver> {
     return {
-      password: this.inversify.passwordService.generate(dto)
+      password: this.inversify.passwordService.generate(dto),
     };
   }
 }

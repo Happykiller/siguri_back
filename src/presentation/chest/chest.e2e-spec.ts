@@ -10,7 +10,7 @@ import { USER_ROLE } from '@presentation/guard/userRole';
 import { userRopo } from '@service/db/fake/mock/user.ropo';
 import { chestRopo } from '@service/db/fake/mock/chest.ropo';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
-import { ChestModule } from '@src/presentation/chest/chest.module';
+import { ChestModule } from '@presentation/chest/chest.module';
 
 describe('ChestResolver (e2e)', () => {
   let app: NestApplication;

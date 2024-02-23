@@ -5,7 +5,7 @@ Authorization: Bearer {{token}}
 X-REQUEST-TYPE: GraphQL
 
 mutation {
-  create_bank (
+  create_chest (
     dto: {
       label: "test"
       secret: "secret"
@@ -31,13 +31,38 @@ mutation {
 }
 
 ###
+{
+  "data": {
+    "create_chest": {
+      "id": "65d89bf7dcd8cbba9a7ce654",
+      "label": "test",
+      "description": "description",
+      "author_id": "65d897658094c729e95836b8",
+      "author": {
+        "id": "65d897658094c729e95836b8",
+        "code": "admin"
+      },
+      "members": [
+        {
+          "user_id": "65d897658094c729e95836b8",
+          "user": {
+            "id": "65d897658094c729e95836b8",
+            "code": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
+
+###
 POST {{host}}/graphql
 Content-Type: application/json
 Authorization: Bearer {{token}}
 X-REQUEST-TYPE: GraphQL
 
 query {
-  bank (
+  chest (
     dto: {
       id: "65d4d015261e894a1da31a65"
       secret: "secret"
@@ -68,7 +93,7 @@ Authorization: Bearer {{token}}
 X-REQUEST-TYPE: GraphQL
 
 query {
-  banksForUser {
+  chestsForUser {
     id
     label
     description

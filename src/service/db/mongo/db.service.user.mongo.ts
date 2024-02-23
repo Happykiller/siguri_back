@@ -77,13 +77,14 @@ export class BddServiceUserMongo
         await this.getUserCollection()
       ).insertOne({
         ...dto,
-        role: USER_ROLE.ADMIN,
+        role: USER_ROLE.USER,
+        active: true,
       });
 
       return Promise.resolve({
         id: result.insertedId.toString(),
         ...dto,
-        role: USER_ROLE.ADMIN,
+        role: USER_ROLE.USER,
         active: true,
       });
     } catch (e) {

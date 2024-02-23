@@ -1,0 +1,145 @@
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create_thing (
+    dto: {
+      label: "thing"
+      description: "description"
+      chest_id: "65d89bf7dcd8cbba9a7ce654"
+      chest_secret: "password"
+      type: "CREDENTIAL"
+      credential: {
+        id: "login"
+        password: "password"
+        address: "http://localhost/"
+      }
+    }
+  ) {
+    id
+    label
+    description
+    author {
+      id
+      code
+    }
+    chest {
+      id
+      label
+    }
+    type
+    cb {
+      code
+      label
+      number
+      expiration_date
+      crypto
+    }
+    code {
+      code
+    }
+    credential {
+      id
+      password
+      address
+    }
+    note {
+      note
+    }
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+query {
+  thing (
+    dto: {
+      thing_id: "65d89d7b68f68d36cf6ab83d"
+      chest_secret: "password"
+    }
+  ) {
+    id
+    label
+    description
+    author {
+      id
+      code
+    }
+    chest {
+      id
+      label
+    }
+    type
+    cb {
+      code
+      label
+      number
+      expiration_date
+      crypto
+    }
+    code {
+      code
+    }
+    credential {
+      id
+      password
+      address
+    }
+    note {
+      note
+    }
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+query {
+  thingsForChest (
+    dto: {
+      chest_id: "65d89bf7dcd8cbba9a7ce654"
+      chest_secret: "password"
+    }
+  ) {
+    id
+    label
+    description
+    author {
+      id
+      code
+    }
+    chest {
+      id
+      label
+    }
+    type
+    cb {
+      code
+      label
+      number
+      expiration_date
+      crypto
+    }
+    code {
+      code
+    }
+    credential {
+      id
+      password
+      address
+    }
+    note {
+      note
+    }
+  }
+}

@@ -50,6 +50,41 @@ type HelloModelResolver {
   message: String
 }
 
+type ThingCbResolverModel {
+  code: String!
+  label: String!
+  number: String!
+  expiration_date: String!
+  crypto: String!
+}
+
+type ThingNoteResolverModel {
+  note: String!
+}
+
+type ThingCodeResolverModel {
+  code: String!
+}
+
+type ThingCredentialResolverModel {
+  id: String!
+  password: String!
+  address: String
+}
+
+type ThingModelResolver {
+  id: String
+  label: String
+  description: String
+  author_id: String
+  chest_id: String
+  type: String
+  cb: ThingCbResolverModel
+  code: ThingCodeResolverModel
+  credential: ThingCredentialResolverModel
+  note: ThingNoteResolverModel
+}
+
 type Query {
   users: [UserModelResolver!]!
   user(dto: GetUserResolverDto!): UserModelResolver!
@@ -86,6 +121,7 @@ input GetChestResolverDto {
 
 type Mutation {
   create_user(dto: CreateUserResolverDto!): UserModelResolver!
+  create_thing(dto: CreateThingResolverDto!): ThingModelResolver!
   create_chest(dto: CreateChestResolverDto!): ChestModelResolver!
 }
 
@@ -97,6 +133,40 @@ input CreateUserResolverDto {
   description: String!
   mail: String!
   password: String!
+}
+
+input CreateThingResolverDto {
+  label: String!
+  description: String
+  chest_id: String!
+  chest_secret: String!
+  type: String!
+  cb: CreateThingCbResolverDto
+  code: CreateThingCodeResolverDto
+  note: CreateThingNoteResolverDto
+  credential: CreateThingCredentialResolverDto
+}
+
+input CreateThingCbResolverDto {
+  code: String!
+  label: String!
+  number: String!
+  expiration_date: String!
+  crypto: String!
+}
+
+input CreateThingCodeResolverDto {
+  code: String!
+}
+
+input CreateThingNoteResolverDto {
+  note: String!
+}
+
+input CreateThingCredentialResolverDto {
+  id: String!
+  password: String!
+  address: String
 }
 
 input CreateChestResolverDto {

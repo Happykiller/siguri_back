@@ -21,6 +21,11 @@ export class Configuration {
     };
   };
 
+  public db?: {
+    connection_string?: string;
+    name?: string;
+  };
+
   /**
    * request limitation per second
    * DOC https://docs.nestjs.com/security/rate-limiting

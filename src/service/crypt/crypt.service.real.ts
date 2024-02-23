@@ -10,7 +10,7 @@ export class CryptServiceReal implements CryptService {
   crypt(dto: CryptServiceDto): string {
     const hashDigest = sha256('siguri' + dto.message);
     const hmacDigest = base64.stringify(
-      hmacSHA512(hashDigest, config.jwt.secret),
+      hmacSHA512(hashDigest, dto.secret ?? config.jwt.secret),
     );
     return hmacDigest;
   }

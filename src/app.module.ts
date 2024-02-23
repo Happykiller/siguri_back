@@ -10,12 +10,14 @@ import { UserModule } from '@presentation/user/user.module';
 import { ToolModule } from '@presentation/tool/tool.module';
 import { ChestModule } from '@presentation/chest/chest.module';
 import { HelloModule } from '@presentation/hello/hello.module';
+import { ThingModule } from '@presentation/thing/thing.module';
 
 @Module({
   imports: [
     UserModule,
     AuthModule,
     ToolModule,
+    ThingModule,
     ChestModule,
     HelloModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
