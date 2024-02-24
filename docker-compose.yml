@@ -1,0 +1,13 @@
+## Fichier : docker-compose.yml
+version: '3.8'
+
+services:
+  siguri_back:
+    build:
+      dockerfile: Dockerfile
+    container_name: siguri_back
+    ports:
+      - '3002:3000'
+    restart: always
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
