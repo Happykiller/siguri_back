@@ -83,6 +83,8 @@ type ThingModelResolver {
   code: ThingCodeResolverModel
   credential: ThingCredentialResolverModel
   note: ThingNoteResolverModel
+  author: UserModelResolver!
+  chest: ChestModelResolver!
 }
 
 type Query {
@@ -91,6 +93,8 @@ type Query {
   auth(dto: GetSessionAuthResolverDto!): AuthModelResolver!
   getSessionInfo: AuthModelResolver!
   generatePassword(dto: GeneratePasswordResolverDto!): GeneratePasswordModelResolver!
+  thing(dto: GetThingResolverDto!): ThingModelResolver!
+  thingsForChest(dto: GetThingsForChestResolverDto!): [ThingModelResolver!]!
   chest(dto: GetChestResolverDto!): ChestModelResolver!
   chestsForUser: [ChestModelResolver!]!
   hello: HelloModelResolver!
@@ -112,6 +116,16 @@ input GetSessionAuthResolverDto {
 input GeneratePasswordResolverDto {
   length: Int!
   specials: Boolean = true
+}
+
+input GetThingResolverDto {
+  thing_id: String!
+  chest_secret: String!
+}
+
+input GetThingsForChestResolverDto {
+  chest_id: String!
+  chest_secret: String!
 }
 
 input GetChestResolverDto {
