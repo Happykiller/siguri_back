@@ -4,7 +4,7 @@
 
 type AuthModelResolver {
   """Session token"""
-  accessToken: String!
+  access_token: String!
 
   """Id of the user"""
   id: String!
@@ -87,6 +87,10 @@ type ThingModelResolver {
   chest: ChestModelResolver!
 }
 
+type SystemInfoResolverModel {
+  version: String!
+}
+
 type Query {
   users: [UserModelResolver!]!
   user(dto: GetUserResolverDto!): UserModelResolver!
@@ -98,6 +102,7 @@ type Query {
   chest(dto: GetChestResolverDto!): ChestModelResolver!
   chestsForUser: [ChestModelResolver!]!
   hello: HelloModelResolver!
+  systemInfo: SystemInfoResolverModel!
 }
 
 input GetUserResolverDto {

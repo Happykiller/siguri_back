@@ -1,10 +1,9 @@
 {
-  "name": "seguri",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "name": "seguri_back",
+  "version": "0.1.0",
+  "description": "Apis for Siguri service",
+  "author": "Fabrice Rosito<fabrice.rosito@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "start": "env NODE_ENV=prod nest start",

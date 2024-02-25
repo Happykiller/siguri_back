@@ -10,7 +10,7 @@ query {
       password: "{{password}}"
     }
   ) {
-    accessToken
+    access_token
     id
     code
     name_first
@@ -29,7 +29,7 @@ Authorization: Bearer {{token}}
 
 query {
   getSessionInfo {
-    accessToken
+    access_token
     id
     code
     name_first

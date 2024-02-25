@@ -37,7 +37,7 @@ export class AuthResolver {
       id: userSession.id,
     });
     return {
-      accessToken: token,
+      access_token: token,
       ...userSession,
     };
   }
@@ -65,7 +65,7 @@ export class AuthResolver {
       role: userSession.role,
     });
     return {
-      accessToken: token,
+      access_token: token,
       ...userSession,
     };
   }

@@ -3,7 +3,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class AuthModelResolver {
   @Field(() => String, { description: 'Session token' })
-  accessToken: string;
+  access_token: string;
   @Field(() => String, { description: 'Id of the user' })
   id: string;
   @Field(() => String, { description: 'Code of the user' })
