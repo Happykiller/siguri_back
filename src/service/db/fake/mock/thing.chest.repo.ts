@@ -6,11 +6,11 @@ import { chestRopo } from './chest.ropo';
 export const thingChestRopo: ThingDbModel = {
   id: '65d4d015261e894a1da31a63',
   label: 'label',
-  description: 'description',
+  description: 'password with secret',
   type: TYPE_THING.CREDENTIAL,
   credential: {
     id: 'login',
-    password: 'password',
+    password: 'U2FsdGVkX19E8qcYLb8ZSbgM4/uKUFKxoLdGTp14HZE=',
     address: 'http://localhost/',
   },
   author_id: userRopo.id,

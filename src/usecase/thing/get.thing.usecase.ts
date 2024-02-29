@@ -13,42 +13,48 @@ export class GetThingUsecase {
   }
 
   async execute(dto: GetThingUsecaseDto): Promise<ThingUsecaseModel> {
-    const entity: ThingDbModel = await this.inversify.bddService.getThing(dto);
+    const thing: ThingDbModel = await this.inversify.bddService.getThing(dto);
 
-    if (!entity) {
+    if (!thing) {
       throw new Error(ERRORS.GET_THING_USECASE_THING_NOT_FOUND);
     }
 
-    if (entity.type === TYPE_THING.CB) {
-      entity.cb.number = this.inversify.encodeService.decode({
-        message: entity.cb.number,
+    await this.inversify.isAutorizedUsecase.execute({
+      user_id: dto.user_id,
+      chest_id: thing.chest_id,
+      chest_secret: dto.chest_secret,
+    });
+
+    if (thing.type === TYPE_THING.CB) {
+      thing.cb.number = this.inversify.encodeService.decode({
+        message: thing.cb.number,
         secret: dto.chest_secret,
       });
-      entity.cb.code = this.inversify.encodeService.decode({
-        message: entity.cb.code,
+      thing.cb.code = this.inversify.encodeService.decode({
+        message: thing.cb.code,
         secret: dto.chest_secret,
       });
-      entity.cb.crypto = this.inversify.encodeService.decode({
-        message: entity.cb.crypto,
+      thing.cb.crypto = this.inversify.encodeService.decode({
+        message: thing.cb.crypto,
         secret: dto.chest_secret,
       });
-    } else if (entity.type === TYPE_THING.CODE) {
-      entity.code.code = this.inversify.encodeService.decode({
-        message: entity.code.code,
+    } else if (thing.type === TYPE_THING.CODE) {
+      thing.code.code = this.inversify.encodeService.decode({
+        message: thing.code.code,
         secret: dto.chest_secret,
       });
-    } else if (entity.type === TYPE_THING.NOTE) {
-      entity.note.note = this.inversify.encodeService.decode({
-        message: entity.note.note,
+    } else if (thing.type === TYPE_THING.NOTE) {
+      thing.note.note = this.inversify.encodeService.decode({
+        message: thing.note.note,
         secret: dto.chest_secret,
       });
-    } else if (entity.type === TYPE_THING.CREDENTIAL) {
-      entity.credential.password = this.inversify.encodeService.decode({
-        message: entity.credential.password,
+    } else if (thing.type === TYPE_THING.CREDENTIAL) {
+      thing.credential.password = this.inversify.encodeService.decode({
+        message: thing.credential.password,
         secret: dto.chest_secret,
       });
     }
 
-    return entity;
+    return thing;
   }
 }

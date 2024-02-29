@@ -27,27 +27,26 @@ export class BddServiceThingFake
     };
     delete data.user_id;
 
-    const entity: ThingDbModel = {
+    const thing: ThingDbModel = {
       id: new ObjectId().toString(),
       ...data,
     };
-    this.getThingCollection().push(entity);
-    return Promise.resolve(entity);
+
+    this.getThingCollection().push(thing);
+    return Promise.resolve(JSON.parse(JSON.stringify(thing)));
   }
 
   getThing(dto: GetThingDbDto): Promise<ThingDbModel> {
-    return Promise.resolve(
-      this.getThingCollection().find(
-        (elt) => elt.id === dto.thing_id && elt.active,
-      ),
+    const thing = this.getThingCollection().find(
+      (elt) => elt.id === dto.thing_id && elt.active,
     );
+    return Promise.resolve(JSON.parse(JSON.stringify(thing)));
   }
 
   getForChestThings(dto: GetForChestThingsDbDto): Promise<ThingDbModel[]> {
-    return Promise.resolve(
-      this.getThingCollection().filter(
-        (elt) => elt.active && elt.chest_id === dto.chest_id,
-      ),
+    const things = this.getThingCollection().filter(
+      (elt) => elt.active && elt.chest_id === dto.chest_id,
     );
+    return Promise.resolve(JSON.parse(JSON.stringify(things)));
   }
 }

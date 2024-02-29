@@ -18,6 +18,7 @@ import { EncodeServiceReal } from '@service/encode/encode.service.real';
 import { CreateChestUsecase } from '@usecase/chest/create.chest.usecase';
 import { CreateThingUsecase } from '@usecase/thing/create.thing.usecase';
 import { PasswordServiceReal } from '@service/password/password.service.real';
+import { IsAutorizedUsecase } from '@usecase/isAuthorized/isAuthorized.usecase';
 import { GetChestsForUserUsecase } from '@usecase/chest/getForUser.chest.usecase';
 import { GetThingsForChestUsecase } from '@usecase/thing/getForChest.thing.usecase';
 
@@ -36,6 +37,7 @@ export class Inversify {
   createUserUsecase: CreateUserUsecase;
   createChestUsecase: CreateChestUsecase;
   createThingUsecase: CreateThingUsecase;
+  isAutorizedUsecase: IsAutorizedUsecase;
   getChestsForUserUsecase: GetChestsForUserUsecase;
   getThingsForChestUsecase: GetThingsForChestUsecase;
 
@@ -67,6 +69,7 @@ export class Inversify {
     this.createUserUsecase = new CreateUserUsecase(this);
     this.createThingUsecase = new CreateThingUsecase(this);
     this.createChestUsecase = new CreateChestUsecase(this);
+    this.isAutorizedUsecase = new  IsAutorizedUsecase(this);
     this.getChestsForUserUsecase = new GetChestsForUserUsecase(this);
     this.getThingsForChestUsecase = new GetThingsForChestUsecase(this);
   }

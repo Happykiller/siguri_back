@@ -1,4 +1,4 @@
-###
+### CREDENTIAL
 POST {{host}}/graphql
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -8,14 +8,176 @@ mutation {
   create_thing (
     dto: {
       label: "thing"
-      description: "description"
-      chest_id: "65d89bf7dcd8cbba9a7ce654"
-      chest_secret: "password"
+      description: "password with secret"
+      chest_id: "65d4d015261e894a1da31a65"
+      chest_secret: "secret"
       type: "CREDENTIAL"
       credential: {
         id: "login"
         password: "password"
         address: "http://localhost/"
+      }
+    }
+  ) {
+    id
+    label
+    description
+    author {
+      id
+      code
+    }
+    chest {
+      id
+      label
+    }
+    type
+    cb {
+      code
+      label
+      number
+      expiration_date
+      crypto
+    }
+    code {
+      code
+    }
+    credential {
+      id
+      password
+      address
+    }
+    note {
+      note
+    }
+  }
+}
+
+### CB
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create_thing (
+    dto: {
+      label: "cb"
+      description: "with secret"
+      chest_id: "65d4d015261e894a1da31a65"
+      chest_secret: "secret"
+      type: "CB"
+      cb: {
+        code: "1234"
+        label: "ROBERT PAULSON"
+        number: "0312456789"
+        expiration_date: "07/28"
+        crypto: "123"
+      }
+    }
+  ) {
+    id
+    label
+    description
+    author {
+      id
+      code
+    }
+    chest {
+      id
+      label
+    }
+    type
+    cb {
+      code
+      label
+      number
+      expiration_date
+      crypto
+    }
+    code {
+      code
+    }
+    credential {
+      id
+      password
+      address
+    }
+    note {
+      note
+    }
+  }
+}
+
+### CODE
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create_thing (
+    dto: {
+      label: "code"
+      description: "with secret"
+      chest_id: "65d4d015261e894a1da31a65"
+      chest_secret: "secret"
+      type: "CODE"
+      code: {
+        code: "1234"
+      }
+    }
+  ) {
+    id
+    label
+    description
+    author {
+      id
+      code
+    }
+    chest {
+      id
+      label
+    }
+    type
+    cb {
+      code
+      label
+      number
+      expiration_date
+      crypto
+    }
+    code {
+      code
+    }
+    credential {
+      id
+      password
+      address
+    }
+    note {
+      note
+    }
+  }
+}
+
+
+
+### NOTE
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create_thing (
+    dto: {
+      label: "note"
+      description: "with secret"
+      chest_id: "65d4d015261e894a1da31a65"
+      chest_secret: "secret"
+      type: "NOTE"
+      note: {
+        note: "chut c'est un secret"
       }
     }
   ) {
@@ -61,8 +223,8 @@ X-REQUEST-TYPE: GraphQL
 query {
   thing (
     dto: {
-      thing_id: "65d89d7b68f68d36cf6ab83d"
-      chest_secret: "password"
+      thing_id: "65e05f977f7a091311d8da13"
+      chest_secret: "secret"
     }
   ) {
     id
@@ -107,8 +269,8 @@ X-REQUEST-TYPE: GraphQL
 query {
   thingsForChest (
     dto: {
-      chest_id: "65d89bf7dcd8cbba9a7ce654"
-      chest_secret: "password"
+      chest_id: "65d4d015261e894a1da31a65"
+      chest_secret: "secret"
     }
   ) {
     id

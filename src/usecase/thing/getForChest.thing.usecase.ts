@@ -12,6 +12,12 @@ export class GetThingsForChestUsecase {
   }
 
   async execute(dto: GetForChestThingUsecaseDto): Promise<ThingUsecaseModel[]> {
+    await this.inversify.isAutorizedUsecase.execute({
+      user_id: dto.user_id,
+      chest_id: dto.chest_id,
+      chest_secret: dto.chest_secret,
+    });
+
     const entities: ThingDbModel[] =
       await this.inversify.bddService.getForChestThings(dto);
 
