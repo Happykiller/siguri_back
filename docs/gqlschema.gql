@@ -141,6 +141,8 @@ input GetChestResolverDto {
 type Mutation {
   create_user(dto: CreateUserResolverDto!): UserModelResolver!
   create_thing(dto: CreateThingResolverDto!): ThingModelResolver!
+  update_thing(dto: UpdateThingResolverDto!): ThingModelResolver!
+  delete_thing(dto: DeleteThingResolverDto!): ThingModelResolver
   create_chest(dto: CreateChestResolverDto!): ChestModelResolver!
 }
 
@@ -186,6 +188,22 @@ input CreateThingCredentialResolverDto {
   id: String!
   password: String!
   address: String
+}
+
+input UpdateThingResolverDto {
+  thing_id: String!
+  label: String!
+  description: String
+  chest_secret: String!
+  cb: CreateThingCbResolverDto
+  code: CreateThingCodeResolverDto
+  note: CreateThingNoteResolverDto
+  credential: CreateThingCredentialResolverDto
+}
+
+input DeleteThingResolverDto {
+  thing_id: String!
+  chest_secret: String!
 }
 
 input CreateChestResolverDto {

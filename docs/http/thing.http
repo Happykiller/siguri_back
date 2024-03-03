@@ -160,8 +160,6 @@ mutation {
   }
 }
 
-
-
 ### NOTE
 POST {{host}}/graphql
 Content-Type: application/json
@@ -223,7 +221,7 @@ X-REQUEST-TYPE: GraphQL
 query {
   thing (
     dto: {
-      thing_id: "65e05f977f7a091311d8da13"
+      thing_id: "65d4d015261e894a1da31a63"
       chest_secret: "secret"
     }
   ) {
@@ -303,5 +301,69 @@ query {
     note {
       note
     }
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  update_thing (
+    dto: {
+      thing_id: "65d4d015261e894a1da31a63"
+      chest_secret: "secret"
+      label: "label2"
+    }
+  ) {
+    id
+    label
+    description
+    author {
+      id
+      code
+    }
+    chest {
+      id
+      label
+    }
+    type
+    cb {
+      code
+      label
+      number
+      expiration_date
+      crypto
+    }
+    code {
+      code
+    }
+    credential {
+      id
+      password
+      address
+    }
+    note {
+      note
+    }
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  delete_thing (
+    dto: {
+      thing_id: "65d4d015261e894a1da31a63"
+      chest_secret: "secret"
+    }
+  ) {
+    id
   }
 }

@@ -5,10 +5,12 @@ import { BddService } from '@service/db/db.service';
 import { ThingDbModel } from '@service/db/model/thing.db.model';
 import { GetThingDbDto } from '@service/db/dto/get.thing.db.dto';
 import { CreateThingDbDto } from '@service/db/dto/create.thing.db.dto';
+import { UpdateThingDbDto } from '@service/db/dto/update.thing.db.dto';
+import { DeleteThingDbDto } from '@service/db/dto/delete.thing.db.dto';
 import { GetForChestThingsDbDto } from '@service/db/dto/getForChest.thing.db.dto';
 
 export class BddServiceThingMongo
-  implements Pick<BddService, 'createThing' | 'getThing' | 'getForChestThings'>
+  implements Pick<BddService, 'createThing' | 'getThing' | 'getForChestThings' | 'updateThing' | 'deleteThing'>
 {
   private async getThingCollection(): Promise<Collection> {
     return inversify.mongo.collection('things');
@@ -38,9 +40,67 @@ export class BddServiceThingMongo
     }
   }
 
+  async updateThing(dto: UpdateThingDbDto): Promise<ThingDbModel> {
+    try {
+
+      const set:any = {};
+
+      if (dto.label) {
+        set.label = dto.label;
+      }
+  
+      if (dto.description) {
+        set.description = dto.description;
+      }
+  
+      if (dto.cb) {
+        set.cb = dto.cb;
+      }
+  
+      if (dto.note) {
+        set.note = dto.note;
+      }
+  
+      if (dto.code) {
+        set.code = dto.code;
+      }
+  
+      if (dto.credential) {
+        set.credential = dto.credential;
+      }
+
+      await (
+        await this.getThingCollection()
+      ).updateOne({ _id: new ObjectId(dto.thing_id) }, 
+      { 
+        $set: set
+      });
+
+      return await this.getThing({
+        thing_id: dto.thing_id
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async deleteThing(dto: DeleteThingDbDto): Promise<boolean> {
+    try {
+      await (
+        await this.getThingCollection()
+      ).updateOne({ _id: new ObjectId(dto.thing_id) }, 
+      { 
+        $set: {active: false}
+      });
+
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async getThing(dto: GetThingDbDto): Promise<ThingDbModel> {
     try {
-      // Query for a movie that has the title 'The Room'
       const query = {
         active: true,
         $or: [{ _id: new ObjectId(dto.thing_id) }],

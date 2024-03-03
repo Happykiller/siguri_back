@@ -31,31 +31,6 @@ mutation {
 }
 
 ###
-{
-  "data": {
-    "create_chest": {
-      "id": "65d89bf7dcd8cbba9a7ce654",
-      "label": "test",
-      "description": "description",
-      "author_id": "65d897658094c729e95836b8",
-      "author": {
-        "id": "65d897658094c729e95836b8",
-        "code": "admin"
-      },
-      "members": [
-        {
-          "user_id": "65d897658094c729e95836b8",
-          "user": {
-            "id": "65d897658094c729e95836b8",
-            "code": "admin"
-          }
-        }
-      ]
-    }
-  }
-}
-
-###
 POST {{host}}/graphql
 Content-Type: application/json
 Authorization: Bearer {{token}}

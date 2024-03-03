@@ -20,7 +20,9 @@ import { ThingModelResolver } from '@presentation/thing/model/thing.resolver.mod
 import { ChestModelResolver } from '@presentation/chest/model/chest.resolver.model';
 import { GetThingResolverDto } from '@presentation/thing/dto/get.thing.resolver.dto';
 import { CreateThingResolverDto } from '@presentation/thing/dto/create.thing.resolver.dto';
+import { UpdateThingResolverDto } from '@presentation/thing/dto/update.thing.resolver.dto';
 import { GetThingsForChestResolverDto } from '@presentation/thing/dto/getForChest.thing.resolver.dto';
+import { DeleteThingResolverDto } from './dto/delete.thing.resolver.dto';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Resolver((of) => ThingModelResolver)
@@ -67,6 +69,36 @@ export class ThingResolver {
       ...dto,
       user_id: session.id,
     });
+  }
+
+  @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  @Mutation((returns) => ThingModelResolver)
+  async update_thing(
+    @CurrentSession() session: UserSession,
+    @Args('dto') dto: UpdateThingResolverDto,
+  ): Promise<ThingModelResolver> {
+    return this.inversify.updateThingUsecase.execute({
+      ...dto,
+      user_id: session.id,
+    });
+  }
+
+  @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  @Mutation((returns) => ThingModelResolver, { nullable: true })
+  async delete_thing(
+    @CurrentSession() session: UserSession,
+    @Args('dto') dto: DeleteThingResolverDto,
+  ): Promise<boolean> {
+    this.inversify.deleteThingUsecase.execute({
+      ...dto,
+      user_id: session.id,
+    });
+
+    return null;
   }
 
   @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)

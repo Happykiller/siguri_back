@@ -7,6 +7,8 @@ import { GetThingDbDto } from '@service/db/dto/get.thing.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
 import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
 import { CreateThingDbDto } from '@service/db/dto/create.thing.db.dto';
+import { UpdateThingDbDto } from '@service/db/dto/update.thing.db.dto';
+import { DeleteThingDbDto } from '@service/db/dto/delete.thing.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 import { GetForChestThingsDbDto } from '@service/db/dto/getForChest.thing.db.dto';
 
@@ -29,6 +31,8 @@ export interface BddService {
    * Thing
    */
   createThing(dto: CreateThingDbDto): Promise<ThingDbModel>;
+  updateThing(dto: UpdateThingDbDto): Promise<ThingDbModel>;
   getThing(dto: GetThingDbDto): Promise<ThingDbModel>;
   getForChestThings(dto: GetForChestThingsDbDto): Promise<ThingDbModel[]>;
+  deleteThing(dto: DeleteThingDbDto): Promise<boolean>;
 }
