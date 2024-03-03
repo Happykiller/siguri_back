@@ -29,29 +29,35 @@ export class UpdateThingUsecase {
     delete dto.chest_secret;
 
     if (thing.type === TYPE_THING.CB) {
-      dto.cb.number = this.inversify.encodeService.encode({
-        message: dto.cb.number,
-        secret: chest_secret,
-      });
-      dto.cb.code = this.inversify.encodeService.encode({
-        message: dto.cb.code,
-        secret: chest_secret,
-      });
-      dto.cb.crypto = this.inversify.encodeService.encode({
-        message: dto.cb.crypto,
-        secret: chest_secret,
-      });
-    } else if (thing.type === TYPE_THING.CODE) {
+      if (dto.cb?.number) {
+        dto.cb.number = this.inversify.encodeService.encode({
+          message: dto.cb.number,
+          secret: chest_secret,
+        });
+      }
+      if (dto.cb?.code) {
+        dto.cb.code = this.inversify.encodeService.encode({
+          message: dto.cb.code,
+          secret: chest_secret,
+        });
+      }
+      if (dto.cb?.crypto) {
+        dto.cb.crypto = this.inversify.encodeService.encode({
+          message: dto.cb.crypto,
+          secret: chest_secret,
+        });
+      }
+    } else if (thing.type === TYPE_THING.CODE && dto.code?.code) {
       dto.code.code = this.inversify.encodeService.encode({
         message: dto.code.code,
         secret: chest_secret,
       });
-    } else if (thing.type === TYPE_THING.NOTE) {
+    } else if (thing.type === TYPE_THING.NOTE && dto.note?.note) {
       dto.note.note = this.inversify.encodeService.encode({
         message: dto.note.note,
         secret: chest_secret,
       });
-    } else if (thing.type === TYPE_THING.CREDENTIAL) {
+    } else if (thing.type === TYPE_THING.CREDENTIAL && dto.credential?.password) {
       dto.credential.password = this.inversify.encodeService.encode({
         message: dto.credential.password,
         secret: chest_secret,
@@ -63,30 +69,30 @@ export class UpdateThingUsecase {
     if (thing.type === TYPE_THING.CB) {
       thing.cb.number = this.inversify.encodeService.decode({
         message: thing.cb.number,
-        secret: dto.chest_secret,
+        secret: chest_secret,
       });
       thing.cb.code = this.inversify.encodeService.decode({
         message: thing.cb.code,
-        secret: dto.chest_secret,
+        secret: chest_secret,
       });
       thing.cb.crypto = this.inversify.encodeService.decode({
         message: thing.cb.crypto,
-        secret: dto.chest_secret,
+        secret: chest_secret,
       });
     } else if (thing.type === TYPE_THING.CODE) {
       thing.code.code = this.inversify.encodeService.decode({
         message: thing.code.code,
-        secret: dto.chest_secret,
+        secret: chest_secret,
       });
     } else if (thing.type === TYPE_THING.NOTE) {
       thing.note.note = this.inversify.encodeService.decode({
         message: thing.note.note,
-        secret: dto.chest_secret,
+        secret: chest_secret,
       });
     } else if (thing.type === TYPE_THING.CREDENTIAL) {
       thing.credential.password = this.inversify.encodeService.decode({
         message: thing.credential.password,
-        secret: dto.chest_secret,
+        secret: chest_secret,
       });
     }
 
