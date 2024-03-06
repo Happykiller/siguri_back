@@ -4,6 +4,8 @@ import { ChestDbModel } from '@service/db/model/chest.db.model';
 import { ThingDbModel } from '@service/db/model/thing.db.model';
 import { GetChestDbDto } from '@service/db/dto/get.chest.db.dto';
 import { GetThingDbDto } from '@service/db/dto/get.thing.db.dto';
+import { JoinChestDbDto } from '@service/db/dto/join.chest.db.dto';
+import { LeaveChestDbDto } from '@service/db/dto/leave.chest.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
 import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
 import { CreateThingDbDto } from '@service/db/dto/create.thing.db.dto';
@@ -24,8 +26,11 @@ export interface BddService {
   /**
    * Chest
    */
-  createChest(dto: CreateChestDbDto): Promise<ChestDbModel>;
+  joinChest(dto: JoinChestDbDto): Promise<boolean>;
+  leaveChest(dto: LeaveChestDbDto): Promise<boolean>;
   getChest(dto: GetChestDbDto): Promise<ChestDbModel>;
+  createChest(dto: CreateChestDbDto): Promise<ChestDbModel>;
+  getChestsForUser(dto: GetChestsForUserDbDto): Promise<ChestDbModel[]>;
   getChestsForUser(dto: GetChestsForUserDbDto): Promise<ChestDbModel[]>;
   /**
    * Thing

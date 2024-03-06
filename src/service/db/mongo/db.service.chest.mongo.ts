@@ -4,6 +4,8 @@ import inversify from '@src/inversify/investify';
 import { BddService } from '@service/db/db.service';
 import { ChestDbModel } from '@service/db/model/chest.db.model';
 import { GetChestDbDto } from '@service/db/dto/get.chest.db.dto';
+import { JoinChestDbDto } from '@service/db/dto/join.chest.db.dto';
+import { LeaveChestDbDto } from '@service/db/dto/leave.chest.db.dto';
 import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 
@@ -96,5 +98,43 @@ export class BddServiceChestMongo
     }
 
     return chests;
+  }
+
+  async joinChest(dto: JoinChestDbDto): Promise<boolean> {
+    const chest = await this.getChest({
+      id: dto.chest_id
+    });
+    chest.members.push({
+      user_id: dto.user_id
+    });
+
+    await (
+      await this.getChestCollection()
+    ).updateOne({ _id: new ObjectId(dto.chest_id) }, 
+    { 
+      $set: {
+        members: chest.members
+      }
+    });
+
+    return true;
+  }
+  
+  async leaveChest(dto: LeaveChestDbDto): Promise<boolean> {
+    const chest = await this.getChest({
+      id: dto.chest_id
+    });
+    chest.members = chest.members.filter((elt) => (elt.user_id !== dto.user_id));
+
+    await (
+      await this.getChestCollection()
+    ).updateOne({ _id: new ObjectId(dto.chest_id) }, 
+    { 
+      $set: {
+        members: chest.members
+      }
+    });
+
+    return true;
   }
 }

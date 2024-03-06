@@ -18,6 +18,8 @@ import { CurrentSession } from '@presentation/guard/userSession.decorator';
 import { UserModelResolver } from '@presentation/user/model/user.resolver.model';
 import { ChestModelResolver } from '@presentation/chest/model/chest.resolver.model';
 import { GetChestResolverDto } from '@presentation/chest/dto/get.chest.resolver.dto';
+import { JoinChestResolverDto } from '@presentation/chest/dto/join.chest.resolver.dto';
+import { LeaveChestResolverDto } from '@presentation/chest/dto/leave.chest.resolver.dto';
 import { CreateChestResolverDto } from '@presentation/chest/dto/create.chest.resolver.dto';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -78,5 +80,37 @@ export class ChestResolver {
     return this.inversify.getChestsForUserUsecase.execute({
       user_id: session.id,
     });
+  }
+
+  @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  @Mutation((returns) => ChestModelResolver, { nullable: true })
+  async join_chest(
+    @CurrentSession() session: UserSession,
+    @Args('dto') dto: JoinChestResolverDto,
+  ): Promise<boolean> {
+    this.inversify.joinChestUsecase.execute({
+      ...dto,
+      user_id: session.id,
+    });
+
+    return null;
+  }
+
+  @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  @Mutation((returns) => ChestModelResolver, { nullable: true })
+  async leave_chest(
+    @CurrentSession() session: UserSession,
+    @Args('dto') dto: LeaveChestResolverDto,
+  ): Promise<boolean> {
+    this.inversify.leaveChestUsecase.execute({
+      ...dto,
+      user_id: session.id,
+    });
+
+    return null;
   }
 }
