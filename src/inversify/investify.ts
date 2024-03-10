@@ -16,6 +16,7 @@ import { BddServiceMongo } from '@service/db/mongo/db.service.mongo';
 import { CreateUserUsecase } from '@usecase/user/create.user.usecase';
 import { LeaveChestUsecase } from '@usecase/chest/leave.chest.usecase';
 import { GetAllUserUsecase } from '@usecase/user/get_all.user.usecase';
+import { UpdPasswordUsecase } from '@usecase/auth/updPassword.usecase';
 import { EncodeServiceReal } from '@service/encode/encode.service.real';
 import { DeleteThingUsecase } from '@usecase/thing/delete.thing.usecase';
 import { CreateChestUsecase } from '@usecase/chest/create.chest.usecase';
@@ -46,6 +47,7 @@ export class Inversify {
   createThingUsecase: CreateThingUsecase;
   isAutorizedUsecase: IsAutorizedUsecase;
   updateThingUsecase: UpdateThingUsecase;
+  updPasswordUsecase: UpdPasswordUsecase;
   getChestsForUserUsecase: GetChestsForUserUsecase;
   getThingsForChestUsecase: GetThingsForChestUsecase;
 
@@ -77,6 +79,7 @@ export class Inversify {
     this.leaveChestUsecase = new LeaveChestUsecase(this);
     this.getAllUserUsecase = new GetAllUserUsecase(this);
     this.createUserUsecase = new CreateUserUsecase(this);
+    this.updPasswordUsecase = new UpdPasswordUsecase(this);
     this.createThingUsecase = new CreateThingUsecase(this);
     this.createChestUsecase = new CreateChestUsecase(this);
     this.deleteThingUsecase = new DeleteThingUsecase(this);

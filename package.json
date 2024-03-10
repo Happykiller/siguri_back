@@ -1,6 +1,6 @@
 {
   "name": "seguri_back",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Apis for Siguri service",
   "author": "Fabrice Rosito<fabrice.rosito@gmail.com>",
   "license": "MIT",

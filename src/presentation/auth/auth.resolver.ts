@@ -1,4 +1,4 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { Inject, UnauthorizedException, UseGuards } from '@nestjs/common';
 
@@ -8,7 +8,8 @@ import { UserSession } from '@presentation/auth/jwt.strategy';
 import { CurrentSession } from '@presentation/guard/userSession.decorator';
 import { AuthModelResolver } from '@presentation/auth/model/auth.resolver.model';
 import { UserSessionUsecaseModel } from '@usecase/user/model/userSession.usecase.model';
-import { GetSessionAuthResolverDto } from '@src/presentation/auth/dto/getSession.auth.resolver.dto';
+import { GetSessionAuthResolverDto } from '@presentation/auth/dto/getSession.auth.resolver.dto';
+import { UpdPasswordAuthResolverDto } from '@presentation/auth/dto/updPassword.auth.resolver.dto';
 
 @Resolver('AuthResolver')
 export class AuthResolver {
@@ -53,6 +54,36 @@ export class AuthResolver {
     const userSession: UserSessionUsecaseModel =
       await this.inversify.getUserUsecase.execute({
         id: session.id,
+      });
+
+    if (!userSession) {
+      throw new UnauthorizedException('Credentials wrong');
+    }
+
+    const token = this.jwtService.sign({
+      code: userSession.code,
+      id: userSession.id,
+      role: userSession.role,
+    });
+    return {
+      access_token: token,
+      ...userSession,
+    };
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(
+    /* istanbul ignore next */
+    (): typeof AuthModelResolver => AuthModelResolver,
+  )
+  async updPassword(
+    @CurrentSession() session: UserSession,
+    @Args('dto') dto: UpdPasswordAuthResolverDto,
+  ): Promise<AuthModelResolver> {
+    const userSession: UserSessionUsecaseModel =
+      await this.inversify.updPasswordUsecase.execute({
+        user_id: session.id,
+        ... dto
       });
 
     if (!userSession) {
