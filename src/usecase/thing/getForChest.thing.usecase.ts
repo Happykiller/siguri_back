@@ -50,6 +50,11 @@ export class GetThingsForChestUsecase {
           message: entity.credential.password,
           secret: dto.chest_secret,
         });
+      } else if (entity.type === TYPE_THING.TOTP) {
+        entity.totp.secret = this.inversify.encodeService.decode({
+          message: entity.totp.secret,
+          secret: dto.chest_secret,
+        });
       }
     }
 

@@ -62,6 +62,11 @@ export class UpdateThingUsecase {
         message: dto.credential.password,
         secret: chest_secret,
       });
+    } else if (thing.type === TYPE_THING.TOTP && dto.totp?.secret) {
+      dto.totp.secret = this.inversify.encodeService.encode({
+        message: dto.totp.secret,
+        secret: chest_secret,
+      });
     }
 
     thing = await this.inversify.bddService.updateThing(dto);
@@ -92,6 +97,11 @@ export class UpdateThingUsecase {
     } else if (thing.type === TYPE_THING.CREDENTIAL) {
       thing.credential.password = this.inversify.encodeService.decode({
         message: thing.credential.password,
+        secret: chest_secret,
+      });
+    } else if (thing.type === TYPE_THING.TOTP) {
+      thing.totp.secret = this.inversify.encodeService.decode({
+        message: thing.totp.secret,
         secret: chest_secret,
       });
     }

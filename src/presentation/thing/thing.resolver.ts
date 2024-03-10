@@ -16,13 +16,13 @@ import { GqlAuthGuard } from '@presentation/guard/auth.guard';
 import { UserSession } from '@presentation/auth/jwt.strategy';
 import { CurrentSession } from '@presentation/guard/userSession.decorator';
 import { UserModelResolver } from '@presentation/user/model/user.resolver.model';
-import { ThingModelResolver } from '@presentation/thing/model/thing.resolver.model';
+import { ThingModelResolver } from '@src/presentation/thing/model/thing.resolver.model';
 import { ChestModelResolver } from '@presentation/chest/model/chest.resolver.model';
 import { GetThingResolverDto } from '@presentation/thing/dto/get.thing.resolver.dto';
 import { CreateThingResolverDto } from '@presentation/thing/dto/create.thing.resolver.dto';
 import { UpdateThingResolverDto } from '@presentation/thing/dto/update.thing.resolver.dto';
+import { DeleteThingResolverDto } from '@presentation/thing/dto/delete.thing.resolver.dto';
 import { GetThingsForChestResolverDto } from '@presentation/thing/dto/getForChest.thing.resolver.dto';
-import { DeleteThingResolverDto } from './dto/delete.thing.resolver.dto';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Resolver((of) => ThingModelResolver)
@@ -109,10 +109,11 @@ export class ThingResolver {
     @CurrentSession() session: UserSession,
     @Args('dto') dto: GetThingResolverDto,
   ): Promise<ThingModelResolver> {
-    return this.inversify.getThingUsecase.execute({
+    const thing = await this.inversify.getThingUsecase.execute({
       ...dto,
       user_id: session.id,
     });
+    return thing;
   }
 
   @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)
@@ -123,9 +124,10 @@ export class ThingResolver {
     @CurrentSession() session: UserSession,
     @Args('dto') dto: GetThingsForChestResolverDto,
   ): Promise<ThingModelResolver[]> {
-    return this.inversify.getThingsForChestUsecase.execute({
+    const things = await this.inversify.getThingsForChestUsecase.execute({
       ...dto,
       user_id: session.id,
     });
+    return things;
   }
 }

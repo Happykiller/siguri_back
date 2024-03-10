@@ -20,5 +20,8 @@ export interface UpdateThingDbDto {
     password: string;
     address?: string;
   };
+  totp?: {
+    secret: string;
+  }
   user_id: string;
 }

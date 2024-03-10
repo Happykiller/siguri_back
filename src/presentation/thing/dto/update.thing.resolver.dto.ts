@@ -3,6 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { CreateThingCbResolverDto } from '@presentation/thing/dto/create.thing.cb.resolver.dto';
 import { CreateThingNoteResolverDto } from '@presentation/thing/dto/create.thing.credential.dto';
 import { CreateThingCodeResolverDto } from '@presentation/thing/dto/create.thing.code.resolver.dto';
+import { CreateThingTotpResolverDto } from '@presentation/thing/dto/create.thing.totp.resolver.dto';
 import { CreateThingCredentialResolverDto } from '@presentation/thing/dto/create.thing.note.resolver.dto';
 
 @InputType()
@@ -23,4 +24,6 @@ export class UpdateThingResolverDto {
   note: CreateThingNoteResolverDto;
   @Field(() => CreateThingCredentialResolverDto, { nullable: true })
   credential: CreateThingCredentialResolverDto;
+  @Field(() => CreateThingTotpResolverDto, { nullable: true })
+  totp: CreateThingTotpResolverDto;
 }

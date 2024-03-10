@@ -19,10 +19,22 @@ export class UpdPasswordUsecase {
       message: dto.old_value,
     });
 
-    if (user && user.password === cryptPassword && user.active) {
+    const cryptNewPassword = this.inversify.cryptService.crypt({
+      message: dto.new_value,
+    });
 
+    const cryptConfPassword = this.inversify.cryptService.crypt({
+      message: dto.conf_value,
+    });
 
-      // Update
+    if (user && user.active
+       && user.password === cryptPassword
+       && cryptNewPassword === cryptConfPassword
+    ) {
+      await this.inversify.bddService.updateUser({
+        user_id: dto.user_id,
+        password: cryptNewPassword
+      });
 
       return {
         id: user.id,

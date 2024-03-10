@@ -53,6 +53,11 @@ export class GetThingUsecase {
         message: thing.credential.password,
         secret: dto.chest_secret,
       });
+    } else if (thing.type === TYPE_THING.TOTP) {
+      thing.totp.secret = this.inversify.encodeService.decode({
+        message: thing.totp.secret,
+        secret: dto.chest_secret,
+      });
     }
 
     return thing;

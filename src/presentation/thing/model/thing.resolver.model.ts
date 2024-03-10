@@ -1,8 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ThingCbResolverModel } from '@presentation/thing/model/thing.cb.resolver.model';
-import { ThingNoteResolverModel } from '@presentation/thing/model/thing.credential.model';
-import { ThingCodeResolverModel } from '@presentation/thing/model/create.thing.code.resolver.dto';
-import { ThingCredentialResolverModel } from '@presentation/thing/model/thing.note.resolver.model';
+import { ThingTotpResolverModel } from '@presentation/thing/model/thing.totp.resolver.model';
+import { ThingNoteResolverModel } from '@presentation/thing/model/thing.note.resolver.model';
+import { ThingCodeResolverModel } from '@presentation/thing/model/thing.code.resolver.model';
+import { ThingCredentialResolverModel } from '@presentation/thing/model/thing.credential.resolver.model';
 
 @ObjectType()
 export class ThingModelResolver {
@@ -26,4 +27,6 @@ export class ThingModelResolver {
   credential?: ThingCredentialResolverModel;
   @Field(() => ThingNoteResolverModel, { nullable: true })
   note?: ThingNoteResolverModel;
+  @Field(() => ThingTotpResolverModel, { nullable: true })
+  totp?: ThingTotpResolverModel;
 }

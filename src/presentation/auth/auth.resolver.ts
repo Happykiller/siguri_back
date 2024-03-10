@@ -76,7 +76,7 @@ export class AuthResolver {
     /* istanbul ignore next */
     (): typeof AuthModelResolver => AuthModelResolver,
   )
-  async updPassword(
+  async update_password(
     @CurrentSession() session: UserSession,
     @Args('dto') dto: UpdPasswordAuthResolverDto,
   ): Promise<AuthModelResolver> {

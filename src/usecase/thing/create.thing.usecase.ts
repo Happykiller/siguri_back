@@ -43,6 +43,11 @@ export class CreateThingUsecase {
         message: dto.credential.password,
         secret: chest_secret,
       });
+    } else if (dto.type === TYPE_THING.TOTP) {
+      dto.totp.secret = this.inversify.encodeService.encode({
+        message: dto.totp.secret,
+        secret: chest_secret,
+      });
     }
 
     let entity: ThingDbModel =
@@ -74,6 +79,11 @@ export class CreateThingUsecase {
     } else if (dto.type === TYPE_THING.CREDENTIAL) {
       entity.credential.password = this.inversify.encodeService.decode({
         message: entity.credential.password,
+        secret: chest_secret,
+      });
+    } else if (dto.type === TYPE_THING.TOTP) {
+      entity.totp.secret = this.inversify.encodeService.decode({
+        message: entity.totp.secret,
         secret: chest_secret,
       });
     }

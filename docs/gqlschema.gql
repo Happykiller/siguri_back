@@ -58,6 +58,10 @@ type ThingCbResolverModel {
   crypto: String!
 }
 
+type ThingTotpResolverModel {
+  secret: String!
+}
+
 type ThingNoteResolverModel {
   note: String!
 }
@@ -83,6 +87,7 @@ type ThingModelResolver {
   code: ThingCodeResolverModel
   credential: ThingCredentialResolverModel
   note: ThingNoteResolverModel
+  totp: ThingTotpResolverModel
   author: UserModelResolver!
   chest: ChestModelResolver!
 }
@@ -97,6 +102,7 @@ type Query {
   auth(dto: GetSessionAuthResolverDto!): AuthModelResolver!
   getSessionInfo: AuthModelResolver!
   generatePassword(dto: GeneratePasswordResolverDto!): GeneratePasswordModelResolver!
+  get_totp_code(dto: GetTotpCodeToolResolverDto!): String!
   thing(dto: GetThingResolverDto!): ThingModelResolver!
   thingsForChest(dto: GetThingsForChestResolverDto!): [ThingModelResolver!]!
   chest(dto: GetChestResolverDto!): ChestModelResolver!
@@ -123,6 +129,10 @@ input GeneratePasswordResolverDto {
   specials: Boolean = true
 }
 
+input GetTotpCodeToolResolverDto {
+  secret: String!
+}
+
 input GetThingResolverDto {
   thing_id: String!
   chest_secret: String!
@@ -140,10 +150,13 @@ input GetChestResolverDto {
 
 type Mutation {
   create_user(dto: CreateUserResolverDto!): UserModelResolver!
+  update_password(dto: UpdPasswordAuthResolverDto!): AuthModelResolver!
   create_thing(dto: CreateThingResolverDto!): ThingModelResolver!
   update_thing(dto: UpdateThingResolverDto!): ThingModelResolver!
   delete_thing(dto: DeleteThingResolverDto!): ThingModelResolver
   create_chest(dto: CreateChestResolverDto!): ChestModelResolver!
+  join_chest(dto: JoinChestResolverDto!): ChestModelResolver
+  leave_chest(dto: LeaveChestResolverDto!): ChestModelResolver
 }
 
 input CreateUserResolverDto {
@@ -156,6 +169,12 @@ input CreateUserResolverDto {
   password: String!
 }
 
+input UpdPasswordAuthResolverDto {
+  old_value: String!
+  new_value: String!
+  conf_value: String!
+}
+
 input CreateThingResolverDto {
   label: String!
   description: String
@@ -166,6 +185,7 @@ input CreateThingResolverDto {
   code: CreateThingCodeResolverDto
   note: CreateThingNoteResolverDto
   credential: CreateThingCredentialResolverDto
+  totp: CreateThingTotpResolverDto
 }
 
 input CreateThingCbResolverDto {
@@ -190,6 +210,10 @@ input CreateThingCredentialResolverDto {
   address: String
 }
 
+input CreateThingTotpResolverDto {
+  secret: String!
+}
+
 input UpdateThingResolverDto {
   thing_id: String!
   label: String!
@@ -199,6 +223,7 @@ input UpdateThingResolverDto {
   code: CreateThingCodeResolverDto
   note: CreateThingNoteResolverDto
   credential: CreateThingCredentialResolverDto
+  totp: CreateThingTotpResolverDto
 }
 
 input DeleteThingResolverDto {
@@ -210,4 +235,12 @@ input CreateChestResolverDto {
   label: String!
   description: String
   secret: String!
+}
+
+input JoinChestResolverDto {
+  chest_id: String!
+}
+
+input LeaveChestResolverDto {
+  chest_id: String!
 }

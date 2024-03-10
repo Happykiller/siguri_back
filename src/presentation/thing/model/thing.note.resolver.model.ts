@@ -1,11 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class ThingCredentialResolverModel {
+export class ThingNoteResolverModel {
   @Field(() => String)
-  id: string;
-  @Field(() => String)
-  password: string;
-  @Field(() => String, { nullable: true })
-  address?: string;
+  note: string;
 }

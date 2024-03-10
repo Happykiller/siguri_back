@@ -67,6 +67,10 @@ export class BddServiceThingFake
       thing.credential = dto.credential;
     }
 
+    if (dto.totp) {
+      thing.totp = dto.totp;
+    }
+
     return Promise.resolve(JSON.parse(JSON.stringify(thing)));
   }
 

@@ -20,6 +20,9 @@ export interface CreateThingUsecaseDto {
     password: string;
     address?: string;
   };
+  totp?: {
+    secret: string;
+  }
   user_id: string;
   chest_id: string;
   chest_secret: string;

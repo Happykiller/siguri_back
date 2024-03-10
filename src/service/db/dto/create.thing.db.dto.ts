@@ -20,6 +20,9 @@ export interface CreateThingDbDto {
     password: string;
     address?: string;
   };
+  totp?: {
+    secret: string;
+  }
   user_id: string;
   chest_id: string;
 }

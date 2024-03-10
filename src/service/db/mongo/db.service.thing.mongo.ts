@@ -42,7 +42,6 @@ export class BddServiceThingMongo
 
   async updateThing(dto: UpdateThingDbDto): Promise<ThingDbModel> {
     try {
-
       const set:any = {};
 
       if (dto.label) {
@@ -67,6 +66,10 @@ export class BddServiceThingMongo
   
       if (dto.credential) {
         set.credential = dto.credential;
+      }
+  
+      if (dto.totp) {
+        set.totp = dto.totp;
       }
 
       await (
@@ -120,6 +123,7 @@ export class BddServiceThingMongo
         code: doc.code,
         credential: doc.credential,
         note: doc.note,
+        totp: doc.totp,
         chest_id: doc.chest_id,
         author_id: doc.author_id,
         active: doc.active,
@@ -153,6 +157,7 @@ export class BddServiceThingMongo
         code: doc.code,
         credential: doc.credential,
         note: doc.note,
+        totp: doc.totp,
         chest_id: doc.chest_id,
         author_id: doc.author_id,
         active: doc.active,

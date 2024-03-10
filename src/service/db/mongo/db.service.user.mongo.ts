@@ -6,6 +6,7 @@ import { USER_ROLE } from '@presentation/guard/userRole';
 import { UserDbModel } from '@service/db/model/user.db.model';
 import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
+import { UpdateUserDbDto } from '../dto/update.user.db.dto';
 
 export class BddServiceUserMongo
   implements Pick<BddService, 'createUser' | 'getAllUser' | 'getUser'>
@@ -90,5 +91,44 @@ export class BddServiceUserMongo
     } catch (e) {
       return null;
     }
+  }
+
+  async updateUser(dto: UpdateUserDbDto): Promise<UserDbModel> {
+    const set:any = {};
+
+    if (dto.password) {
+      set.password = dto.password;
+    }
+
+    if (dto.description) {
+      set.description = dto.description;
+    }
+
+    if (dto.code) {
+      set.code = dto.code;
+    }
+
+    if (dto.name_first) {
+      set.name_first = dto.name_first;
+    }
+
+    if (dto.name_last) {
+      set.name_last = dto.name_last;
+    }
+
+    if (dto.mail) {
+      set.mail = dto.mail;
+    }
+
+    await (
+      await this.getUserCollection()
+    ).updateOne({ _id: new ObjectId(dto.user_id) }, 
+    { 
+      $set: set
+    });
+
+    return await this.getUser({
+      id: dto.user_id
+    });
   }
 }

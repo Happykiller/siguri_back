@@ -1,8 +1,10 @@
+import { totp } from 'otplib';
 import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
 import { Inversify } from '@src/inversify/investify';
 import { GqlAuthGuard } from '@presentation/guard/auth.guard';
+import { GetTotpCodeToolResolverDto } from '@presentation/tool/dto/getTotpCode.tool.resolver.dto';
 import { GeneratePasswordResolverDto } from '@presentation/tool/dto/generatePassword.tool.resolver.dto';
 import { GeneratePasswordModelResolver } from '@presentation/tool/model/generatePassword.tool.resolver.model';
 
@@ -23,5 +25,18 @@ export class ToolResolver {
     return {
       password: this.inversify.passwordService.generate(dto),
     };
+  }
+
+  @UseGuards(GqlAuthGuard)
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  @Query(
+    /* istanbul ignore next */
+    () => String
+  )
+  async get_totp_code(
+    @Args('dto') dto: GetTotpCodeToolResolverDto,
+  ): Promise<string> {
+    const token = totp.generate(dto.secret);
+    return token;
   }
 }
