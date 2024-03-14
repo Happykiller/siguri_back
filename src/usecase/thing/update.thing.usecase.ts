@@ -57,7 +57,10 @@ export class UpdateThingUsecase {
         message: dto.note.note,
         secret: chest_secret,
       });
-    } else if (thing.type === TYPE_THING.CREDENTIAL && dto.credential?.password) {
+    } else if (
+      thing.type === TYPE_THING.CREDENTIAL &&
+      dto.credential?.password
+    ) {
       dto.credential.password = this.inversify.encodeService.encode({
         message: dto.credential.password,
         secret: chest_secret,

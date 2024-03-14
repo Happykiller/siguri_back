@@ -31,7 +31,7 @@ export class ToolResolver {
   /* eslint-disable @typescript-eslint/no-unused-vars */
   @Query(
     /* istanbul ignore next */
-    () => String
+    () => String,
   )
   async get_totp_code(
     @Args('dto') dto: GetTotpCodeToolResolverDto,

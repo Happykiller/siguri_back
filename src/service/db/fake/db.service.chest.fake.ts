@@ -10,7 +10,8 @@ import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 
 export class BddServiceChestFake
-  implements Pick<BddService, 'createChest' | 'getChest' | 'joinChest' | 'leaveChest'>
+  implements
+    Pick<BddService, 'createChest' | 'getChest' | 'joinChest' | 'leaveChest'>
 {
   chestCollection: ChestDbModel[];
 
@@ -60,19 +61,19 @@ export class BddServiceChestFake
 
   async joinChest(dto: JoinChestDbDto): Promise<boolean> {
     const chest = await this.getChest({
-      id: dto.chest_id
+      id: dto.chest_id,
     });
     chest.members.push({
-      user_id: dto.user_id
+      user_id: dto.user_id,
     });
     return true;
   }
-  
+
   async leaveChest(dto: LeaveChestDbDto): Promise<boolean> {
     const chest = await this.getChest({
-      id: dto.chest_id
+      id: dto.chest_id,
     });
-    chest.members = chest.members.filter((elt) => (elt.user_id !== dto.user_id));
+    chest.members = chest.members.filter((elt) => elt.user_id !== dto.user_id);
     return true;
   }
 }

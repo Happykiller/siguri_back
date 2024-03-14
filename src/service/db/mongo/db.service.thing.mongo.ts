@@ -10,7 +10,15 @@ import { DeleteThingDbDto } from '@service/db/dto/delete.thing.db.dto';
 import { GetForChestThingsDbDto } from '@service/db/dto/getForChest.thing.db.dto';
 
 export class BddServiceThingMongo
-  implements Pick<BddService, 'createThing' | 'getThing' | 'getForChestThings' | 'updateThing' | 'deleteThing'>
+  implements
+    Pick<
+      BddService,
+      | 'createThing'
+      | 'getThing'
+      | 'getForChestThings'
+      | 'updateThing'
+      | 'deleteThing'
+    >
 {
   private async getThingCollection(): Promise<Collection> {
     return inversify.mongo.collection('things');
@@ -42,45 +50,47 @@ export class BddServiceThingMongo
 
   async updateThing(dto: UpdateThingDbDto): Promise<ThingDbModel> {
     try {
-      const set:any = {};
+      const set: any = {};
 
       if (dto.label) {
         set.label = dto.label;
       }
-  
+
       if (dto.description) {
         set.description = dto.description;
       }
-  
+
       if (dto.cb) {
         set.cb = dto.cb;
       }
-  
+
       if (dto.note) {
         set.note = dto.note;
       }
-  
+
       if (dto.code) {
         set.code = dto.code;
       }
-  
+
       if (dto.credential) {
         set.credential = dto.credential;
       }
-  
+
       if (dto.totp) {
         set.totp = dto.totp;
       }
 
       await (
         await this.getThingCollection()
-      ).updateOne({ _id: new ObjectId(dto.thing_id) }, 
-      { 
-        $set: set
-      });
+      ).updateOne(
+        { _id: new ObjectId(dto.thing_id) },
+        {
+          $set: set,
+        },
+      );
 
       return await this.getThing({
-        thing_id: dto.thing_id
+        thing_id: dto.thing_id,
       });
     } catch (e) {
       return null;
@@ -91,10 +101,12 @@ export class BddServiceThingMongo
     try {
       await (
         await this.getThingCollection()
-      ).updateOne({ _id: new ObjectId(dto.thing_id) }, 
-      { 
-        $set: {active: false}
-      });
+      ).updateOne(
+        { _id: new ObjectId(dto.thing_id) },
+        {
+          $set: { active: false },
+        },
+      );
 
       return true;
     } catch (e) {

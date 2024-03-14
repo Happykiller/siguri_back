@@ -22,7 +22,7 @@ export interface CreateThingDbDto {
   };
   totp?: {
     secret: string;
-  }
+  };
   user_id: string;
   chest_id: string;
 }

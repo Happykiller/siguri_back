@@ -22,6 +22,6 @@ export interface UpdateThingDbDto {
   };
   totp?: {
     secret: string;
-  }
+  };
   user_id: string;
 }

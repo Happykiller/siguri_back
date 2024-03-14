@@ -94,7 +94,7 @@ export class BddServiceUserMongo
   }
 
   async updateUser(dto: UpdateUserDbDto): Promise<UserDbModel> {
-    const set:any = {};
+    const set: any = {};
 
     if (dto.password) {
       set.password = dto.password;
@@ -122,13 +122,15 @@ export class BddServiceUserMongo
 
     await (
       await this.getUserCollection()
-    ).updateOne({ _id: new ObjectId(dto.user_id) }, 
-    { 
-      $set: set
-    });
+    ).updateOne(
+      { _id: new ObjectId(dto.user_id) },
+      {
+        $set: set,
+      },
+    );
 
     return await this.getUser({
-      id: dto.user_id
+      id: dto.user_id,
     });
   }
 }

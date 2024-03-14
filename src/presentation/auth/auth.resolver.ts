@@ -83,7 +83,7 @@ export class AuthResolver {
     const userSession: UserSessionUsecaseModel =
       await this.inversify.updPasswordUsecase.execute({
         user_id: session.id,
-        ... dto
+        ...dto,
       });
 
     if (!userSession) {

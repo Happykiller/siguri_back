@@ -50,7 +50,7 @@ export class CreateThingUsecase {
       });
     }
 
-    let entity: ThingDbModel =
+    const entity: ThingDbModel =
       await this.inversify.bddService.createThing(dto);
 
     if (dto.type === TYPE_THING.CB) {

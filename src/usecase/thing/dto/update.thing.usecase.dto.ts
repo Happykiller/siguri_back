@@ -21,8 +21,8 @@ export interface UpdateThingUsecaseDto {
     address?: string;
   };
   totp?: {
-    secret: string
-  },
+    secret: string;
+  };
   user_id: string;
   chest_secret: string;
 }

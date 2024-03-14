@@ -84,7 +84,7 @@ export class Inversify {
     this.createChestUsecase = new CreateChestUsecase(this);
     this.deleteThingUsecase = new DeleteThingUsecase(this);
     this.updateThingUsecase = new UpdateThingUsecase(this);
-    this.isAutorizedUsecase = new  IsAutorizedUsecase(this);
+    this.isAutorizedUsecase = new IsAutorizedUsecase(this);
     this.getChestsForUserUsecase = new GetChestsForUserUsecase(this);
     this.getThingsForChestUsecase = new GetThingsForChestUsecase(this);
   }

@@ -22,7 +22,7 @@ export interface CreateThingUsecaseDto {
   };
   totp?: {
     secret: string;
-  }
+  };
   user_id: string;
   chest_id: string;
   chest_secret: string;

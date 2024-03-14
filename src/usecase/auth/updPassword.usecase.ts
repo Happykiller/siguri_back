@@ -10,7 +10,9 @@ export class UpdPasswordUsecase {
     this.inversify = inversify;
   }
 
-  async execute(dto: UpdPasswordAuthUsecaseDto): Promise<UserSessionUsecaseModel> {
+  async execute(
+    dto: UpdPasswordAuthUsecaseDto,
+  ): Promise<UserSessionUsecaseModel> {
     const user: UserUsecaseModel = await this.inversify.getUserUsecase.execute({
       id: dto.user_id,
     });
@@ -27,13 +29,15 @@ export class UpdPasswordUsecase {
       message: dto.conf_value,
     });
 
-    if (user && user.active
-       && user.password === cryptPassword
-       && cryptNewPassword === cryptConfPassword
+    if (
+      user &&
+      user.active &&
+      user.password === cryptPassword &&
+      cryptNewPassword === cryptConfPassword
     ) {
       await this.inversify.bddService.updateUser({
         user_id: dto.user_id,
-        password: cryptNewPassword
+        password: cryptNewPassword,
       });
 
       return {

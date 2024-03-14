@@ -10,7 +10,15 @@ import { thingChestRopo } from '@service/db/fake/mock/thing.chest.repo';
 import { GetForChestThingsDbDto } from '@service/db/dto/getForChest.thing.db.dto';
 
 export class BddServiceThingFake
-  implements Pick<BddService, 'createThing' | 'getThing' | 'getForChestThings' | 'updateThing' | 'deleteThing'>
+  implements
+    Pick<
+      BddService,
+      | 'createThing'
+      | 'getThing'
+      | 'getForChestThings'
+      | 'updateThing'
+      | 'deleteThing'
+    >
 {
   thingCollection: ThingDbModel[];
 

@@ -11,7 +11,7 @@ export class DeleteThingUsecase {
   }
 
   async execute(dto: DeleteThingUsecaseDto): Promise<boolean> {
-    let thing: ThingDbModel = await this.inversify.bddService.getThing(dto);
+    const thing: ThingDbModel = await this.inversify.bddService.getThing(dto);
 
     if (!thing) {
       throw new Error(ERRORS.GET_THING_USECASE_THING_NOT_FOUND);
@@ -23,9 +23,8 @@ export class DeleteThingUsecase {
       chest_secret: dto.chest_secret,
     });
 
-  
-    const response:boolean = await this.inversify.bddService.deleteThing(dto);
-    
+    const response: boolean = await this.inversify.bddService.deleteThing(dto);
+
     return response;
   }
 }

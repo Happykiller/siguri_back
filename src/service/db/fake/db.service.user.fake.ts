@@ -9,7 +9,8 @@ import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
 import { UpdateUserDbDto } from '../dto/update.user.db.dto';
 
 export class BddServiceUserFake
-  implements Pick<BddService, 'createUser' | 'getAllUser' | 'getUser' | 'updateUser'>
+  implements
+    Pick<BddService, 'createUser' | 'getAllUser' | 'getUser' | 'updateUser'>
 {
   userCollection: UserDbModel[];
 
@@ -49,7 +50,7 @@ export class BddServiceUserFake
 
   async updateUser(dto: UpdateUserDbDto): Promise<UserDbModel> {
     const user = await this.getUser({
-      id: dto.user_id
+      id: dto.user_id,
     });
 
     if (dto.password) {

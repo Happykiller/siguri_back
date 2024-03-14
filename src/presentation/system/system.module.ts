@@ -4,9 +4,6 @@ import { SystemResolver } from '@presentation/system/system.resolver';
 
 @Module({
   imports: [],
-  providers: [
-    SystemResolver
-  ],
+  providers: [SystemResolver],
 })
-
 export class SystemModule {}

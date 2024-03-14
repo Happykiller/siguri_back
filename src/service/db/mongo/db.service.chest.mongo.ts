@@ -102,38 +102,42 @@ export class BddServiceChestMongo
 
   async joinChest(dto: JoinChestDbDto): Promise<boolean> {
     const chest = await this.getChest({
-      id: dto.chest_id
+      id: dto.chest_id,
     });
     chest.members.push({
-      user_id: dto.user_id
+      user_id: dto.user_id,
     });
 
     await (
       await this.getChestCollection()
-    ).updateOne({ _id: new ObjectId(dto.chest_id) }, 
-    { 
-      $set: {
-        members: chest.members
-      }
-    });
+    ).updateOne(
+      { _id: new ObjectId(dto.chest_id) },
+      {
+        $set: {
+          members: chest.members,
+        },
+      },
+    );
 
     return true;
   }
-  
+
   async leaveChest(dto: LeaveChestDbDto): Promise<boolean> {
     const chest = await this.getChest({
-      id: dto.chest_id
+      id: dto.chest_id,
     });
-    chest.members = chest.members.filter((elt) => (elt.user_id !== dto.user_id));
+    chest.members = chest.members.filter((elt) => elt.user_id !== dto.user_id);
 
     await (
       await this.getChestCollection()
-    ).updateOne({ _id: new ObjectId(dto.chest_id) }, 
-    { 
-      $set: {
-        members: chest.members
-      }
-    });
+    ).updateOne(
+      { _id: new ObjectId(dto.chest_id) },
+      {
+        $set: {
+          members: chest.members,
+        },
+      },
+    );
 
     return true;
   }
