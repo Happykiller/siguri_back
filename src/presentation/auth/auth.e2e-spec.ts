@@ -60,7 +60,7 @@ describe('AuthResolver (e2e)', () => {
                 password: "password"
               }
           ){
-            accessToken
+            access_token
             id
             code
             name_first
@@ -84,7 +84,7 @@ describe('AuthResolver (e2e)', () => {
         operationName: null,
         query: `query {
           getSessionInfo {
-            accessToken
+            access_token
             id
             code
             name_first

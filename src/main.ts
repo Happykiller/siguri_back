@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { config } from '@src/config';
 import { AppModule } from '@src/app.module';
+import { ValidationPipe } from '@nestjs/common';
 import inversify from '@src/inversify/investify';
 import { NestLogger } from '@presentation/common/nestLogger';
 
@@ -20,6 +21,7 @@ async function bootstrap() {
   });
   app.use(bodyParser.json({ limit: '50KB' }));
   app.use(bodyParser.urlencoded({ limit: '50KB', extended: true }));
+  app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
   app.use((req: Request, res: Response, next: NextFunction) => {
     res.append('Access-Control-Expose-Headers', '*');

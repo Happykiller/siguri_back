@@ -60,7 +60,7 @@ describe('GetThingUsecase', () => {
           number: '12345678899',
           expiration_date: '05/12',
           code: '1234',
-          crypto: '000'
+          crypto: '000',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -86,7 +86,7 @@ describe('GetThingUsecase', () => {
         description: 'note',
         type: TYPE_THING.NOTE,
         note: {
-          note: 'note'
+          note: 'note',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -112,7 +112,7 @@ describe('GetThingUsecase', () => {
         description: 'code',
         type: TYPE_THING.CODE,
         code: {
-          code: 'code'
+          code: 'code',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -138,7 +138,7 @@ describe('GetThingUsecase', () => {
         description: 'totp',
         type: TYPE_THING.TOTP,
         totp: {
-          secret: 'sdqsdqsd'
+          secret: 'sdqsdqsd',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,

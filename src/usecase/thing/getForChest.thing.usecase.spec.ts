@@ -2,18 +2,17 @@ import { describe, expect, it } from '@jest/globals';
 import { mock, MockProxy } from 'jest-mock-extended';
 
 import { BddService } from '@service/db/db.service';
+import { TYPE_THING } from '@src/common/TYPE_THING';
 import { Inversify } from '@src/inversify/investify';
 import { userRopo } from '@service/db/fake/mock/user.ropo';
+import { chestRopo } from '@service/db/fake/mock/chest.ropo';
 import { EncodeService } from '@service/encode/encode.service';
+import { ThingDbModel } from '@service/db/model/thing.db.model';
 import { thingChestRopo } from '@service/db/fake/mock/thing.chest.repo';
 import { IsAutorizedUsecase } from '@usecase/isAuthorized/isAuthorized.usecase';
 import { GetThingsForChestUsecase } from '@usecase/thing/getForChest.thing.usecase';
-import { ThingDbModel } from '../../service/db/model/thing.db.model';
-import { TYPE_THING } from '../../common/TYPE_THING';
-import { chestRopo } from '../../service/db/fake/mock/chest.ropo';
 
 describe('GetThingsForChestUsecase', () => {
-
   const mockInversify: MockProxy<Inversify> = mock<Inversify>();
   const mockBddService: MockProxy<BddService> = mock<BddService>();
   const mockEncodeService: MockProxy<EncodeService> = mock<EncodeService>();
@@ -62,7 +61,7 @@ describe('GetThingsForChestUsecase', () => {
           number: '12345678899',
           expiration_date: '05/12',
           code: '1234',
-          crypto: '000'
+          crypto: '000',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -88,7 +87,7 @@ describe('GetThingsForChestUsecase', () => {
         description: 'note',
         type: TYPE_THING.NOTE,
         note: {
-          note: 'note'
+          note: 'note',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -114,7 +113,7 @@ describe('GetThingsForChestUsecase', () => {
         description: 'code',
         type: TYPE_THING.CODE,
         code: {
-          code: 'code'
+          code: 'code',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -140,7 +139,7 @@ describe('GetThingsForChestUsecase', () => {
         description: 'totp',
         type: TYPE_THING.TOTP,
         totp: {
-          secret: 'sdqsdqsd'
+          secret: 'sdqsdqsd',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -157,6 +156,5 @@ describe('GetThingsForChestUsecase', () => {
       // assert
       expect(response).toEqual([thing]);
     });
-
   });
 });

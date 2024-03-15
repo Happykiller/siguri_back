@@ -1,4 +1,4 @@
-import { totp } from 'otplib';
+import { authenticator } from 'otplib';
 import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
@@ -36,7 +36,7 @@ export class ToolResolver {
   async get_totp_code(
     @Args('dto') dto: GetTotpCodeToolResolverDto,
   ): Promise<string> {
-    const token = totp.generate(dto.secret);
+    const token = authenticator.generate(dto.secret);
     return token;
   }
 }

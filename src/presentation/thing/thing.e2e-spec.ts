@@ -60,7 +60,7 @@ describe('ThingResolver (e2e)', () => {
               label: "thing"
               description: "description"
               chest_id: "${thingChestRopo.chest_id}"
-              chest_secret: "password"
+              chest_secret: "secret"
               type: "CREDENTIAL"
               credential: {
                 id: "login"
@@ -119,7 +119,7 @@ describe('ThingResolver (e2e)', () => {
           thing (
             dto: {
               thing_id: "${thingChestRopo.id}"
-              chest_secret: "password"
+              chest_secret: "secret"
             }
           ) {
             id
@@ -172,7 +172,7 @@ describe('ThingResolver (e2e)', () => {
           thingsForChest (
             dto: {
               chest_id: "${thingChestRopo.chest_id}"
-              chest_secret: "password"
+              chest_secret: "secret"
             }
           ) {
             id

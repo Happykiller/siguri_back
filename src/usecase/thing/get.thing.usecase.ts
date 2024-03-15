@@ -1,9 +1,9 @@
+import { ERRORS } from '@src/common/ERROR';
 import { TYPE_THING } from '@src/common/TYPE_THING';
 import { Inversify } from '@src/inversify/investify';
 import { ThingDbModel } from '@service/db/model/thing.db.model';
 import { ThingUsecaseModel } from '@usecase/thing/model/thing.usecase.model';
 import { GetThingUsecaseDto } from '@usecase/thing/dto/get.thing.usecase.dto';
-import { ERRORS } from '../../common/ERROR';
 
 export class GetThingUsecase {
   inversify: Inversify;

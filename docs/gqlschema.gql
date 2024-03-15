@@ -99,7 +99,7 @@ type SystemInfoResolverModel {
 type Query {
   users: [UserModelResolver!]!
   user(dto: GetUserResolverDto!): UserModelResolver!
-  auth(dto: GetSessionAuthResolverDto!): AuthModelResolver!
+  auth(dto: AuthAuthResolverDto!): AuthModelResolver!
   getSessionInfo: AuthModelResolver!
   generatePassword(dto: GeneratePasswordResolverDto!): GeneratePasswordModelResolver!
   get_totp_code(dto: GetTotpCodeToolResolverDto!): String!
@@ -116,7 +116,7 @@ input GetUserResolverDto {
   code: String
 }
 
-input GetSessionAuthResolverDto {
+input AuthAuthResolverDto {
   """User code for the session"""
   login: String!
 

@@ -7,8 +7,8 @@ import { GqlAuthGuard } from '@presentation/guard/auth.guard';
 import { UserSession } from '@presentation/auth/jwt.strategy';
 import { CurrentSession } from '@presentation/guard/userSession.decorator';
 import { AuthModelResolver } from '@presentation/auth/model/auth.resolver.model';
+import { AuthAuthResolverDto } from '@presentation/auth/dto/auth.auth.resolver.dto';
 import { UserSessionUsecaseModel } from '@usecase/user/model/userSession.usecase.model';
-import { GetSessionAuthResolverDto } from '@presentation/auth/dto/getSession.auth.resolver.dto';
 import { UpdPasswordAuthResolverDto } from '@presentation/auth/dto/updPassword.auth.resolver.dto';
 
 @Resolver('AuthResolver')
@@ -24,7 +24,7 @@ export class AuthResolver {
     (): typeof AuthModelResolver => AuthModelResolver,
   )
   async auth(
-    @Args('dto') dto: GetSessionAuthResolverDto,
+    @Args('dto') dto: AuthAuthResolverDto,
   ): Promise<AuthModelResolver> {
     const userSession: UserSessionUsecaseModel =
       await this.inversify.authUsecase.execute(dto);

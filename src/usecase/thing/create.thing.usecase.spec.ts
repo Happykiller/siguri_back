@@ -60,7 +60,7 @@ describe('CreateThingUsecase', () => {
           number: '12345678899',
           expiration_date: '05/12',
           code: '1234',
-          crypto: '000'
+          crypto: '000',
         },
         author_id: userRopo.id,
         chest_id: chestRopo.id,
@@ -79,7 +79,7 @@ describe('CreateThingUsecase', () => {
           number: '12345678899',
           expiration_date: '05/12',
           code: '1234',
-          crypto: '000'
+          crypto: '000',
         },
         user_id: thingChestRopo.author_id,
         chest_id: thingChestRopo.chest_id,
@@ -98,7 +98,7 @@ describe('CreateThingUsecase', () => {
       description: thingChestRopo.description,
       type: TYPE_THING.NOTE,
       note: {
-        note: 'note'
+        note: 'note',
       },
       author_id: userRopo.id,
       chest_id: chestRopo.id,
@@ -113,7 +113,7 @@ describe('CreateThingUsecase', () => {
       description: thingChestRopo.description,
       type: TYPE_THING.NOTE,
       note: {
-        note: 'note'
+        note: 'note',
       },
       user_id: thingChestRopo.author_id,
       chest_id: thingChestRopo.chest_id,
@@ -131,7 +131,7 @@ describe('CreateThingUsecase', () => {
       description: thingChestRopo.description,
       type: TYPE_THING.CODE,
       code: {
-        code: 'code'
+        code: 'code',
       },
       author_id: userRopo.id,
       chest_id: chestRopo.id,
@@ -146,7 +146,7 @@ describe('CreateThingUsecase', () => {
       description: thingChestRopo.description,
       type: TYPE_THING.CODE,
       code: {
-        code: 'code'
+        code: 'code',
       },
       user_id: thingChestRopo.author_id,
       chest_id: thingChestRopo.chest_id,
@@ -164,7 +164,7 @@ describe('CreateThingUsecase', () => {
       description: thingChestRopo.description,
       type: TYPE_THING.TOTP,
       totp: {
-        secret: 'dfsdf'
+        secret: 'dfsdf',
       },
       author_id: userRopo.id,
       chest_id: chestRopo.id,
@@ -179,7 +179,7 @@ describe('CreateThingUsecase', () => {
       description: thingChestRopo.description,
       type: TYPE_THING.TOTP,
       totp: {
-        secret: 'dfsdf'
+        secret: 'dfsdf',
       },
       user_id: thingChestRopo.author_id,
       chest_id: thingChestRopo.chest_id,
@@ -188,5 +188,4 @@ describe('CreateThingUsecase', () => {
     // assert
     expect(response).toEqual(thing);
   });
-
 });
