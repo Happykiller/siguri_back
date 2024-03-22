@@ -7,6 +7,7 @@ import { GetChestDbDto } from '@service/db/dto/get.chest.db.dto';
 import { JoinChestDbDto } from '@service/db/dto/join.chest.db.dto';
 import { LeaveChestDbDto } from '@service/db/dto/leave.chest.db.dto';
 import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
+import { UpdateChestDbDto } from '@service/db/dto/update.chest.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 
 export class BddServiceChestMongo
@@ -140,5 +141,30 @@ export class BddServiceChestMongo
     );
 
     return true;
+  }
+
+  async updateChest(dto: UpdateChestDbDto): Promise<ChestDbModel> {
+    const set: any = {};
+
+    if (dto.label) {
+      set.label = dto.label;
+    }
+
+    if (dto.description) {
+      set.description = dto.description;
+    }
+
+    await (
+      await this.getChestCollection()
+    ).updateOne(
+      { _id: new ObjectId(dto.chest_id) },
+      {
+        $set: set,
+      },
+    );
+
+    return await this.getChest({
+      id: dto.chest_id,
+    });
   }
 }

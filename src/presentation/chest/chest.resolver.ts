@@ -21,6 +21,7 @@ import { GetChestResolverDto } from '@presentation/chest/dto/get.chest.resolver.
 import { JoinChestResolverDto } from '@presentation/chest/dto/join.chest.resolver.dto';
 import { LeaveChestResolverDto } from '@presentation/chest/dto/leave.chest.resolver.dto';
 import { CreateChestResolverDto } from '@presentation/chest/dto/create.chest.resolver.dto';
+import { UpdateChestResolverDto } from '@presentation/chest/dto/update.chest.resolver.dto';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Resolver((of) => ChestModelResolver)
@@ -51,6 +52,20 @@ export class ChestResolver {
     @Args('dto') dto: CreateChestResolverDto,
   ): Promise<ChestModelResolver> {
     return this.inversify.createChestUsecase.execute({
+      ...dto,
+      user_id: session.id,
+    });
+  }
+
+  @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  @Mutation((returns) => ChestModelResolver)
+  async update_chest(
+    @CurrentSession() session: UserSession,
+    @Args('dto') dto: UpdateChestResolverDto,
+  ): Promise<ChestModelResolver> {
+    return this.inversify.updateChestUsecase.execute({
       ...dto,
       user_id: session.id,
     });
