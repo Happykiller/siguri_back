@@ -151,6 +151,7 @@ input GetChestResolverDto {
 type Mutation {
   create_user(dto: CreateUserResolverDto!): UserModelResolver!
   update_password(dto: UpdPasswordAuthResolverDto!): AuthModelResolver!
+  create_passkey(dto: PasskeyRegisterAuthResolverDto!): Boolean!
   create_thing(dto: CreateThingResolverDto!): ThingModelResolver!
   update_thing(dto: UpdateThingResolverDto!): ThingModelResolver!
   delete_thing(dto: DeleteThingResolverDto!): ThingModelResolver
@@ -173,6 +174,12 @@ input UpdPasswordAuthResolverDto {
   old_value: String!
   new_value: String!
   conf_value: String!
+}
+
+input PasskeyRegisterAuthResolverDto {
+  display_name: String!
+  challenge_buffer: String!
+  challenge: String!
 }
 
 input CreateThingResolverDto {

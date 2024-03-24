@@ -10,6 +10,7 @@ import { AuthModelResolver } from '@presentation/auth/model/auth.resolver.model'
 import { AuthAuthResolverDto } from '@presentation/auth/dto/auth.auth.resolver.dto';
 import { UserSessionUsecaseModel } from '@usecase/user/model/userSession.usecase.model';
 import { UpdPasswordAuthResolverDto } from '@presentation/auth/dto/updPassword.auth.resolver.dto';
+import { PasskeyRegisterAuthResolverDto } from '@presentation/auth/dto/passkey.register.auth.resolver.dto';
 
 @Resolver('AuthResolver')
 export class AuthResolver {
@@ -99,5 +100,24 @@ export class AuthResolver {
       access_token: token,
       ...userSession,
     };
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(
+    /* istanbul ignore next */
+    (): typeof Boolean => Boolean,
+  )
+  async create_passkey(
+    @CurrentSession() session: UserSession,
+    @Args('dto') dto: PasskeyRegisterAuthResolverDto,
+  ): Promise<Boolean> {
+    await this.inversify.createPasskeyUsecase.execute({
+      user_id: session.id,
+      user_code: session.code,
+      display_name: dto.display_name,
+      challenge_buffer: dto.challenge_buffer,
+      challenge: dto.challenge
+    });
+    return true;
   }
 }

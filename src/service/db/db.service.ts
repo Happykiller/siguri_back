@@ -12,6 +12,7 @@ import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
 import { CreateThingDbDto } from '@service/db/dto/create.thing.db.dto';
 import { UpdateThingDbDto } from '@service/db/dto/update.thing.db.dto';
 import { DeleteThingDbDto } from '@service/db/dto/delete.thing.db.dto';
+import CreatePasskeyDbDto from '@service/db/dto/create.passkey.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 import { GetForChestThingsDbDto } from '@service/db/dto/getForChest.thing.db.dto';
 
@@ -42,4 +43,8 @@ export interface BddService {
   getThing(dto: GetThingDbDto): Promise<ThingDbModel>;
   getForChestThings(dto: GetForChestThingsDbDto): Promise<ThingDbModel[]>;
   deleteThing(dto: DeleteThingDbDto): Promise<boolean>;
+  /**
+   * Passkey
+   */
+  createPasskey(dto: CreatePasskeyDbDto): Promise<boolean>;
 }

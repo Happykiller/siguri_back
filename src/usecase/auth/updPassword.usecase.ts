@@ -1,7 +1,7 @@
 import { Inversify } from '@src/inversify/investify';
 import { UserUsecaseModel } from '@usecase/user/model/user.usecase.model';
+import { UpdPasswordAuthUsecaseDto } from '@usecase/auth/dto/updPassword.usecase.dto';
 import { UserSessionUsecaseModel } from '@usecase/user/model/userSession.usecase.model';
-import { UpdPasswordAuthUsecaseDto } from './dto/updPassword.usecase.dto';
 
 export class UpdPasswordUsecase {
   inversify: Inversify;
