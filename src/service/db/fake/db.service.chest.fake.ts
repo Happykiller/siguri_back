@@ -8,10 +8,11 @@ import { JoinChestDbDto } from '@service/db/dto/join.chest.db.dto';
 import { LeaveChestDbDto } from '@service/db/dto/leave.chest.db.dto';
 import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
+import { UpdateChestDbDto } from '../dto/update.chest.db.dto';
 
 export class BddServiceChestFake
   implements
-    Pick<BddService, 'createChest' | 'getChest' | 'joinChest' | 'leaveChest'>
+    Pick<BddService, 'createChest' | 'getChest' | 'joinChest' | 'leaveChest' | 'updateChest'>
 {
   chestCollection: ChestDbModel[];
 
@@ -75,5 +76,21 @@ export class BddServiceChestFake
     });
     chest.members = chest.members.filter((elt) => elt.user_id !== dto.user_id);
     return true;
+  }
+
+  updateChest(dto: UpdateChestDbDto): Promise<ChestDbModel> {
+    const chest = this.getChestCollection().find(
+      (elt) => elt.id === dto.chest_id && elt.active,
+    );
+
+    if (dto.label) {
+      chest.label = dto.label;
+    }
+
+    if (dto.description) {
+      chest.description = dto.description;
+    }
+
+    return Promise.resolve(JSON.parse(JSON.stringify(chest)));
   }
 }

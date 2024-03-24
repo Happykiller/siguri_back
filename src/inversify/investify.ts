@@ -22,6 +22,7 @@ import { DeleteThingUsecase } from '@usecase/thing/delete.thing.usecase';
 import { CreateChestUsecase } from '@usecase/chest/create.chest.usecase';
 import { CreateThingUsecase } from '@usecase/thing/create.thing.usecase';
 import { UpdateThingUsecase } from '@usecase/thing/update.thing.usecase';
+import { UpdateChestUsecase } from '@usecase/chest/update.chest.usecase';
 import { CreatePasskeyUsecase } from '@usecase/auth/create.passkey.usecase';
 import { PasswordServiceReal } from '@service/password/password.service.real';
 import { IsAutorizedUsecase } from '@usecase/isAuthorized/isAuthorized.usecase';
@@ -43,6 +44,7 @@ export class Inversify {
   leaveChestUsecase: LeaveChestUsecase;
   getAllUserUsecase: GetAllUserUsecase;
   createUserUsecase: CreateUserUsecase;
+  updateChestUsecase: UpdateChestUsecase;
   deleteThingUsecase: DeleteThingUsecase;
   createChestUsecase: CreateChestUsecase;
   createThingUsecase: CreateThingUsecase;
@@ -81,6 +83,7 @@ export class Inversify {
     this.leaveChestUsecase = new LeaveChestUsecase(this);
     this.getAllUserUsecase = new GetAllUserUsecase(this);
     this.createUserUsecase = new CreateUserUsecase(this);
+    this.updateChestUsecase = new UpdateChestUsecase(this);
     this.updPasswordUsecase = new UpdPasswordUsecase(this);
     this.createThingUsecase = new CreateThingUsecase(this);
     this.createChestUsecase = new CreateChestUsecase(this);
