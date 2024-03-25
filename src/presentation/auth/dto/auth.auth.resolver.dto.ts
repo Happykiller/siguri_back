@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { Matches, MaxLength, MinLength } from 'class-validator';
-import { REGEX } from '../../../common/REGEX';
+
+import { REGEX } from '@src/common/REGEX';
 
 @InputType()
 export class AuthAuthResolverDto {

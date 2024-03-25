@@ -28,6 +28,7 @@ import { PasswordServiceReal } from '@service/password/password.service.real';
 import { IsAutorizedUsecase } from '@usecase/isAuthorized/isAuthorized.usecase';
 import { GetChestsForUserUsecase } from '@usecase/chest/getForUser.chest.usecase';
 import { GetThingsForChestUsecase } from '@usecase/thing/getForChest.thing.usecase';
+import { AuthPasskeyUsecase } from '../usecase/auth/passkey.auth.usecase';
 
 export class Inversify {
   mongo: Db;
@@ -51,6 +52,7 @@ export class Inversify {
   isAutorizedUsecase: IsAutorizedUsecase;
   updateThingUsecase: UpdateThingUsecase;
   updPasswordUsecase: UpdPasswordUsecase;
+  authPasskeyUsecase: AuthPasskeyUsecase;
   createPasskeyUsecase: CreatePasskeyUsecase;
   getChestsForUserUsecase: GetChestsForUserUsecase;
   getThingsForChestUsecase: GetThingsForChestUsecase;
@@ -83,6 +85,7 @@ export class Inversify {
     this.leaveChestUsecase = new LeaveChestUsecase(this);
     this.getAllUserUsecase = new GetAllUserUsecase(this);
     this.createUserUsecase = new CreateUserUsecase(this);
+    this.authPasskeyUsecase = new AuthPasskeyUsecase(this);
     this.updateChestUsecase = new UpdateChestUsecase(this);
     this.updPasswordUsecase = new UpdPasswordUsecase(this);
     this.createThingUsecase = new CreateThingUsecase(this);

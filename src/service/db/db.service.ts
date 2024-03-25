@@ -16,6 +16,8 @@ import CreatePasskeyDbDto from '@service/db/dto/create.passkey.db.dto';
 import { UpdateChestDbDto } from '@service/db/dto/update.chest.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 import { GetForChestThingsDbDto } from '@service/db/dto/getForChest.thing.db.dto';
+import PasskeyDbModel from './model/passkey.db.model';
+import { GetPasskeyByUserIdDbDto } from './dto/getByUserId.passkey.db.dto';
 
 export interface BddService {
   test(): Promise<boolean>;
@@ -49,4 +51,5 @@ export interface BddService {
    * Passkey
    */
   createPasskey(dto: CreatePasskeyDbDto): Promise<boolean>;
+  getPasskeyByUserId(dto: GetPasskeyByUserIdDbDto): Promise<PasskeyDbModel>;
 }

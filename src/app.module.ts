@@ -12,6 +12,7 @@ import { ChestModule } from '@presentation/chest/chest.module';
 import { HelloModule } from '@presentation/hello/hello.module';
 import { ThingModule } from '@presentation/thing/thing.module';
 import { SystemModule } from '@presentation/system/system.module';
+import { PasskeyModule } from '@presentation/passkey/passkey.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { SystemModule } from '@presentation/system/system.module';
     ChestModule,
     HelloModule,
     SystemModule,
+    PasskeyModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       subscriptions: {
