@@ -45,7 +45,6 @@ export class BddServiceUserMongo
 
   async getUser(dto: GetUserDbDto): Promise<UserDbModel> {
     try {
-      // Query for a movie that has the title 'The Room'
       const query = {
         active: true,
         $or: [{ _id: new ObjectId(dto.id) }, { code: dto.code }],

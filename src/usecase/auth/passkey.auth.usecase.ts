@@ -15,15 +15,16 @@ export class AuthPasskeyUsecase {
       id: dto.user_id,
     });
 
-    const passkey = await this.inversify.bddService.getPasskeyByUserId({
-      user_id: dto.user_id,
+    const passkey = await this.inversify.bddService.getPasskey({
+      challenge_buffer: dto.challenge_buffer,
     });
 
-    if (user 
-      && passkey.user_id === dto.user_id
-      && passkey.user_code === dto.user_code
-      && passkey.challenge === dto.challenge
-      && passkey.challenge_buffer === dto.challenge_buffer
+    if (
+      user &&
+      passkey.user_id === dto.user_id &&
+      passkey.user_code === dto.user_code &&
+      passkey.challenge === dto.challenge &&
+      passkey.challenge_buffer === dto.challenge_buffer
     ) {
       return {
         id: user.id,

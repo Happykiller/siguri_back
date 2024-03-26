@@ -18,17 +18,19 @@ import { LeaveChestUsecase } from '@usecase/chest/leave.chest.usecase';
 import { GetAllUserUsecase } from '@usecase/user/get_all.user.usecase';
 import { UpdPasswordUsecase } from '@usecase/auth/updPassword.usecase';
 import { EncodeServiceReal } from '@service/encode/encode.service.real';
+import { AuthPasskeyUsecase } from '@usecase/auth/passkey.auth.usecase';
 import { DeleteThingUsecase } from '@usecase/thing/delete.thing.usecase';
 import { CreateChestUsecase } from '@usecase/chest/create.chest.usecase';
 import { CreateThingUsecase } from '@usecase/thing/create.thing.usecase';
 import { UpdateThingUsecase } from '@usecase/thing/update.thing.usecase';
 import { UpdateChestUsecase } from '@usecase/chest/update.chest.usecase';
-import { CreatePasskeyUsecase } from '@usecase/auth/create.passkey.usecase';
 import { PasswordServiceReal } from '@service/password/password.service.real';
+import { DeletePasskeyUsecase } from '@usecase/passkey/delete.passkey.usecase';
 import { IsAutorizedUsecase } from '@usecase/isAuthorized/isAuthorized.usecase';
 import { GetChestsForUserUsecase } from '@usecase/chest/getForUser.chest.usecase';
+import { CreatePasskeyUsecase } from '@src/usecase/passkey/create.passkey.usecase';
 import { GetThingsForChestUsecase } from '@usecase/thing/getForChest.thing.usecase';
-import { AuthPasskeyUsecase } from '../usecase/auth/passkey.auth.usecase';
+import { GetByUserIdPasskeyUsecase } from '@usecase/passkey/getByUserId.passkey.usecase';
 
 export class Inversify {
   mongo: Db;
@@ -53,9 +55,11 @@ export class Inversify {
   updateThingUsecase: UpdateThingUsecase;
   updPasswordUsecase: UpdPasswordUsecase;
   authPasskeyUsecase: AuthPasskeyUsecase;
+  deletePasskeyUsecase: DeletePasskeyUsecase;
   createPasskeyUsecase: CreatePasskeyUsecase;
   getChestsForUserUsecase: GetChestsForUserUsecase;
   getThingsForChestUsecase: GetThingsForChestUsecase;
+  getByUserIdPasskeyUsecase: GetByUserIdPasskeyUsecase;
 
   constructor() {
     /**
@@ -93,9 +97,11 @@ export class Inversify {
     this.deleteThingUsecase = new DeleteThingUsecase(this);
     this.updateThingUsecase = new UpdateThingUsecase(this);
     this.isAutorizedUsecase = new IsAutorizedUsecase(this);
+    this.deletePasskeyUsecase = new DeletePasskeyUsecase(this);
     this.createPasskeyUsecase = new CreatePasskeyUsecase(this);
     this.getChestsForUserUsecase = new GetChestsForUserUsecase(this);
     this.getThingsForChestUsecase = new GetThingsForChestUsecase(this);
+    this.getByUserIdPasskeyUsecase = new GetByUserIdPasskeyUsecase(this);
   }
 }
 

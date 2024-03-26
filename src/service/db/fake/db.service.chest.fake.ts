@@ -12,7 +12,10 @@ import { UpdateChestDbDto } from '../dto/update.chest.db.dto';
 
 export class BddServiceChestFake
   implements
-    Pick<BddService, 'createChest' | 'getChest' | 'joinChest' | 'leaveChest' | 'updateChest'>
+    Pick<
+      BddService,
+      'createChest' | 'getChest' | 'joinChest' | 'leaveChest' | 'updateChest'
+    >
 {
   chestCollection: ChestDbModel[];
 

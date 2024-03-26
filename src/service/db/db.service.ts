@@ -2,22 +2,24 @@ import { UserDbModel } from '@service/db/model/user.db.model';
 import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { ChestDbModel } from '@service/db/model/chest.db.model';
 import { ThingDbModel } from '@service/db/model/thing.db.model';
+import PasskeyDbModel from '@service/db/model/passkey.db.model';
 import { GetChestDbDto } from '@service/db/dto/get.chest.db.dto';
 import { GetThingDbDto } from '@service/db/dto/get.thing.db.dto';
 import { JoinChestDbDto } from '@service/db/dto/join.chest.db.dto';
 import { LeaveChestDbDto } from '@service/db/dto/leave.chest.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
 import { UpdateUserDbDto } from '@service/db/dto/update.user.db.dto';
+import { GetPasskeyDbDto } from '@service/db/dto/get.passkey.db.dto';
 import { CreateChestDbDto } from '@service/db/dto/create.chest.db.dto';
 import { CreateThingDbDto } from '@service/db/dto/create.thing.db.dto';
 import { UpdateThingDbDto } from '@service/db/dto/update.thing.db.dto';
 import { DeleteThingDbDto } from '@service/db/dto/delete.thing.db.dto';
 import CreatePasskeyDbDto from '@service/db/dto/create.passkey.db.dto';
 import { UpdateChestDbDto } from '@service/db/dto/update.chest.db.dto';
+import { DeletePasskeyDbDto } from '@service/db/dto/delete.passkey.db.dto';
 import { GetChestsForUserDbDto } from '@service/db/dto/getForUser.chest.db.dto';
 import { GetForChestThingsDbDto } from '@service/db/dto/getForChest.thing.db.dto';
-import PasskeyDbModel from './model/passkey.db.model';
-import { GetPasskeyByUserIdDbDto } from './dto/getByUserId.passkey.db.dto';
+import { GetPasskeyByUserIdDbDto } from '@service/db/dto/getByUserId.passkey.db.dto';
 
 export interface BddService {
   test(): Promise<boolean>;
@@ -50,6 +52,8 @@ export interface BddService {
   /**
    * Passkey
    */
-  createPasskey(dto: CreatePasskeyDbDto): Promise<boolean>;
-  getPasskeyByUserId(dto: GetPasskeyByUserIdDbDto): Promise<PasskeyDbModel>;
+  createPasskey(dto: CreatePasskeyDbDto): Promise<PasskeyDbModel>;
+  getPasskeyByUserId(dto: GetPasskeyByUserIdDbDto): Promise<PasskeyDbModel[]>;
+  getPasskey(dto: GetPasskeyDbDto): Promise<PasskeyDbModel>;
+  deletePasskey(dto: DeletePasskeyDbDto): Promise<boolean>;
 }

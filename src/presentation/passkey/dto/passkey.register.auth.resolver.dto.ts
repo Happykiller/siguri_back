@@ -3,6 +3,8 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class PasskeyRegisterAuthResolverDto {
   @Field(() => String)
+  label: string;
+  @Field(() => String)
   display_name: string;
   @Field(() => String)
   challenge_buffer: string;

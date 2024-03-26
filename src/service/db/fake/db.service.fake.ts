@@ -12,7 +12,7 @@ applyMixins(BddServiceFake, [
   BddServiceTestFake,
   BddServiceChestFake,
   BddServiceThingFake,
-  BddServicePasskeyFake
+  BddServicePasskeyFake,
 ]);
 
 export { BddServiceFake };
