@@ -39,3 +39,29 @@ query {
     role
   }
 }
+
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  auth_passkey (
+    dto: {
+      user_code: "faro"
+      user_id: "65e88d884b8abb7aa710bd52"
+      challenge: "TWhURk4wUVNVZmVvVWc1Yw"
+      challenge_buffer: "MhTFN0QSUfeoUg5c"
+    }
+  ) {
+    access_token
+    id
+    code
+    name_first
+    name_last
+    description
+    mail
+    role
+  }
+}

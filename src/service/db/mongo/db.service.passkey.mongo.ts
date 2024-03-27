@@ -37,7 +37,7 @@ export class BddServicePasskeyMongo
     try {
       const query = {
         active: true,
-        $or: [{ _id: new ObjectId(dto.passkey_id) }, { code: dto.challenge_buffer }],
+        $or: [{ _id: new ObjectId(dto.passkey_id) }, { challenge_buffer: dto.challenge_buffer }],
       };
       const options = {};
       // Execute query
