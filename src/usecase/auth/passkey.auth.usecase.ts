@@ -2,6 +2,7 @@ import { Inversify } from '@src/inversify/investify';
 import { UserUsecaseModel } from '@usecase/user/model/user.usecase.model';
 import { UserSessionUsecaseModel } from '@usecase/user/model/userSession.usecase.model';
 import { PasskeyAuthUsecaseDto } from './dto/passkey.auth.usecase.dto';
+import * as server from './passwordless/server';
 
 export class AuthPasskeyUsecase {
   inversify: Inversify;
@@ -10,21 +11,34 @@ export class AuthPasskeyUsecase {
     this.inversify = inversify;
   }
 
-  async execute(dto: PasskeyAuthUsecaseDto): Promise<UserSessionUsecaseModel> {
+  async execute(dto: any): Promise<UserSessionUsecaseModel> {
+    console.log('dto', dto)
+;
     const user: UserUsecaseModel = await this.inversify.getUserUsecase.execute({
-      id: dto.user_id,
+      code: dto.user_code,
     });
+
+    console.log('user', user)
 
     const passkey = await this.inversify.bddService.getPasskey({
-      challenge_buffer: dto.challenge_buffer,
+      credential_id: dto.credentialId,
     });
 
+    console.log('passkey', passkey)
+
+    const expected = {
+      challenge: passkey.challenge,
+      origin: (origin) => origin.includes(passkey.hostname),
+      userVerified: true, // no function allowed here
+      verbose: true, // optional, enables debug logs containing sensitive information
+    }
+
+    const verified = await server.verifyAuthentication(dto, passkey.registration.credential, expected);
+
+    console.log('verified', verified)
+
     if (
-      user &&
-      passkey.user_id === dto.user_id &&
-      passkey.user_code === dto.user_code &&
-      passkey.challenge === dto.challenge &&
-      passkey.challenge_buffer === dto.challenge_buffer
+      user
     ) {
       return {
         id: user.id,

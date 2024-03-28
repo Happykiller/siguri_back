@@ -52,8 +52,8 @@ export interface BddService {
   /**
    * Passkey
    */
-  createPasskey(dto: CreatePasskeyDbDto): Promise<PasskeyDbModel>;
-  getPasskeyByUserId(dto: GetPasskeyByUserIdDbDto): Promise<PasskeyDbModel[]>;
-  getPasskey(dto: GetPasskeyDbDto): Promise<PasskeyDbModel>;
+  createPasskey(dto: any): Promise<any>;
+  getPasskeyByUserId(dto: any): Promise<any[]>;
+  getPasskey(dto: any): Promise<any>;
   deletePasskey(dto: DeletePasskeyDbDto): Promise<boolean>;
 }

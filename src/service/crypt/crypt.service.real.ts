@@ -1,6 +1,6 @@
-import * as sha256 from 'crypto-js/sha256';
-import * as base64 from 'crypto-js/enc-base64';
-import * as hmacSHA512 from 'crypto-js/hmac-sha512';
+import sha256 from 'crypto-js/sha256';
+import base64 from 'crypto-js/enc-base64';
+import hmacSHA512 from 'crypto-js/hmac-sha512';
 
 import { config } from '@src/config';
 import { CryptService } from '@service/crypt/crypt.service';

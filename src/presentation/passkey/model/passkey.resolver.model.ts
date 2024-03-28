@@ -9,9 +9,11 @@ export class PasskeyResolverModel {
   @Field(() => String)
   user_id: string;
   @Field(() => String)
+  hostname: string;
+  @Field(() => String)
   user_code: string;
   @Field(() => String)
-  display_name: string;
+  challenge: string;
   @Field(() => String)
-  challenge_buffer: string;
+  credential_id: string;
 }

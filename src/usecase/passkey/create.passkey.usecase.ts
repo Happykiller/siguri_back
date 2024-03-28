@@ -9,7 +9,7 @@ export class CreatePasskeyUsecase {
     this.inversify = inversify;
   }
 
-  execute(dto: CreatePasskeyUsecaseDto): Promise<PasskeyUsecaseModel> {
+  execute(dto: any): Promise<any> {
     return this.inversify.bddService.createPasskey(dto);
   }
 }

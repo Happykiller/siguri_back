@@ -15,7 +15,7 @@ export class BddServicePasskeyMongo
     return inversify.mongo.collection('passkeys');
   }
 
-  async createPasskey(dto: CreatePasskeyDbDto): Promise<PasskeyDbModel> {
+  async createPasskey(dto: any): Promise<any> {
     try {
       const result = await (
         await this.getPasskeyCollection()
@@ -33,11 +33,11 @@ export class BddServicePasskeyMongo
     }
   }
 
-  async getPasskey(dto: GetPasskeyDbDto): Promise<PasskeyDbModel> {
+  async getPasskey(dto: any): Promise<any> {
     try {
       const query = {
         active: true,
-        $or: [{ _id: new ObjectId(dto.passkey_id) }, { challenge_buffer: dto.challenge_buffer }],
+        $or: [{ _id: new ObjectId(dto.passkey_id) }, { 'registration.credential.id': dto.credential_id }],
       };
       const options = {};
       // Execute query
@@ -50,8 +50,8 @@ export class BddServicePasskeyMongo
         label: doc.label,
         user_code: doc.user_code,
         user_id: doc.user_id,
-        display_name: doc.display_name,
-        challenge_buffer: doc.challenge_buffer,
+        hostname: doc.hostname,
+        registration: doc.registration,
         challenge: doc.challenge,
         active: doc.active
       });
@@ -61,8 +61,8 @@ export class BddServicePasskeyMongo
   }
 
   async getPasskeyByUserId(
-    dto: GetPasskeyByUserIdDbDto,
-  ): Promise<PasskeyDbModel[]> {
+    dto: any,
+  ): Promise<any[]> {
     const query = {
       user_id: dto.user_id,
       active: true
@@ -73,7 +73,7 @@ export class BddServicePasskeyMongo
       await this.getPasskeyCollection()
     ).find(query, options);
 
-    const passkeys: PasskeyDbModel[] = [];
+    const passkeys = [];
     // Print returned documents
     for await (const doc of results) {
       passkeys.push({
@@ -81,8 +81,8 @@ export class BddServicePasskeyMongo
         label: doc.label,
         user_code: doc.user_code,
         user_id: doc.user_id,
-        display_name: doc.display_name,
-        challenge_buffer: doc.challenge_buffer,
+        hostname: doc.hostname,
+        registration: doc.registration,
         challenge: doc.challenge,
         active: doc.active
       });

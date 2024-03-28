@@ -10,7 +10,7 @@ import { UserSession } from '@presentation/auth/jwt.strategy';
 import { CurrentSession } from '@presentation/guard/userSession.decorator';
 import { PasskeyResolverModel } from '@presentation/passkey/model/passkey.resolver.model';
 import { DeletePasskeyResolverDto } from '@presentation/passkey/dto/delete.passkey.resolver.dto';
-import { PasskeyRegisterAuthResolverDto } from '@presentation/passkey/dto/passkey.register.auth.resolver.dto';
+import { CreatePasskeyResolverDto } from '@presentation/passkey/dto/passkey.register.auth.resolver.dto';
 
 @Resolver('PasskeyResolver')
 export class PasskeyResolver {
@@ -27,23 +27,21 @@ export class PasskeyResolver {
   )
   async create_passkey(
     @CurrentSession() session: UserSession,
-    @Args('dto') dto: PasskeyRegisterAuthResolverDto,
+    @Args('dto') dto: CreatePasskeyResolverDto,
   ): Promise<PasskeyResolverModel> {
     const response = await this.inversify.createPasskeyUsecase.execute({
-      label: dto.label,
+      ...dto,
       user_id: session.id,
-      user_code: session.code,
-      display_name: dto.display_name,
-      challenge_buffer: dto.challenge_buffer,
-      challenge: dto.challenge,
+      user_code: session.code
     });
     return {
       id: response.id,
       label: response.label,
       user_id: response.user_id,
+      hostname: response.hostname,
       user_code: response.user_code,
-      display_name: response.display_name,
-      challenge_buffer: response.challenge_buffer
+      challenge: response.challenge,
+      credential_id: response.registration.credential.id
     };
   }
 
@@ -57,7 +55,17 @@ export class PasskeyResolver {
     const entities = await this.inversify.getByUserIdPasskeyUsecase.execute({
       user_id: session.id,
     });
-    return entities;
+    return entities.map((passkey) => {
+      return {
+        id: passkey.id,
+        label: passkey.label,
+        user_id: passkey.user_id,
+        hostname: passkey.hostname,
+        user_code: passkey.user_code,
+        challenge: passkey.challenge,
+        credential_id: passkey.registration.credential.id
+      }
+    });
   }
 
   @Roles(USER_ROLE.USER, USER_ROLE.ADMIN)
