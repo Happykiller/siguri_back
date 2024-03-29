@@ -8,7 +8,8 @@ import { DeletePasskeyDbDto } from '@service/db/dto/delete.passkey.db.dto';
 import { GetPasskeyByUserIdDbDto } from '@service/db/dto/getByUserId.passkey.db.dto';
 
 export class BddServicePasskeyFake
-  implements Pick<BddService, 'createPasskey' | 'getPasskeyByUserId' | 'getPasskey'>
+  implements
+    Pick<BddService, 'createPasskey' | 'getPasskeyByUserId' | 'getPasskey'>
 {
   passkeyCollection: PasskeyDbModel[];
 
@@ -23,7 +24,7 @@ export class BddServicePasskeyFake
     const entity: PasskeyDbModel = {
       id: new ObjectId().toString(),
       ...dto,
-      active: true
+      active: true,
     };
     this.getPasskeyCollection().push(entity);
     return Promise.resolve(JSON.parse(JSON.stringify(entity)));
@@ -38,8 +39,7 @@ export class BddServicePasskeyFake
 
   getPasskey(dto: GetPasskeyDbDto): Promise<PasskeyDbModel> {
     const entity = this.getPasskeyCollection().find((elt) => {
-      if (!elt.active)
-        return false;
+      if (!elt.active) return false;
       else if (dto.passkey_id) {
         return elt.id === dto.passkey_id;
       } else if (dto.challenge_buffer) {

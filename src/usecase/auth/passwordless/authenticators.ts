@@ -1,5 +1,5 @@
-import { authenticatorMetadata } from './authenticatorMetadata.js'
-import * as utils from './utils.js'
+import { authenticatorMetadata } from './authenticatorMetadata'
+import * as utils from './utils'
 
 
 export function parseAuthBuffer(authData :ArrayBuffer) {

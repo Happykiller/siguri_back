@@ -9,7 +9,11 @@ import { GetPasskeyDbDto } from '../dto/get.passkey.db.dto';
 import { DeletePasskeyDbDto } from '../dto/delete.passkey.db.dto';
 
 export class BddServicePasskeyMongo
-  implements Pick<BddService, 'createPasskey' | 'getPasskeyByUserId' | 'getPasskey' | 'deletePasskey'>
+  implements
+    Pick<
+      BddService,
+      'createPasskey' | 'getPasskeyByUserId' | 'getPasskey' | 'deletePasskey'
+    >
 {
   private async getPasskeyCollection(): Promise<Collection> {
     return inversify.mongo.collection('passkeys');
@@ -21,12 +25,12 @@ export class BddServicePasskeyMongo
         await this.getPasskeyCollection()
       ).insertOne({
         ...dto,
-        active: true
+        active: true,
       });
       return Promise.resolve({
         id: result.insertedId.toString(),
         ...dto,
-        active: true
+        active: true,
       });
     } catch (e) {
       return null;
@@ -37,7 +41,10 @@ export class BddServicePasskeyMongo
     try {
       const query = {
         active: true,
-        $or: [{ _id: new ObjectId(dto.passkey_id) }, { 'registration.credential.id': dto.credential_id }],
+        $or: [
+          { _id: new ObjectId(dto.passkey_id) },
+          { 'registration.credential.id': dto.credential_id },
+        ],
       };
       const options = {};
       // Execute query
@@ -53,19 +60,17 @@ export class BddServicePasskeyMongo
         hostname: doc.hostname,
         registration: doc.registration,
         challenge: doc.challenge,
-        active: doc.active
+        active: doc.active,
       });
     } catch (e) {
       return null;
     }
   }
 
-  async getPasskeyByUserId(
-    dto: any,
-  ): Promise<any[]> {
+  async getPasskeyByUserId(dto: any): Promise<any[]> {
     const query = {
       user_id: dto.user_id,
-      active: true
+      active: true,
     };
     const options = {};
     // Execute query
@@ -84,7 +89,7 @@ export class BddServicePasskeyMongo
         hostname: doc.hostname,
         registration: doc.registration,
         challenge: doc.challenge,
-        active: doc.active
+        active: doc.active,
       });
     }
 

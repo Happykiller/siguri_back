@@ -32,7 +32,7 @@ export class PasskeyResolver {
     const response = await this.inversify.createPasskeyUsecase.execute({
       ...dto,
       user_id: session.id,
-      user_code: session.code
+      user_code: session.code,
     });
     return {
       id: response.id,
@@ -41,7 +41,7 @@ export class PasskeyResolver {
       hostname: response.hostname,
       user_code: response.user_code,
       challenge: response.challenge,
-      credential_id: response.registration.credential.id
+      credential_id: response.registration.credential.id,
     };
   }
 
@@ -63,8 +63,8 @@ export class PasskeyResolver {
         hostname: passkey.hostname,
         user_code: passkey.user_code,
         challenge: passkey.challenge,
-        credential_id: passkey.registration.credential.id
-      }
+        credential_id: passkey.registration.credential.id,
+      };
     });
   }
 

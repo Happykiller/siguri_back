@@ -24,7 +24,6 @@ export class CreatePasskeyRegistrationResolverDto {
   attestationData: string;
 }
 
-
 @InputType()
 export class CreatePasskeyResolverDto {
   @Field(() => String)

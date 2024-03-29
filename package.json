@@ -1,6 +1,6 @@
 {
   "name": "seguri_back",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Apis for Siguri service",
   "author": "Fabrice Rosito<fabrice.rosito@gmail.com>",
   "license": "MIT",
@@ -28,7 +28,6 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.0.1",
     "@nestjs/throttler": "^5.1.2",
-    "@passwordless-id/webauthn": "^1.5.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "crypto-js": "^4.2.0",

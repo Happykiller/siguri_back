@@ -1,8 +1,7 @@
-import { parseAuthentication, parseRegistration } from "./parsers.js";
-import { AuthenticationEncoded, AuthenticationParsed, CredentialKey, NamedAlgo, RegistrationEncoded, RegistrationParsed } from "./types.js";
-import * as utils from './utils.js'
-import crypto from "crypto"
-
+import { parseAuthentication, parseRegistration } from "./parsers";
+import { AuthenticationEncoded, AuthenticationParsed, CredentialKey, NamedAlgo, RegistrationEncoded, RegistrationParsed } from "./types";
+import * as utils from './utils';
+import * as crypto from 'crypto';
 
 async function isValid(validator :any, value :any) :Promise<boolean> {
    if(typeof validator === 'function') {
@@ -182,6 +181,7 @@ export async function verifySignature({ algorithm, publicKey, authenticatorData,
     let signatureBuffer = utils.parseBase64url(signature)
     if(algorithm == 'ES256')
         signatureBuffer = convertASN1toRaw(signatureBuffer)
+
 
     const isValid = await crypto.subtle.verify(algoParams, cryptoKey, signatureBuffer, comboBuffer)
 
