@@ -3,10 +3,10 @@ import { Collection, ObjectId } from 'mongodb';
 import inversify from '@src/inversify/investify';
 import { BddService } from '@service/db/db.service';
 import PasskeyDbModel from '@service/db/model/passkey.db.model';
+import { GetPasskeyDbDto } from '@service/db/dto/get.passkey.db.dto';
 import CreatePasskeyDbDto from '@service/db/dto/create.passkey.db.dto';
+import { DeletePasskeyDbDto } from '@service/db/dto/delete.passkey.db.dto';
 import { GetPasskeyByUserIdDbDto } from '@service/db/dto/getByUserId.passkey.db.dto';
-import { GetPasskeyDbDto } from '../dto/get.passkey.db.dto';
-import { DeletePasskeyDbDto } from '../dto/delete.passkey.db.dto';
 
 export class BddServicePasskeyMongo
   implements
@@ -19,7 +19,7 @@ export class BddServicePasskeyMongo
     return inversify.mongo.collection('passkeys');
   }
 
-  async createPasskey(dto: any): Promise<any> {
+  async createPasskey(dto: CreatePasskeyDbDto): Promise<PasskeyDbModel> {
     try {
       const result = await (
         await this.getPasskeyCollection()
@@ -37,7 +37,7 @@ export class BddServicePasskeyMongo
     }
   }
 
-  async getPasskey(dto: any): Promise<any> {
+  async getPasskey(dto: GetPasskeyDbDto): Promise<PasskeyDbModel> {
     try {
       const query = {
         active: true,
@@ -67,7 +67,9 @@ export class BddServicePasskeyMongo
     }
   }
 
-  async getPasskeyByUserId(dto: any): Promise<any[]> {
+  async getPasskeyByUserId(
+    dto: GetPasskeyByUserIdDbDto,
+  ): Promise<PasskeyDbModel[]> {
     const query = {
       user_id: dto.user_id,
       active: true,

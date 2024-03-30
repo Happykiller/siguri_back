@@ -96,10 +96,21 @@ type SystemInfoResolverModel {
   version: String!
 }
 
+type PasskeyResolverModel {
+  id: String!
+  label: String!
+  user_id: String!
+  hostname: String!
+  user_code: String!
+  challenge: String!
+  credential_id: String!
+}
+
 type Query {
   users: [UserModelResolver!]!
   user(dto: GetUserResolverDto!): UserModelResolver!
   auth(dto: AuthAuthResolverDto!): AuthModelResolver!
+  auth_passkey(dto: PasskeyAuthResolverDto!): AuthModelResolver!
   getSessionInfo: AuthModelResolver!
   generatePassword(dto: GeneratePasswordResolverDto!): GeneratePasswordModelResolver!
   get_totp_code(dto: GetTotpCodeToolResolverDto!): String!
@@ -109,6 +120,7 @@ type Query {
   chestsForUser: [ChestModelResolver!]!
   hello: HelloModelResolver!
   systemInfo: SystemInfoResolverModel!
+  passkeys_for_user: [PasskeyResolverModel!]!
 }
 
 input GetUserResolverDto {
@@ -122,6 +134,15 @@ input AuthAuthResolverDto {
 
   """Password for the session"""
   password: String!
+}
+
+input PasskeyAuthResolverDto {
+  user_code: String!
+  credentialId: String!
+  authenticatorData: String!
+  clientData: String!
+  signature: String!
+  userHandle: String!
 }
 
 input GeneratePasswordResolverDto {
@@ -151,13 +172,15 @@ input GetChestResolverDto {
 type Mutation {
   create_user(dto: CreateUserResolverDto!): UserModelResolver!
   update_password(dto: UpdPasswordAuthResolverDto!): AuthModelResolver!
-  create_passkey(dto: PasskeyRegisterAuthResolverDto!): Boolean!
   create_thing(dto: CreateThingResolverDto!): ThingModelResolver!
   update_thing(dto: UpdateThingResolverDto!): ThingModelResolver!
   delete_thing(dto: DeleteThingResolverDto!): ThingModelResolver
   create_chest(dto: CreateChestResolverDto!): ChestModelResolver!
+  update_chest(dto: UpdateChestResolverDto!): ChestModelResolver!
   join_chest(dto: JoinChestResolverDto!): ChestModelResolver
   leave_chest(dto: LeaveChestResolverDto!): ChestModelResolver
+  create_passkey(dto: CreatePasskeyResolverDto!): PasskeyResolverModel!
+  delete_passkey(dto: DeletePasskeyResolverDto!): Boolean!
 }
 
 input CreateUserResolverDto {
@@ -174,12 +197,6 @@ input UpdPasswordAuthResolverDto {
   old_value: String!
   new_value: String!
   conf_value: String!
-}
-
-input PasskeyRegisterAuthResolverDto {
-  display_name: String!
-  challenge_buffer: String!
-  challenge: String!
 }
 
 input CreateThingResolverDto {
@@ -244,10 +261,41 @@ input CreateChestResolverDto {
   secret: String!
 }
 
+input UpdateChestResolverDto {
+  chest_id: String!
+  label: String!
+  description: String
+}
+
 input JoinChestResolverDto {
   chest_id: String!
 }
 
 input LeaveChestResolverDto {
   chest_id: String!
+}
+
+input CreatePasskeyResolverDto {
+  label: String!
+  hostname: String!
+  challenge: String!
+  registration: CreatePasskeyRegistrationResolverDto!
+}
+
+input CreatePasskeyRegistrationResolverDto {
+  username: String!
+  credential: CreatePasskeyRegistrationCredentialResolverDto!
+  authenticatorData: String!
+  clientData: String!
+  attestationData: String!
+}
+
+input CreatePasskeyRegistrationCredentialResolverDto {
+  id: String!
+  publicKey: String!
+  algorithm: String!
+}
+
+input DeletePasskeyResolverDto {
+  passkey_id: String!
 }

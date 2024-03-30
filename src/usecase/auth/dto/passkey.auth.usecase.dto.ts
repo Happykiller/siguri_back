@@ -1,6 +1,3 @@
-export class PasskeyAuthUsecaseDto {
-  user_id: string;
-  user_code: string;
-  challenge_buffer: string;
-  challenge: string;
-}
+import { PasskeyAuthResolverDto } from '@presentation/auth/dto/passkey.auth.resolver.dto';
+
+export class PasskeyAuthUsecaseDto extends PasskeyAuthResolverDto {}

@@ -42,8 +42,8 @@ export class BddServicePasskeyFake
       if (!elt.active) return false;
       else if (dto.passkey_id) {
         return elt.id === dto.passkey_id;
-      } else if (dto.challenge_buffer) {
-        return elt.challenge_buffer === dto.challenge_buffer;
+      } else if (dto.credential_id) {
+        return elt.registration.credential.id === dto.credential_id;
       }
     });
 

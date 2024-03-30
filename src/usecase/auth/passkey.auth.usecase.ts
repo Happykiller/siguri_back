@@ -13,11 +13,12 @@ export class AuthPasskeyUsecase {
     this.inversify = inversify;
   }
 
-  async execute(dto: any): Promise<UserSessionUsecaseModel> {
+  async execute(dto: PasskeyAuthUsecaseDto): Promise<UserSessionUsecaseModel> {
     try {
-      const user: UserUsecaseModel = await this.inversify.getUserUsecase.execute({
-        code: dto.user_code,
-      });
+      const user: UserUsecaseModel =
+        await this.inversify.getUserUsecase.execute({
+          code: dto.user_code,
+        });
 
       const passkey = await this.inversify.bddService.getPasskey({
         credential_id: dto.credentialId,
@@ -32,7 +33,7 @@ export class AuthPasskeyUsecase {
 
       await server.verifyAuthentication(
         dto,
-        passkey.registration.credential,
+        passkey.registration.credential as any,
         expected,
       );
 

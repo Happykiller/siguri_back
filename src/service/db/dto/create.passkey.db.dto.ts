@@ -1,8 +1,3 @@
-export default interface CreatePasskeyDbDto {
-  label: string;
-  user_id: string;
-  user_code: string;
-  display_name: string;
-  challenge_buffer: string;
-  challenge: string;
-}
+import CreatePasskeyUsecaseDto from '@usecase/passkey/dto/create.passkey.usecase.dto';
+
+export default interface CreatePasskeyDbDto extends CreatePasskeyUsecaseDto {}

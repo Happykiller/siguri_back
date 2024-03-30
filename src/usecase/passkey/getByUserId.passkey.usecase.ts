@@ -9,7 +9,7 @@ export class GetByUserIdPasskeyUsecase {
     this.inversify = inversify;
   }
 
-  execute(dto: any): Promise<any[]> {
+  execute(dto: GetByUserIdPasskeyUsecaseDto): Promise<PasskeyUsecaseModel[]> {
     return this.inversify.bddService.getPasskeyByUserId(dto);
   }
 }

@@ -130,7 +130,6 @@ describe('UserResolver (e2e)', () => {
       })
       .set('Authorization', authorization)
       .expect(({ body }) => {
-        console.log(body)
         const data = body.data.create_user;
         expect(data.id).toBeDefined();
       })

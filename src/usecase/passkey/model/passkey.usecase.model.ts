@@ -1,9 +1,3 @@
-export default interface PasskeyUsecaseModel {
-  id: string;
-  label: string;
-  user_id: string;
-  user_code: string;
-  display_name: string;
-  challenge_buffer: string;
-  challenge: string;
-}
+import PasskeyDbModel from '@service/db/model/passkey.db.model';
+
+export default interface PasskeyUsecaseModel extends PasskeyDbModel {}

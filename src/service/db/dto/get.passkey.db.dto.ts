@@ -1,4 +1,4 @@
 export interface GetPasskeyDbDto {
-  challenge_buffer?: string;
+  credential_id?: string;
   passkey_id?: string;
 }

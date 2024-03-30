@@ -1,6 +1,6 @@
 import { Inversify } from '@src/inversify/investify';
-import PasskeyUsecaseModel from './model/passkey.usecase.model';
-import CreatePasskeyUsecaseDto from '@src/usecase/passkey/dto/create.passkey.usecase.dto';
+import PasskeyUsecaseModel from '@usecase/passkey/model/passkey.usecase.model';
+import CreatePasskeyUsecaseDto from '@usecase/passkey/dto/create.passkey.usecase.dto';
 
 export class CreatePasskeyUsecase {
   inversify: Inversify;
@@ -9,7 +9,7 @@ export class CreatePasskeyUsecase {
     this.inversify = inversify;
   }
 
-  execute(dto: any): Promise<any> {
+  execute(dto: CreatePasskeyUsecaseDto): Promise<PasskeyUsecaseModel> {
     return this.inversify.bddService.createPasskey(dto);
   }
 }
