@@ -48,9 +48,9 @@ X-REQUEST-TYPE: GraphQL
 mutation {
   create_user (
     dto: {
-      code: "faro"
-      password: "password"
-      name_first: "fabrice"
+      code: "flo.rosito"
+      password: "fl0R0s*to"
+      name_first: "florian"
       name_last: "rosito"
       description: "description"
       mail: "fabrice.rosito@gmail.com"
