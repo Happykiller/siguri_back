@@ -104,7 +104,6 @@ describe('AuthResolver (e2e)', () => {
         }`,
       })
       .expect(({ body }) => {
-        console.log(body)
         const data = body.data.auth_passkey;
         expect(data.id).toEqual('65d4d015261e894a1da31a64');
       })
@@ -131,6 +130,37 @@ describe('AuthResolver (e2e)', () => {
       .set('Authorization', authorization)
       .expect(({ body }) => {
         const data = body.data.getSessionInfo;
+        expect(data.id).toEqual('65d4d015261e894a1da31a64');
+      })
+      .expect(200);
+  });
+
+  it('#update_password', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `mutation {
+          update_password(
+              dto: {
+                old_value: "password"
+                new_value: "new_password"
+                conf_value: "new_password"
+              }
+          ){
+            access_token
+            id
+            code
+            name_first
+            name_last
+            description
+            mail
+          }
+        }`,
+      })
+      .set('Authorization', authorization)
+      .expect(({ body }) => {
+        const data = body.data.update_password;
         expect(data.id).toEqual('65d4d015261e894a1da31a64');
       })
       .expect(200);

@@ -17,6 +17,7 @@ import { CreateUserUsecase } from '@usecase/user/create.user.usecase';
 import { LeaveChestUsecase } from '@usecase/chest/leave.chest.usecase';
 import { GetAllUserUsecase } from '@usecase/user/get_all.user.usecase';
 import { UpdPasswordUsecase } from '@usecase/auth/updPassword.usecase';
+import { LoggerServiceFake } from '@service/logger/logger.service.fake';
 import { EncodeServiceReal } from '@service/encode/encode.service.real';
 import { AuthPasskeyUsecase } from '@usecase/auth/passkey.auth.usecase';
 import { DeleteThingUsecase } from '@usecase/thing/delete.thing.usecase';
@@ -26,11 +27,14 @@ import { UpdateThingUsecase } from '@usecase/thing/update.thing.usecase';
 import { UpdateChestUsecase } from '@usecase/chest/update.chest.usecase';
 import { PasswordServiceReal } from '@service/password/password.service.real';
 import { DeletePasskeyUsecase } from '@usecase/passkey/delete.passkey.usecase';
+import { CreatePasskeyUsecase } from '@usecase/passkey/create.passkey.usecase';
 import { IsAutorizedUsecase } from '@usecase/isAuthorized/isAuthorized.usecase';
+import { PasswordLessService } from '@service/passwordless/passwordless.service';
 import { GetChestsForUserUsecase } from '@usecase/chest/getForUser.chest.usecase';
-import { CreatePasskeyUsecase } from '@src/usecase/passkey/create.passkey.usecase';
 import { GetThingsForChestUsecase } from '@usecase/thing/getForChest.thing.usecase';
 import { GetByUserIdPasskeyUsecase } from '@usecase/passkey/getByUserId.passkey.usecase';
+import { PasswordLessServiceFake } from '@service/passwordless/passwordless.service.fake';
+import { PasswordLessServiceReal } from '@service/passwordless/passwordlless.service.real';
 
 export class Inversify {
   mongo: Db;
@@ -55,6 +59,7 @@ export class Inversify {
   updateThingUsecase: UpdateThingUsecase;
   updPasswordUsecase: UpdPasswordUsecase;
   authPasskeyUsecase: AuthPasskeyUsecase;
+  passwordLessService: PasswordLessService;
   deletePasskeyUsecase: DeletePasskeyUsecase;
   createPasskeyUsecase: CreatePasskeyUsecase;
   getChestsForUserUsecase: GetChestsForUserUsecase;
@@ -68,14 +73,19 @@ export class Inversify {
     this.cryptService = new CryptServiceReal();
     this.encodeService = new EncodeServiceReal();
     this.passwordService = new PasswordServiceReal();
-    this.loggerService = logger;
     if (config.env.mode === 'prod') {
+      this.loggerService = logger;
       this.bddService = new BddServiceMongo() as BddService;
       this.bddService.initConnection();
+      this.passwordLessService = new PasswordLessServiceReal();
     } else if (config.env.mode === 'dev') {
+      this.loggerService = new LoggerServiceFake();
       this.bddService = new BddServiceFake() as BddService;
+      this.passwordLessService = new PasswordLessServiceReal();
     } else {
+      this.loggerService = new LoggerServiceFake();
       this.bddService = new BddServiceFake() as BddService;
+      this.passwordLessService = new PasswordLessServiceFake();
     }
 
     /**

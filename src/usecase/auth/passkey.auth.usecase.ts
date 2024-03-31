@@ -1,5 +1,3 @@
-import * as server from '@usecase/auth/passwordless/server';
-
 import { ERRORS } from '@src/common/ERROR';
 import { Inversify } from '@src/inversify/investify';
 import { UserUsecaseModel } from '@usecase/user/model/user.usecase.model';
@@ -15,21 +13,17 @@ export class AuthPasskeyUsecase {
 
   async execute(dto: PasskeyAuthUsecaseDto): Promise<UserSessionUsecaseModel> {
     try {
-      console.log('coucou')
 
       const user: UserUsecaseModel =
         await this.inversify.getUserUsecase.execute({
           code: dto.user_code,
         });
 
-        console.log(user)
-
       const passkey = await this.inversify.bddService.getPasskey({
         credential_id: dto.credentialId,
       });
 
-      console.log(passkey)
-
+      /* istanbul ignore next */
       const expected = {
         challenge: passkey.challenge,
         origin: (origin) => origin.includes(passkey.hostname),
@@ -37,25 +31,21 @@ export class AuthPasskeyUsecase {
         verbose: false, // optional, enables debug logs containing sensitive information
       };
 
-      await server.verifyAuthentication(
+      await this.inversify.passwordLessService.verifyAuthentication(
         dto,
         passkey.registration.credential as any,
         expected,
       );
 
-      if (user) {
-        return {
-          id: user.id,
-          code: user.code,
-          name_first: user.name_first,
-          name_last: user.name_last,
-          description: user.description,
-          mail: user.mail,
-          role: user.role,
-        };
-      } else {
-        return null;
-      }
+      return {
+        id: user.id,
+        code: user.code,
+        name_first: user.name_first,
+        name_last: user.name_last,
+        description: user.description,
+        mail: user.mail,
+        role: user.role,
+      };
     } catch (e) {
       this.inversify.loggerService.error(`AuthPasskeyUsecase => ${e.message}`);
       throw new Error(ERRORS.AUTH_PASSKEY_USECASE_FAIL);

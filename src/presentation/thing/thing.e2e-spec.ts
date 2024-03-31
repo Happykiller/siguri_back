@@ -12,7 +12,7 @@ import { JwtStrategy } from '@presentation/auth/jwt.strategy';
 import { ThingModule } from '@presentation/thing/thing.module';
 import { thingChestRopo } from '@service/db/fake/mock/thing.chest.repo';
 
-describe('ThingResolver (e2e)', () => {
+describe('ThingModule (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {

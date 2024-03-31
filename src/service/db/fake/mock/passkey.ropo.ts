@@ -8,7 +8,7 @@ export const passkeyRopo: PasskeyDbModel = {
   registration: {
       username: 'faro',
       credential: {
-          id: 'OPkmHe3WpgBjyGHh9_o1DAUVmmcdYhlD0H_NfbAaDVk',
+          id: 'ApYnkOh-EYEXH-cTv52xmwoHTac-CTHgzbVTzG_iR8o',
           publicKey: 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEoCNLnsOcP-OihmptvE2DrZLj1OhBYWX-1zeZxgGj79MaUbcBEw7UrLzZdnf5Vs2bfyNg2g3etUhiwfiXoOkapw==',
           algorithm: 'ES256'
       },
