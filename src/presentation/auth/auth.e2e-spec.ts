@@ -48,7 +48,7 @@ describe('AuthResolver (e2e)', () => {
     await app.close();
   });
 
-  it('auth', () => {
+  it('#auth', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -77,7 +77,41 @@ describe('AuthResolver (e2e)', () => {
       .expect(200);
   });
 
-  it('getSessionInfo', () => {
+  it('#auth_passkey', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `query {
+          auth_passkey(
+              dto: {
+                credentialId: "ApYnkOh-EYEXH-cTv52xmwoHTac-CTHgzbVTzG_iR8o"
+                authenticatorData: "EUHtSNIv5fiPje5H19kb-xNKP2GTKL1nyD2CU1ivtc8FAAAABQ=="
+                clientData: "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiZDBlZWE0ZjAtOTY0Ni00MjJhLTk5ZjgtM2RjNTMwNzMxNzFiIiwib3JpZ2luIjoiaHR0cHM6Ly9zaWd1cmkuaGFwcHlraWxsZXIubmV0IiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ=="
+                signature: "MEYCIQD2L8vjHB7UVELPgoiTKwDGa3umlcNe1qBe9_sYdZecHQIhAKjRkJ2fD00VGnpxsfWBjTNfSKZJCNWMq0NBPIAP0hE3"
+                userHandle: "flTiJs31BnSLFmAq9_bRkwv-CO0hi8MVj8KhYcOmOVI="
+                user_code: "ropo"
+              }
+          ){
+            access_token
+            id
+            code
+            name_first
+            name_last
+            description
+            mail
+          }
+        }`,
+      })
+      .expect(({ body }) => {
+        console.log(body)
+        const data = body.data.auth_passkey;
+        expect(data.id).toEqual('65d4d015261e894a1da31a64');
+      })
+      .expect(200);
+  });
+
+  it('#getSessionInfo', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({

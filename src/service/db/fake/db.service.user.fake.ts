@@ -6,7 +6,7 @@ import { UserDbModel } from '@service/db/model/user.db.model';
 import { userRopo } from '@src/service/db/fake/mock/user.ropo';
 import { GetUserDbDto } from '@service/db/dto/get.user.db.dto';
 import { CreateUserDbDto } from '@service/db/dto/create.user.db.dto';
-import { UpdateUserDbDto } from '../dto/update.user.db.dto';
+import { UpdateUserDbDto } from '@service/db/dto/update.user.db.dto';
 
 export class BddServiceUserFake
   implements

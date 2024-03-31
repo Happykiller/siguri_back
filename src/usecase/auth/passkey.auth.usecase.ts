@@ -15,14 +15,20 @@ export class AuthPasskeyUsecase {
 
   async execute(dto: PasskeyAuthUsecaseDto): Promise<UserSessionUsecaseModel> {
     try {
+      console.log('coucou')
+
       const user: UserUsecaseModel =
         await this.inversify.getUserUsecase.execute({
           code: dto.user_code,
         });
 
+        console.log(user)
+
       const passkey = await this.inversify.bddService.getPasskey({
         credential_id: dto.credentialId,
       });
+
+      console.log(passkey)
 
       const expected = {
         challenge: passkey.challenge,

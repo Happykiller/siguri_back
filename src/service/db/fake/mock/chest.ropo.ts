@@ -1,5 +1,5 @@
 import { userRopo } from '@service/db/fake/mock/user.ropo';
-import { ChestDbModel } from '@src/service/db/model/chest.db.model';
+import { ChestDbModel } from '@service/db/model/chest.db.model';
 
 export const chestRopo: ChestDbModel = {
   id: '65d4d015261e894a1da31a65',

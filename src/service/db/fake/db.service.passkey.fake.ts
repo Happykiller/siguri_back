@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 
 import { BddService } from '@service/db/db.service';
 import PasskeyDbModel from '@service/db/model/passkey.db.model';
+import { passkeyRopo } from '@service/db/fake/mock/passkey.ropo';
 import { GetPasskeyDbDto } from '@service/db/dto/get.passkey.db.dto';
 import CreatePasskeyDbDto from '@service/db/dto/create.passkey.db.dto';
 import { DeletePasskeyDbDto } from '@service/db/dto/delete.passkey.db.dto';
@@ -15,7 +16,7 @@ export class BddServicePasskeyFake
 
   getPasskeyCollection(): PasskeyDbModel[] {
     if (!this.passkeyCollection) {
-      this.passkeyCollection = [];
+      this.passkeyCollection = [passkeyRopo];
     }
     return this.passkeyCollection;
   }
