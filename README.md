@@ -4,4 +4,4 @@ Back for Seguri service
 
 ## Apis documentations
 
-[docs/tableOfContent](Doc apis)
+[Doc apis](./docs/api/tableOfContent.md)
