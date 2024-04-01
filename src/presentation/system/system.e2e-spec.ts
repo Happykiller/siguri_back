@@ -6,18 +6,15 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { config } from '@src/config';
-import { USER_ROLE } from '@presentation/guard/userRole';
-import { userRopo } from '@service/db/fake/mock/user.ropo';
-import { ToolModule } from '@presentation/tool/tool.module';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
+import { SystemModule } from '@presentation/system/system.module';
 
-describe('ToolModule (e2e)', () => {
+describe('SystemModule (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {
-      id: userRopo.id,
-      code: userRopo.code,
-      role: USER_ROLE.USER,
+      id: '65d4d015261e894a1da31a64',
+      code: 'ropo',
     },
     config.jwt.secret,
     {
@@ -30,7 +27,7 @@ describe('ToolModule (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       providers: [JwtStrategy],
       imports: [
-        ToolModule,
+        SystemModule,
         GraphQLModule.forRoot({
           driver: ApolloDriver,
           autoSchemaFile: config.graphQL.schemaFileName,
@@ -48,26 +45,21 @@ describe('ToolModule (e2e)', () => {
     await app.close();
   });
 
-  it('#generatePassword', () => {
+  it('#systemInfo', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
         operationName: null,
         query: `query {
-          generatePassword (
-            dto: {
-              length: 8
-              specials: true
-            }
-          ) {
-            password
+          systemInfo {
+            version
           }
         }`,
       })
       .set('Authorization', authorization)
       .expect(({ body }) => {
-        const data = body.data.generatePassword;
-        expect(data.password).toBeDefined();
+        const data = body.data.systemInfo;
+        expect(data.version).toMatch(/^(\d+\.)?(\d+\.)?(\*|\d+)$/);
       })
       .expect(200);
   });

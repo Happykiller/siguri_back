@@ -48,7 +48,7 @@ describe('PasskeyModule (e2e)', () => {
     await app.close();
   });
 
-  it('create_passkey', () => {
+  it('#create_passkey', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -90,7 +90,7 @@ describe('PasskeyModule (e2e)', () => {
       .expect(200);
   });
 
-  it('passkeys_for_user', () => {
+  it('#passkeys_for_user', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -115,7 +115,7 @@ describe('PasskeyModule (e2e)', () => {
       .expect(200);
   });
 
-  it('delete_passkey', () => {
+  it('#delete_passkey', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({

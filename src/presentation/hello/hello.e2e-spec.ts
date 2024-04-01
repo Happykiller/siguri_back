@@ -9,7 +9,7 @@ import { config } from '@src/config';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
 import { HelloModule } from '@presentation/hello/hello.module';
 
-describe('HelloResolver (e2e)', () => {
+describe('HelloModule (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {
@@ -45,7 +45,7 @@ describe('HelloResolver (e2e)', () => {
     await app.close();
   });
 
-  it('hello', () => {
+  it('#hello', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({

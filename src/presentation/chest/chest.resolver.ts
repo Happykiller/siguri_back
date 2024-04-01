@@ -104,8 +104,8 @@ export class ChestResolver {
   async join_chest(
     @CurrentSession() session: UserSession,
     @Args('dto') dto: JoinChestResolverDto,
-  ): Promise<boolean> {
-    this.inversify.joinChestUsecase.execute({
+  ): Promise<ChestModelResolver> {
+    await this.inversify.joinChestUsecase.execute({
       ...dto,
       user_id: session.id,
     });
@@ -120,8 +120,8 @@ export class ChestResolver {
   async leave_chest(
     @CurrentSession() session: UserSession,
     @Args('dto') dto: LeaveChestResolverDto,
-  ): Promise<boolean> {
-    this.inversify.leaveChestUsecase.execute({
+  ): Promise<ChestModelResolver> {
+    await this.inversify.leaveChestUsecase.execute({
       ...dto,
       user_id: session.id,
     });

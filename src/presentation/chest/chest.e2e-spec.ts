@@ -12,7 +12,7 @@ import { chestRopo } from '@service/db/fake/mock/chest.ropo';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
 import { ChestModule } from '@presentation/chest/chest.module';
 
-describe('ChestResolver (e2e)', () => {
+describe('ChestModule (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {
@@ -49,7 +49,7 @@ describe('ChestResolver (e2e)', () => {
     await app.close();
   });
 
-  it('create_chest', () => {
+  it('#create_chest', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -88,7 +88,7 @@ describe('ChestResolver (e2e)', () => {
       .expect(200);
   });
 
-  it('chest', () => {
+  it('#chest', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -126,7 +126,7 @@ describe('ChestResolver (e2e)', () => {
       .expect(200);
   });
 
-  it('chestsForUser', () => {
+  it('#chestsForUser', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -155,6 +155,52 @@ describe('ChestResolver (e2e)', () => {
       .expect(({ body }) => {
         const data = body.data.chestsForUser;
         expect(data[0].id).toEqual(chestRopo.id);
+      })
+      .expect(200);
+  });
+
+  it('#join_chest', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `mutation {
+          join_chest (
+            dto: {
+              chest_id: "${chestRopo.id}"
+            }
+          ) {
+            id
+          }
+        }`,
+      })
+      .set('Authorization', authorization)
+      .expect(({ body }) => {
+        const data = body.data.join_chest;
+        expect(data).toBeNull();
+      })
+      .expect(200);
+  });
+
+  it('#leave_chest', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `mutation {
+          leave_chest (
+            dto: {
+              chest_id: "${chestRopo.id}"
+            }
+          ) {
+            id
+          }
+        }`,
+      })
+      .set('Authorization', authorization)
+      .expect(({ body }) => {
+        const data = body.data.leave_chest;
+        expect(data).toBeNull();
       })
       .expect(200);
   });

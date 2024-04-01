@@ -1,0 +1,127 @@
+{
+  "input": "./docs/gqlschema.gql",
+  "output": {
+    "path": "./docs/",
+    "dirName": "api"
+  },
+  "maxDepth": 2,
+  "app": {
+    "title": "siguri_back",
+    "description": "Siguri Apis"
+  },
+  "tree": {
+    "auth": [
+      {
+        "requestName": "auth",
+        "errors": [
+          {
+            "name": "Credentials wrong",
+            "reason": "Credentials wrong"
+          }
+        ]
+      },
+      {
+        "requestName": "auth_passkey",
+        "errors": [
+          {
+            "name": "Credentials wrong",
+            "reason": "Credentials wrong"
+          }
+        ]
+      }, 
+      {
+        "requestName": "getSessionInfo"
+      }, 
+      {
+        "requestName": "update_password"
+      }
+    ],
+    "chest": [ 
+      {
+        "requestName": "create_chest"
+      },
+      {
+        "requestName": "update_chest"
+      },
+      {
+        "requestName": "chest"
+      },
+      {
+        "requestName": "chestsForUser"
+      },
+      {
+        "requestName": "join_chest"
+      },
+      {
+        "requestName": "leave_chest"
+      }
+    ],
+    "hello": [ 
+      {
+        "requestName": "hello"
+      }
+    ],
+    "passkey": [ 
+      {
+        "requestName": "create_passkey"
+      }, 
+      {
+        "requestName": "passkeys_for_user"
+      }, 
+      {
+        "requestName": "delete_passkey"
+      }
+    ],
+    "system": [ 
+      {
+        "requestName": "systemInfo"
+      }
+    ],
+    "thing": [ 
+      {
+        "requestName": "create_thing"
+      },
+      {
+        "requestName": "update_thing"
+      },
+      {
+        "requestName": "delete_thing"
+      },
+      {
+        "requestName": "thing"
+      },
+      {
+        "requestName": "thingsForChest"
+      }
+    ],
+    "tool": [ 
+      {
+        "requestName": "generatePassword"
+      },
+      {
+        "requestName": "get_totp_code"
+      }
+    ],
+    "user": [ 
+      {
+        "requestName": "users"
+      },
+      {
+        "requestName": "user"
+      },
+      {
+        "requestName": "create_user"
+      }
+    ]
+  },
+  "scalars":[
+    {
+      "name": "TextField",
+      "regex": "^[a-zA-Z0-9-/'.@ çàèéùâêîôûäëïöü]*$"
+    },
+    {
+      "name": "CustomID",
+      "regex": "^[a-zA-Z0-9-/'.@ çàèéùâêîôûäëïöü]*$"
+    }
+  ]
+}

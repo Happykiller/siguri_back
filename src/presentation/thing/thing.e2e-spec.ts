@@ -13,6 +13,7 @@ import { ThingModule } from '@presentation/thing/thing.module';
 import { thingChestRopo } from '@service/db/fake/mock/thing.chest.repo';
 
 describe('ThingModule (e2e)', () => {
+  let thing_id;
   let app: NestApplication;
   const token: string = jwt.sign(
     {
@@ -49,7 +50,7 @@ describe('ThingModule (e2e)', () => {
     await app.close();
   });
 
-  it('create_thing', () => {
+  it('#create_thing', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -106,11 +107,66 @@ describe('ThingModule (e2e)', () => {
       .expect(({ body }) => {
         const data = body.data.create_thing;
         expect(data.id).toBeDefined();
+        thing_id = data.id;
       })
       .expect(200);
   });
 
-  it('thing', () => {
+  it('#update_thing', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `mutation {
+          update_thing (
+            dto: {
+              thing_id: "${thing_id}"
+              chest_secret: "secret"
+              label: "thing2"
+            }
+          ) {
+            id
+            label
+            description
+            author {
+              id
+              code
+            }
+            chest {
+              id
+              label
+            }
+            type
+            cb {
+              code
+              label
+              number
+              expiration_date
+              crypto
+            }
+            code {
+              code
+            }
+            credential {
+              id
+              password
+              address
+            }
+            note {
+              note
+            }
+          }
+        }`,
+      })
+      .set('Authorization', authorization)
+      .expect(({ body }) => {
+        const data = body.data.update_thing;
+        expect(data.label).toEqual('thing2');
+      })
+      .expect(200);
+  });
+
+  it('#thing', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -163,7 +219,7 @@ describe('ThingModule (e2e)', () => {
       .expect(200);
   });
 
-  it('thingsForUser', () => {
+  it('#thingsForUser', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -212,6 +268,30 @@ describe('ThingModule (e2e)', () => {
       .expect(({ body }) => {
         const data = body.data.thingsForChest;
         expect(data[0].id).toEqual(thingChestRopo.id);
+      })
+      .expect(200);
+  });
+
+  it('#delete_thing', () => {
+    return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        operationName: null,
+        query: `mutation {
+          delete_thing (
+            dto: {
+              thing_id: "${thing_id}"
+              chest_secret: "secret"
+            }
+          ) {
+            id
+          }
+        }`,
+      })
+      .set('Authorization', authorization)
+      .expect(({ body }) => {
+        const data = body.data.delete_thing;
+        expect(data).toBeNull();
       })
       .expect(200);
   });

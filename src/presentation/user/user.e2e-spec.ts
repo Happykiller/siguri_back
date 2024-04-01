@@ -11,7 +11,7 @@ import { userRopo } from '@service/db/fake/mock/user.ropo';
 import { UserModule } from '@presentation/user/user.module';
 import { JwtStrategy } from '@presentation/auth/jwt.strategy';
 
-describe('UserResolver (e2e)', () => {
+describe('UserModule (e2e)', () => {
   let app: NestApplication;
   const token: string = jwt.sign(
     {
@@ -48,7 +48,7 @@ describe('UserResolver (e2e)', () => {
     await app.close();
   });
 
-  it('users', () => {
+  it('#users', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -73,7 +73,7 @@ describe('UserResolver (e2e)', () => {
       .expect(200);
   });
 
-  it('users', () => {
+  it('#user', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -102,7 +102,7 @@ describe('UserResolver (e2e)', () => {
       .expect(200);
   });
 
-  it('create_user', () => {
+  it('#create_user', () => {
     return request(app.getHttpServer())
       .post('/graphql')
       .send({
